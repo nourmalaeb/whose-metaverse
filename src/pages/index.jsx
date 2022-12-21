@@ -1,27 +1,45 @@
-import dynamic from 'next/dynamic'
-import Instructions from '@/components/dom/Instructions'
+import React from 'react'
+import Header from '../components/dom/header'
 
-// Dynamic import is used to prevent a payload when the website starts, that includes threejs, r3f etc..
-// WARNING ! errors might get obfuscated by using dynamic import.
-// If something goes wrong go back to a static import to show the error.
-// https://github.com/pmndrs/react-three-next/issues/49
-const Logo = dynamic(() => import('@/components/canvas/Logo'), { ssr: false })
+import { Unbounded } from '@next/font/google'
+import Image from 'next/image'
 
-// Dom components go here
-export default function Page(props) {
+const unbounded = Unbounded()
+
+const Home = () => {
   return (
-    <Instructions>
-      This is a minimal starter for Nextjs + React-three-fiber and Threejs. Click on the{' '}
-      <span className='text-cyan-200'>atoms nucleus</span> to navigate to the{' '}
-      <span className='text-green-200'>/blob</span> page. OrbitControls are enabled by default.
-    </Instructions>
+    <>
+      <Header />
+      {/* ABOUT SECTION */}
+      <section id='about'>
+        <div className='column'>
+          <h2 className={`sectionTitle ${unbounded.className}`}>Web3 Garages for Everyone</h2>
+          <p>
+            The problems of today’s Internet are due in large part to lack of diversity among its leading creators. It’s
+            critical that Web3 makers include everyone. These creators will shape the Internet and culture for decades
+            to come.
+          </p>
+        </div>
+        <div className='framed' style={{ aspectRatio: 2, height: 300 }}>
+          <Image src='/img/barry.jpg' alt='' fill />
+        </div>
+      </section>
+      {/* CURRICULUM SECTION */}
+      <section id='curriculum'>
+        <div className='column'>
+          <h2 className={`sectionTitle ${unbounded.className}`}>Our Communities</h2>
+          <p>
+            The problems of today’s Internet are due in large part to lack of diversity among its leading creators. It’s
+            critical that Web3 makers include everyone. These creators will shape the Internet and culture for decades
+            to come.
+          </p>
+        </div>
+        <div className='framed' style={{ aspectRatio: 2, height: 300 }}>
+          <Image src='/img/barry.jpg' alt='' fill />
+        </div>
+      </section>
+    </>
   )
 }
 
-// Canvas components go here
-// It will receive same props as the Page component (from getStaticProps, etc.)
-Page.canvas = (props) => <Logo scale={0.5} route='/blob' position-y={-1} />
-
-export async function getStaticProps() {
-  return { props: { title: 'Index' } }
-}
+export default Home
