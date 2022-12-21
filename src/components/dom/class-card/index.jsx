@@ -1,10 +1,11 @@
 import Image from 'next/image'
 import styles from './styles.module.scss'
 import { syne } from '@/styles/fonts'
+import React from 'react'
 
-const Card = ({ title, content, bgcolor = `#150A33`, pic }) => {
+const WrappedCard = React.forwardRef(function Card({ title, content, bgcolor = `#150A33`, pic, ...props }, ref) {
   return (
-    <div className={styles.card}>
+    <div className={styles.card} {...props} ref={ref}>
       <div className={styles.cardImage}>
         <Image src={pic} alt='' fill />
       </div>
@@ -14,6 +15,6 @@ const Card = ({ title, content, bgcolor = `#150A33`, pic }) => {
       </div>
     </div>
   )
-}
+})
 
-export default Card
+export default WrappedCard

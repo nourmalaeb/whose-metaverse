@@ -18,9 +18,12 @@ body {
   padding: 0;
   background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
 
   & main {
+    position: relative;
     overflow: hidden;
+    min-height: 100dvh;
   }
 }
 
