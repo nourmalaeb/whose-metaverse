@@ -12,6 +12,7 @@
   cursor: pointer;
   text-decoration: none;
   color: black;
+  font-weight: 700;
 
   & .marquee {
     height: 100%;
@@ -83,5 +84,5 @@
 
 .marquee span {
   text-align: center;
-  font-weight: 600;
+  font-weight: 700;
 }

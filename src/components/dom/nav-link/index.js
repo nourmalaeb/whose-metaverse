@@ -1,43 +1,34 @@
-import gsap from "gsap";
-import { useEffect, useRef } from "react";
-import styles from "./nav-link.module.scss";
+import { syne } from '@/styles/fonts'
+import gsap from 'gsap'
+import { useEffect, useRef } from 'react'
+import styles from './nav-link.module.scss'
 
 const Navlink = ({ title, subtitle, href }) => {
-  const gsapRef = useRef();
+  const gsapRef = useRef()
 
   // marquee animation
   useEffect(() => {
     let ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".gsap-marquee",
-        { xPercent: `0` },
-        { xPercent: `-20`, duration: 15, repeat: -1, ease: "none" }
-      );
-    }, gsapRef);
-    return () => ctx.revert();
-  }, []);
+      gsap.fromTo('.gsap-marquee', { xPercent: `0` }, { xPercent: `-20`, duration: 15, repeat: -1, ease: 'none' })
+    }, gsapRef)
+    return () => ctx.revert()
+  }, [])
 
   // hover animation
   const onEnter = (e) => {
     const edge =
-      Math.abs(e.clientY - e.currentTarget.getBoundingClientRect().top) <
-      0.5 * e.target.offsetHeight
-        ? 50
-        : -50;
-    gsap.to(e.currentTarget.querySelector(".gsap-marquee"), {
+      Math.abs(e.clientY - e.currentTarget.getBoundingClientRect().top) < 0.5 * e.target.offsetHeight ? 50 : -50
+    gsap.to(e.currentTarget.querySelector('.gsap-marquee'), {
       yPercent: edge,
       scaleY: 0,
       duration: 0.2,
-    });
-  };
+    })
+  }
   const onLeave = (e) => {
     const edge =
-      Math.abs(e.clientY - e.currentTarget.getBoundingClientRect().top) <
-      0.5 * e.target.offsetHeight
-        ? 50
-        : -50;
+      Math.abs(e.clientY - e.currentTarget.getBoundingClientRect().top) < 0.5 * e.target.offsetHeight ? 50 : -50
     gsap.fromTo(
-      e.currentTarget.querySelector(".gsap-marquee"),
+      e.currentTarget.querySelector('.gsap-marquee'),
       {
         scaleY: 0,
         yPercent: edge,
@@ -47,20 +38,19 @@ const Navlink = ({ title, subtitle, href }) => {
         scaleY: 1,
         yPercent: 0,
         duration: 0.2,
-      }
-    );
-  };
+      },
+    )
+  }
 
   return (
     <a
-      className={styles.navlink}
+      className={`${styles.navlink} ${syne.className}`}
       href={href}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
-      ref={gsapRef}
-    >
+      ref={gsapRef}>
       <div className={styles.marqueeContainer}>
-        <div className={`${styles.marquee} gsap-marquee`} aria-hidden="true">
+        <div className={`${styles.marquee} gsap-marquee`} aria-hidden='true'>
           <span>{subtitle}</span>
           <span>•</span>
           <span>{subtitle}</span>
@@ -75,34 +65,34 @@ const Navlink = ({ title, subtitle, href }) => {
       </div>
       <div className={styles.link}>
         <span>{title}</span>
-        <span aria-hidden="true">/</span>
-        <span aria-hidden="true">{title}</span>
-        <span aria-hidden="true">/</span>
-        <span aria-hidden="true">{title}</span>
-        <span aria-hidden="true">/</span>
-        <span aria-hidden="true">{title}</span>
-        <span aria-hidden="true">/</span>
-        <span aria-hidden="true">{title}</span>
-        <span aria-hidden="true">/</span>
-        <span aria-hidden="true">{title}</span>
-        <span aria-hidden="true">/</span>
-        <span aria-hidden="true">{title}</span>
-        <span aria-hidden="true">/</span>
-        <span aria-hidden="true">{title}</span>
-        <span aria-hidden="true">/</span>
-        <span aria-hidden="true">{title}</span>
-        <span aria-hidden="true">/</span>
-        <span aria-hidden="true">{title}</span>
-        <span aria-hidden="true">/</span>
-        <span aria-hidden="true">{title}</span>
-        <span aria-hidden="true">/</span>
-        <span aria-hidden="true">{title}</span>
-        <span aria-hidden="true">/</span>
-        <span aria-hidden="true">{title}</span>
-        <span aria-hidden="true">/</span>
+        <span aria-hidden='true'>/</span>
+        <span aria-hidden='true'>{title}</span>
+        <span aria-hidden='true'>/</span>
+        <span aria-hidden='true'>{title}</span>
+        <span aria-hidden='true'>/</span>
+        <span aria-hidden='true'>{title}</span>
+        <span aria-hidden='true'>/</span>
+        <span aria-hidden='true'>{title}</span>
+        <span aria-hidden='true'>/</span>
+        <span aria-hidden='true'>{title}</span>
+        <span aria-hidden='true'>/</span>
+        <span aria-hidden='true'>{title}</span>
+        <span aria-hidden='true'>/</span>
+        <span aria-hidden='true'>{title}</span>
+        <span aria-hidden='true'>/</span>
+        <span aria-hidden='true'>{title}</span>
+        <span aria-hidden='true'>/</span>
+        <span aria-hidden='true'>{title}</span>
+        <span aria-hidden='true'>/</span>
+        <span aria-hidden='true'>{title}</span>
+        <span aria-hidden='true'>/</span>
+        <span aria-hidden='true'>{title}</span>
+        <span aria-hidden='true'>/</span>
+        <span aria-hidden='true'>{title}</span>
+        <span aria-hidden='true'>/</span>
       </div>
     </a>
-  );
-};
+  )
+}
 
-export default Navlink;
+export default Navlink
