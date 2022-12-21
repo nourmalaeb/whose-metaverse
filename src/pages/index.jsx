@@ -1,10 +1,7 @@
 import React from 'react'
 import Header from '../components/dom/header'
-
-import { Unbounded } from '@next/font/google'
 import Image from 'next/image'
-
-const unbounded = Unbounded()
+import { unbounded } from '@/styles/fonts'
 
 const Home = () => {
   return (
@@ -43,3 +40,7 @@ const Home = () => {
 }
 
 export default Home
+
+export const getStaticProps = () => {
+  return { props: { title: 'Whose Metaverse? | The Web3 Garage For Everyone' } }
+}

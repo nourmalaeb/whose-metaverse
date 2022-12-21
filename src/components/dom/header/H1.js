@@ -3,9 +3,7 @@ import { CustomEase } from 'gsap/dist/CustomEase'
 import { useEffect, useRef } from 'react'
 import Container from '../../canvas/container/container'
 import styles from './styles.module.scss'
-import { Unbounded } from '@next/font/google'
-
-const unbounded = Unbounded({ subsets: ['latin'] })
+import { unbounded } from '@/styles/fonts'
 
 gsap.registerPlugin(CustomEase)
 
