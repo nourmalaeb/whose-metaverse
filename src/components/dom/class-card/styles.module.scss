@@ -2,22 +2,46 @@
   position: relative;
   aspect-ratio: 2;
   background-color: #150A33;
-  color: gold;
+  width: 400px;
+  padding: 24px 24px 24px 100px;
+  margin: 20px;
+}
+
+.cardImage {
+  aspect-ratio: 1;
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  bottom: 24px;
+  width: calc(50% - 50px);
+  opacity: 0.5;
 
   & img {
-    aspect-ratio: 1;
-    position: absolute;
-    left: 24px;
-    top: 24px;
-    bottom: 24px;
-    width: calc(50% - 50px)
+    object-fit: cover;
   }
 }
 
 .content {
-  position: absolute;
-  left: 25%;
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  color: gold;
+
+  h3,
+  p {
+    margin: 0;
+  }
+
+  h3 {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  p {
+    padding-left: 90px;
+    font-size: 14px;
+  }
 }

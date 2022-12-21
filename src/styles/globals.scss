@@ -33,7 +33,7 @@ body .column {
   }
 }
 
-section {
+section.simple {
   width: 100%;
   max-width: calc(1200px + 10vw);
   margin: 5vw auto;
@@ -46,6 +46,7 @@ section {
   @media (min-width: 500px) {
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
   }
 }
 
@@ -86,4 +87,12 @@ h2.sectionTitle {
     top: -1.5rem;
     z-index: -1;
   }
+}
+
+section.gallery {
+  width: 100vw;
+  background-color: black;
+  color: gold;
+  padding: 3vmin;
+  min-height: 100dvh;
 }
