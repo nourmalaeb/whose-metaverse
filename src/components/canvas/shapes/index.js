@@ -1,0 +1,5 @@
+export { Shape01 } from './shape01'
+export { Shape02 } from './shape02'
+export { Shape03 } from './shape03'
+export { Shape04 } from './shape04'
+export { Shape05 } from './shape05'

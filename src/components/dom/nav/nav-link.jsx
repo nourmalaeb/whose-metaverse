@@ -1,15 +1,19 @@
-import { syne } from '@/styles/fonts'
+import { syne, rotonto } from '@/styles/fonts'
 import gsap from 'gsap'
 import { useEffect, useRef } from 'react'
 import styles from './nav-link.module.scss'
 
-const Navlink = ({ title, subtitle, href }) => {
+export const Navlink = ({ title, subtitle, href, onClick }) => {
   const gsapRef = useRef()
 
   // marquee animation
   useEffect(() => {
     let ctx = gsap.context(() => {
-      gsap.fromTo('.gsap-marquee', { xPercent: `0` }, { xPercent: `-20`, duration: 15, repeat: -1, ease: 'none' })
+      gsap.fromTo(
+        '.gsap-marquee',
+        { xPercent: `0` },
+        { xPercent: `-20`, duration: 15, repeat: -1, ease: 'none' },
+      )
     }, gsapRef)
     return () => ctx.revert()
   }, [])
@@ -17,7 +21,10 @@ const Navlink = ({ title, subtitle, href }) => {
   // hover animation
   const onEnter = (e) => {
     const edge =
-      Math.abs(e.clientY - e.currentTarget.getBoundingClientRect().top) < 0.5 * e.target.offsetHeight ? 50 : -50
+      Math.abs(e.clientY - e.currentTarget.getBoundingClientRect().top) <
+      0.5 * e.target.offsetHeight
+        ? 50
+        : -50
     gsap.to(e.currentTarget.querySelector('.gsap-marquee'), {
       yPercent: edge,
       scaleY: 0,
@@ -26,7 +33,10 @@ const Navlink = ({ title, subtitle, href }) => {
   }
   const onLeave = (e) => {
     const edge =
-      Math.abs(e.clientY - e.currentTarget.getBoundingClientRect().top) < 0.5 * e.target.offsetHeight ? 50 : -50
+      Math.abs(e.clientY - e.currentTarget.getBoundingClientRect().top) <
+      0.5 * e.target.offsetHeight
+        ? 50
+        : -50
     gsap.fromTo(
       e.currentTarget.querySelector('.gsap-marquee'),
       {
@@ -44,11 +54,13 @@ const Navlink = ({ title, subtitle, href }) => {
 
   return (
     <a
-      className={`${styles.navlink} ${syne.className}`}
+      className={`${styles.navlink} ${rotonto.className}`}
       href={href}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
-      ref={gsapRef}>
+      onClick={onClick}
+      ref={gsapRef}
+    >
       <div className={styles.marqueeContainer}>
         <div className={`${styles.marquee} gsap-marquee`} aria-hidden='true'>
           <span>{subtitle}</span>
@@ -94,5 +106,3 @@ const Navlink = ({ title, subtitle, href }) => {
     </a>
   )
 }
-
-export default Navlink

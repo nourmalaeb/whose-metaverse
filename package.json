@@ -1,13 +1,13 @@
 {
-  "name": "react-three-next",
-  "version": "2.0.0",
+  "name": "whose-metaverse-website",
+  "version": "0.1",
   "authors": [
-    "Renaud ROHLINGER <https://twitter.com/onirenaud>"
+    "Nour Malaeb <https://nourmalaeb.com/>"
   ],
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": ">=14"
+    "node": ">=18"
   },
   "scripts": {
     "lint": "yarn prettier && yarn eslint",
