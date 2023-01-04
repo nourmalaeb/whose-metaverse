@@ -351,6 +351,20 @@ export const StagedContainer = () => {
   )
 }
 
+export const SimplerContainer = () => {
+  const cRef = useRef()
+  return (
+    <>
+      <Center>
+        <group ref={cRef}>
+          <ContainerModel />
+        </group>
+      </Center>
+      <Preload all />
+    </>
+  )
+}
+
 export default function Container() {
   return (
     <div className={styles.container}>
