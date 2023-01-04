@@ -10,7 +10,7 @@ import { Center, Environment, PerspectiveCamera, Preload, View } from '@react-th
 import { Canvas } from '@react-three/fiber'
 import { Shape01, Shape02, Shape03, Shape05 } from '@/components/canvas/shapes'
 import { forwardRef } from 'react'
-import { StagedContainer } from '@/components/canvas/container/container'
+import { SimplerContainer, StagedContainer } from '@/components/canvas/container/container'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -209,7 +209,7 @@ const Home = () => {
         <View track={containerRef}>
           <PerspectiveCamera makeDefault fov={10} position={[12, 2, -12]} />
           <pointLight position={[60, 0, 40]} intensity={0.1} />
-          <StagedContainer />
+          <SimplerContainer />
         </View>
         <Preload all />
       </Canvas>
