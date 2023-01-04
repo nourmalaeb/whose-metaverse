@@ -8,7 +8,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import Hero from '@/components/dom/hero'
 import { Center, Environment, PerspectiveCamera, Preload, View } from '@react-three/drei'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Shape01, Shape02, Shape03, Shape05 } from '@/components/canvas/shapes'
+import { Geode01, Shape01, Shape02, Shape03, Shape05 } from '@/components/canvas/shapes'
 import { forwardRef } from 'react'
 import { StagedContainer } from '@/components/canvas/container/container'
 
@@ -16,10 +16,6 @@ gsap.registerPlugin(ScrollTrigger)
 
 const Home = () => {
   const gsapRef = useRef()
-  const s01 = useRef()
-  const s02 = useRef()
-  const s03 = useRef()
-  const s05 = useRef()
   const containerRef = useRef()
 
   useEffect(() => {
@@ -41,22 +37,6 @@ const Home = () => {
           x: 0,
           y: 0,
           scrollTrigger: { trigger: '#about', scrub: 0.5, start: 'top bottom', end: 'top top' },
-        },
-      )
-
-      gsap.fromTo(
-        '.s01-gsap',
-        { scale: 5, x: -40, top: 60 },
-        {
-          scale: 1,
-          x: 0,
-          top: `auto`,
-          duration: 0.25,
-          scrollTrigger: {
-            trigger: '#nav',
-            start: 'top top',
-            toggleActions: 'play none none reverse',
-          },
         },
       )
     }, gsapRef)
@@ -290,9 +270,7 @@ const Overlay = forwardRef((props, fRef) => {
         }}
       >
         <Canvas>
-          <Center scale={2}>
-            <Shape01 />
-          </Center>
+          <Geode01 scale={0.5} />
         </Canvas>
       </div>
     </div>
