@@ -88,7 +88,7 @@ const Home = () => {
           <ReactPlayer
             url={'/media/Whose_Metaverse_Video.mp4'}
             controls
-            light
+            light='/img/video-thumb.png'
             width='100%'
             height='100%'
             style={{ zIndex: 999, position: 'relative' }}
