@@ -1,7 +1,7 @@
 const randomVector = (r) => [
-  +(r / 2 - Math.random() * r).toFixed(2),
-  +(r / 2 - Math.random() * r).toFixed(2),
-  +(r / 2 - Math.random() * r).toFixed(2),
+  +(r / 2 - Math.random() * r).toFixed(2) + 0.2,
+  +(r / 2 - Math.random() * r).toFixed(2) + 0.2,
+  +(r / 2 - Math.random() * r).toFixed(2) + 0.2,
 ]
 const randomEuler = () => [
   +(Math.random() * Math.PI).toFixed(2),

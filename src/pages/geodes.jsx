@@ -39,7 +39,7 @@ const Home = () => {
           fontWeight: 900,
           letterSpacing: -0.0125,
           lineHeight: 0.9,
-          x: 64,
+          x: width / 32,
           y: 64,
         },
         {
