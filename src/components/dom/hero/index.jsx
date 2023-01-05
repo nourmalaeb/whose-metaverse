@@ -25,7 +25,7 @@ const Hero = () => {
         <color attach='background' args={[0x000000]} />
         <fog attach='fog' args={[0x000000, 9, 20]} />
 
-        <Environment preset='studio' />
+        <Environment preset='dawn' />
         <Bounds fit observe>
           <CoolIcosahedron scale={2} />
           {/* <CoolGeode /> */}
@@ -64,7 +64,9 @@ const CoolGeode = (props) => {
 const CoolIcosahedron = (props) => {
   const ref = useRef()
   useFrame((state, delta) => {
-    ref.current.rotation.y += delta * 0.1
+    ref.current.rotation.y -= delta * 0.1
+    ref.current.rotation.x -= delta * 0.02
+    ref.current.rotation.z -= delta * 0.05
   })
   return (
     <group ref={ref} {...props}>
@@ -76,14 +78,16 @@ const CoolIcosahedron = (props) => {
   )
 }
 
-const CoolMaterial = ({ color }) => (
+const CoolMaterial = ({ color = 0x110022 }) => (
   <MeshTransmissionMaterial
-    roughness={0.25}
-    background={new THREE.Color(color || '#440044')}
+    roughness={0.15}
+    background={new THREE.Color(color)}
     refraction={1.5}
-    rgbShift={0.95}
+    refractionTint={new THREE.Color(color)}
+    rgbShift={1.5}
     samples={10}
     resolution={2048}
+    noise={0.05}
   />
 )
 
