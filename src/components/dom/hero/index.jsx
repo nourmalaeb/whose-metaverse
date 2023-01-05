@@ -18,7 +18,7 @@ import { useWindowSize } from 'react-use'
 
 const Hero = () => {
   const { width } = useWindowSize()
-  const geodeNumber = 30 + width / 32
+  const geodeNumber = 24 + width / 32
   return (
     <div className={styles.hero}>
       <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
@@ -109,6 +109,13 @@ const GeodeInstances01 = ({ radius = 30, amount = 100 }) => {
         {geodata.map((data, i) => (
           <GeodeInstance key={i} {...data} />
         ))}
+        <GeodeInstance
+          key={geodata.length + 1}
+          scale={1}
+          speed={geodata[0].speed}
+          position={[0, 1, -3]}
+          rotation={[0, 0, 0]}
+        />
       </group>
     </Instances>
   )
@@ -131,6 +138,13 @@ const GeodeInstances02 = ({ radius = 30, amount = 100 }) => {
         {geodata.map((data, i) => (
           <GeodeInstance key={i} {...data} />
         ))}
+        <GeodeInstance
+          key={geodata.length + 1}
+          scale={1}
+          speed={geodata[0].speed}
+          position={[0, 0, -3]}
+          rotation={[0, 0, 0]}
+        />
       </group>
     </Instances>
   )
@@ -153,6 +167,13 @@ const GeodeInstances03 = ({ radius = 30, amount = 100 }) => {
         {geodata.map((data, i) => (
           <GeodeInstance key={i} {...data} />
         ))}
+        <GeodeInstance
+          key={geodata.length + 1}
+          scale={1}
+          speed={geodata[0].speed}
+          position={[0, -1, -3]}
+          rotation={[0, 0, 0]}
+        />
       </group>
     </Instances>
   )
