@@ -10,7 +10,7 @@ import { Center, Environment, PerspectiveCamera, Preload, View } from '@react-th
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Geode01, Shape01, Shape02, Shape03, Shape05 } from '@/components/canvas/shapes'
 import { forwardRef } from 'react'
-import { StagedContainer } from '@/components/canvas/container/container'
+import { useWindowSize } from 'react-use'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -18,9 +18,13 @@ const Home = () => {
   const gsapRef = useRef()
   const containerRef = useRef()
 
+  const { width, height } = useWindowSize()
+
   useEffect(() => {
     let mql = window.matchMedia('(min-width: 600px)')
-    console.log(mql)
+
+    const scaleFactor = mql.matches ? 120 : 180
+
     let ctx = gsap.context(() => {
       gsap.fromTo(
         '.footer-marquee',
@@ -28,23 +32,29 @@ const Home = () => {
         { xPercent: `-49.66666`, duration: 30, repeat: -1, ease: 'none' },
       )
 
-      mql.matches &&
-        gsap.fromTo(
-          '.pageTitle',
-          { scale: 10, fontWeight: 900, letterSpacing: -0.0125, lineHeight: 0.9, x: 64, y: 64 },
-          {
-            scale: 1,
-            fontWeight: 500,
-            letterSpacing: 0,
-            lineHeight: 1,
-            x: 0,
-            y: 0,
-            scrollTrigger: { trigger: '#about', scrub: 0.5, start: 'top bottom', end: 'top top' },
-          },
-        )
+      gsap.fromTo(
+        '.pageTitle',
+        {
+          scale: 1 + width / scaleFactor,
+          fontWeight: 900,
+          letterSpacing: -0.0125,
+          lineHeight: 0.9,
+          x: 64,
+          y: 64,
+        },
+        {
+          scale: 1,
+          fontWeight: 500,
+          letterSpacing: 0,
+          lineHeight: 1,
+          x: 0,
+          y: 0,
+          scrollTrigger: { trigger: '#about', scrub: 0.5, start: 'top bottom', end: 'top top' },
+        },
+      )
     }, gsapRef)
     return () => ctx.revert()
-  }, [])
+  }, [width])
 
   return (
     <div ref={gsapRef}>
@@ -70,10 +80,9 @@ const Home = () => {
             shape the Internet and culture for decades to come.
           </p>
         </div>
-        {/* <div className='framed' style={{ aspectRatio: 2, height: 300 }}>
-          <Image src='/img/barry.jpg' alt='' fill style={{ objectFit: 'cover' }} />
-        </div> */}
-        <div style={{ aspectRatio: 1.25, width: 600, maxWidth: '100%' }} ref={containerRef} />
+        <div className='framed' style={{ aspectRatio: 2, height: 300 }}>
+          <Image src='/img/w3gfe.jpg' alt='' fill style={{ objectFit: 'cover' }} />
+        </div>
       </section>
       {/* COMMUNITIES SECTION */}
       <section id='communities' className='simple'>
@@ -81,7 +90,7 @@ const Home = () => {
           <div className='sectionTitle'>
             <div className='sectionTitle-widget'>
               <Canvas>
-                <CubeScene />
+                <Shape01 scale={3} />
               </Canvas>
             </div>
             <h2 className={unbounded.className}>Our Communities</h2>
