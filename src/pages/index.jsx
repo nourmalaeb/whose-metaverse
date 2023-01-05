@@ -12,6 +12,7 @@ import { Geode01, Shape01, Shape02, Shape03, Shape05 } from '@/components/canvas
 import { forwardRef } from 'react'
 import { useWindowSize } from 'react-use'
 import dynamic from 'next/dynamic'
+import Slider from 'react-slick'
 
 const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false })
 
@@ -83,13 +84,14 @@ const Home = () => {
             shape the Internet and culture for decades to come.
           </p>
         </div>
-        <div className='framed' style={{ aspectRatio: 2, height: 300 }}>
+        <div className='framed' style={{ aspectRatio: 16 / 9, height: 300 }}>
           <ReactPlayer
             url={'/media/Whose_Metaverse_Video.mp4'}
             controls
             light
             width='100%'
             height='100%'
+            style={{ zIndex: 999, position: 'relative' }}
           />
         </div>
       </section>
@@ -123,20 +125,31 @@ const Home = () => {
             </Center>
           </Canvas>
         </div>
-        <h2 className={`${unbounded.className}`} style={{ textTransform: 'uppercase' }}>
+        <h2
+          className={`${unbounded.className}`}
+          style={{ textTransform: 'uppercase', marginBottom: 50 }}
+        >
           Gallery
         </h2>
-        <p>
-          The problems of today’s Internet are due in large part to lack of diversity among its
-          leading creators. It’s critical that Web3 makers include everyone. These creators will
-          shape the Internet and culture for decades to come.
-        </p>
-        <div className='framed' style={{ aspectRatio: 2, height: 300 }}>
+        <div
+          style={{ position: 'relative', aspectRatio: 2, width: '50vw', left: '-12vw', margin: 20 }}
+        >
           <Image src='/img/w3gfe.jpg' alt='' fill style={{ objectFit: 'cover' }} />
+        </div>
+        <div
+          style={{
+            position: 'relative',
+            aspectRatio: 14 / 11,
+            width: '50vw',
+            left: '12vw',
+            margin: 20,
+          }}
+        >
+          <Image src='/img/lobby2.jpg' alt='' fill style={{ objectFit: 'cover' }} />
         </div>
       </section>
       {/* CURRICULUM SECTION */}
-      <section id='curriculum' className='simple'>
+      <section id='curriculum' className='simple vert'>
         <div className='column'>
           <h2 className={`sectionTitle ${unbounded.className}`}>Curriculum</h2>
           <p>
@@ -145,18 +158,7 @@ const Home = () => {
             shape the Internet and culture for decades to come.
           </p>
         </div>
-        <div>
-          <Card
-            title='Introduction to the Metaverse'
-            content='Intro class getting acquainted with terms, technology, and real-world applications of Virtual Reality.'
-            pic='/img/barry.jpg'
-          />
-          <Card
-            title='Introduction to the Metaverse'
-            content='Intro class getting acquainted with terms, technology, and real-world applications of Virtual Reality.'
-            pic='/img/barry.jpg'
-          />
-        </div>
+        <Courses />
       </section>
       <footer className={syne.className}>
         <div className='footer-marquee'>
@@ -209,6 +211,39 @@ const Home = () => {
 }
 
 export default Home
+
+const Courses = () => {
+  const settings = {
+    className: 'center',
+    centerMode: true,
+    infinite: true,
+    centerPadding: '60px',
+    slidesToShow: 2,
+    speed: 500,
+  }
+
+  return (
+    <div className='courses'>
+      <Slider {...settings}>
+        <Card
+          title='Introduction to the Metaverse'
+          content='Intro class getting acquainted with terms, technology, and real-world applications of Virtual Reality.'
+          pic='/img/barry.jpg'
+        />
+        <Card
+          title='What Makes a Game a Game?'
+          content='Game vs. Play; Parts of a Game; Core Mechanics, Components, and their Affordances.'
+          pic='/img/lobby2.jpg'
+        />
+        <Card
+          title='What Makes a Game a Game?'
+          content='Game vs. Play; Parts of a Game; Core Mechanics, Components, and their Affordances.'
+          pic='/img/lobby2.jpg'
+        />
+      </Slider>
+    </div>
+  )
+}
 
 export const getStaticProps = () => {
   return { props: { title: 'Whose Metaverse? | The Web3 Garage For Everyone' } }
@@ -275,7 +310,7 @@ const Overlay = forwardRef((props, fRef) => {
           borderTop: `1.5px solid ${col}`,
         }}
       />
-      <div
+      <a
         ref={fRef}
         className='s01-gsap'
         style={{
@@ -289,11 +324,12 @@ const Overlay = forwardRef((props, fRef) => {
           right: spacer,
           zIndex: 200,
         }}
+        href='#nav'
       >
         <Canvas>
           <Geode01 scale={0.5} />
         </Canvas>
-      </div>
+      </a>
     </div>
   )
 })

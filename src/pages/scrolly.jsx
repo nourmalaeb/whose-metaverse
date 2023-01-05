@@ -10,7 +10,7 @@ import {
   useGLTF,
 } from '@react-three/drei'
 import Header from '@/config'
-import Navlink from '@/components/dom/nav'
+import { Navlink } from '@/components/dom/nav'
 import styles from '@/styles/scrollStyle.module.scss'
 import { rotonto } from '@/styles/fonts'
 
