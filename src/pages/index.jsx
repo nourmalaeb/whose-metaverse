@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { Suspense, useEffect, useRef } from 'react'
 import Header from '../components/dom/header'
 import Image from 'next/image'
 import { unbounded, syne, rotonto } from '@/styles/fonts'

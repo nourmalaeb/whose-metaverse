@@ -8,12 +8,11 @@ import {
   Instance,
   Instances,
   MeshTransmissionMaterial,
-  Loader,
   useTexture,
   Bounds,
 } from '@react-three/drei'
 import { geodeData } from './data'
-import * as THREE from 'three'
+import { Color } from 'three'
 import { useWindowSize } from 'react-use'
 
 const Hero = () => {
@@ -21,25 +20,25 @@ const Hero = () => {
   const geodeNumber = 24 + width / 32
   return (
     <div className={styles.hero}>
-      <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
-        <color attach='background' args={[0x000000]} />
-        <fog attach='fog' args={[0x000000, 9, 20]} />
-
-        <Environment preset='dawn' />
-        <Bounds fit observe>
-          <CoolIcosahedron scale={2} />
-          {/* <CoolGeode /> */}
-        </Bounds>
-        {/* <BoxFrame /> */}
-        <Suspense fallback={null}>
-          <GeodeInstances01 amount={geodeNumber} />
-          <GeodeInstances02 amount={geodeNumber} />
-          <GeodeInstances03 amount={geodeNumber} />
-          {/* <IPhoneInstances amount={50} /> */}
-        </Suspense>
-      </Canvas>
-      <Loader />
-      <Nav />
+      <Suspense>
+        <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
+          <color attach='background' args={[0x000000]} />
+          <fog attach='fog' args={[0x000000, 9, 20]} />
+          <Environment preset='dawn' />
+          <Bounds fit observe>
+            <CoolIcosahedron scale={2} />
+            {/* <CoolGeode /> */}
+          </Bounds>
+          {/* <BoxFrame /> */}
+          <Suspense fallback={null}>
+            <GeodeInstances01 amount={geodeNumber} />
+            <GeodeInstances02 amount={geodeNumber} />
+            <GeodeInstances03 amount={geodeNumber} />
+            {/* <IPhoneInstances amount={50} /> */}
+          </Suspense>
+        </Canvas>
+        <Nav />
+      </Suspense>
     </div>
   )
 }
@@ -61,6 +60,12 @@ const CoolGeode = (props) => {
   )
 }
 
+const Loading = () => (
+  <div className={styles.loader}>
+    <p>Loading...</p>
+  </div>
+)
+
 const CoolIcosahedron = (props) => {
   const ref = useRef()
   useFrame((state, delta) => {
@@ -81,9 +86,9 @@ const CoolIcosahedron = (props) => {
 const CoolMaterial = ({ color = 0x110022 }) => (
   <MeshTransmissionMaterial
     roughness={0.15}
-    background={new THREE.Color(color)}
+    background={new Color(color)}
     refraction={1.5}
-    refractionTint={new THREE.Color(color)}
+    refractionTint={new Color(color)}
     rgbShift={1.5}
     samples={10}
     resolution={2048}
