@@ -18,11 +18,12 @@ import { useWindowSize } from 'react-use'
 
 const Hero = () => {
   const { width } = useWindowSize()
+  const geodeNumber = 10 + width / 32
   return (
     <div className={styles.hero}>
       <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
         <color attach='background' args={[0x000000]} />
-        <fog attach='fog' args={[0x000000, 9, 16]} />
+        <fog attach='fog' args={[0x000000, 9, 20]} />
 
         <Environment preset='studio' />
         <Bounds fit observe>
@@ -34,9 +35,9 @@ const Hero = () => {
         </Bounds>
         {/* <BoxFrame /> */}
         <Suspense fallback={null}>
-          <GeodeInstances01 amount={10 + width / 50} />
-          <GeodeInstances02 amount={10 + width / 50} />
-          <GeodeInstances03 amount={10 + width / 50} />
+          <GeodeInstances01 amount={geodeNumber} />
+          <GeodeInstances02 amount={geodeNumber} />
+          <GeodeInstances03 amount={geodeNumber} />
           {/* <IPhoneInstances amount={50} /> */}
         </Suspense>
       </Canvas>
@@ -81,10 +82,13 @@ const BoxFrame = () => (
 )
 
 const GeodeMaterial = ({ color = 0x007799 }) => {
-  // const [matcap] = useTexture(['/matcaps/normals'])
+  // const [matcap] = useTexture(['/matcaps/normals']) // normal
   const [matcap] = useTexture([
     'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/materials/black-stone/matcap_black_stone.jpg',
-  ])
+  ]) // black stone
+  // const [matcap] = useTexture([
+  //   'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/materials/chrome-2/matcap_chrome_2.jpg',
+  // ]) // black chrome
 
   // return <meshStandardMaterial color={color} transparent opacity={0.6} />
   return <meshMatcapMaterial matcap={matcap} />
