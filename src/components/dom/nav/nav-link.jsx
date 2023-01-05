@@ -1,4 +1,4 @@
-import { syne, rotonto } from '@/styles/fonts'
+import { rotonto, league_spartan, unbounded } from '@/styles/fonts'
 import gsap from 'gsap'
 import { useEffect, useRef } from 'react'
 import styles from './nav-link.module.scss'
@@ -54,7 +54,7 @@ export const Navlink = ({ title, subtitle, href, onClick }) => {
 
   return (
     <a
-      className={`${styles.navlink} ${syne.className}`}
+      className={`${styles.navlink} ${unbounded.className}`}
       href={href}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}

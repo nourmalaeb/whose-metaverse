@@ -91,7 +91,7 @@ const Nav = () => {
     <nav className={styles.nav}>
       <Navlink
         title={`About`}
-        subtitle={`Web3 Garages for Everyone`}
+        subtitle={`Emerging Tech Garages for Everyone`}
         href='#about'
         onClick={() => scroller.el.scrollTo({ top: '20%' })}
       />

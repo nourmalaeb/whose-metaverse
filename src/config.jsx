@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 const titleDefault = 'Whose Metaverse?'
 const url = 'https://whosemetaverse.org/'
-const description = 'Web3 Garages for Everyone'
+const description = 'Emerging Tech Garages for Everyone'
 
 export default function Header({ title = titleDefault }) {
   return (

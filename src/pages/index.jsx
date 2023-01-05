@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useRef } from 'react'
 import Header from '../components/dom/header'
 import Image from 'next/image'
-import { unbounded, syne, rotonto, league_spartan, lexend } from '@/styles/fonts'
+import { unbounded, rotonto, league_spartan, lexend } from '@/styles/fonts'
 import Card from '@/components/dom/class-card'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
@@ -51,8 +51,33 @@ const Home = () => {
           fontWeight: 500,
           letterSpacing: 0,
           lineHeight: 1,
-          x: 0,
-          y: 0,
+          x: 5,
+          y: 5,
+          scrollTrigger: { trigger: '#about', scrub: 0.5, start: 'top bottom', end: 'top top' },
+        },
+      )
+
+      gsap.fromTo(
+        '.topleft-bracket',
+        {
+          scale: 1 + width / (scaleFactor * 6),
+          borderWidth: 10,
+        },
+        {
+          scale: 1,
+          borderWidth: 2,
+          scrollTrigger: { trigger: '#about', scrub: 0.5, start: 'top bottom', end: 'top top' },
+        },
+      )
+      gsap.fromTo(
+        '.bottomRight-bracket',
+        {
+          scale: 1 + width / (scaleFactor * 6),
+          borderWidth: 10,
+        },
+        {
+          scale: 1,
+          borderWidth: 2,
           scrollTrigger: { trigger: '#about', scrub: 0.5, start: 'top bottom', end: 'top top' },
         },
       )
@@ -80,8 +105,8 @@ const Home = () => {
           </div>
           <p>
             The problems of today’s Internet are due in large part to lack of diversity among its
-            leading creators. It’s critical that Web3 makers include everyone. These creators will
-            shape the Internet and culture for decades to come.
+            leading creators. It’s critical that Emerging Tech makers include everyone. These
+            creators will shape the Internet and culture for decades to come.
           </p>
         </div>
         <div className='framed' style={{ aspectRatio: 16 / 9, height: 300 }}>
@@ -108,8 +133,8 @@ const Home = () => {
           </div>
           <p>
             The problems of today’s Internet are due in large part to lack of diversity among its
-            leading creators. It’s critical that Web3 makers include everyone. These creators will
-            shape the Internet and culture for decades to come.
+            leading creators. It’s critical that Emerging Tech makers include everyone. These
+            creators will shape the Internet and culture for decades to come.
           </p>
         </div>
         <div className='framed' style={{ aspectRatio: 2, height: 300 }}>
@@ -154,13 +179,13 @@ const Home = () => {
           <h2 className={`sectionTitle ${unbounded.className}`}>Curriculum</h2>
           <p>
             The problems of today’s Internet are due in large part to lack of diversity among its
-            leading creators. It’s critical that Web3 makers include everyone. These creators will
-            shape the Internet and culture for decades to come.
+            leading creators. It’s critical that Emerging Tech makers include everyone. These
+            creators will shape the Internet and culture for decades to come.
           </p>
         </div>
         <Courses />
       </section>
-      <footer className={syne.className}>
+      <footer className={unbounded.className}>
         <div className='footer-marquee'>
           <p>
             A{' '}
@@ -174,7 +199,7 @@ const Home = () => {
           <p aria-hidden>/</p>
           <p>A labor of love</p>
           <p aria-hidden>/</p>
-          <p>A Web3 Garage for Everyone</p>
+          <p>A Emerging Tech Garage for Everyone</p>
           <p aria-hidden>/</p>
           <p aria-hidden>
             A{' '}
@@ -188,7 +213,7 @@ const Home = () => {
           <p aria-hidden>/</p>
           <p aria-hidden>A labor of love</p>
           <p aria-hidden>/</p>
-          <p aria-hidden>A Web3 Garage for Everyone</p>
+          <p aria-hidden>A Emerging Tech Garage for Everyone</p>
           <p aria-hidden>/</p>
           <p aria-hidden>
             A{' '}
@@ -202,7 +227,7 @@ const Home = () => {
           <p aria-hidden>/</p>
           <p aria-hidden>A labor of love</p>
           <p aria-hidden>/</p>
-          <p aria-hidden>A Web3 Garage for Everyone</p>
+          <p aria-hidden>A Emerging Tech Garage for Everyone</p>
           <p aria-hidden>/</p>
         </div>
       </footer>
@@ -246,7 +271,7 @@ const Courses = () => {
 }
 
 export const getStaticProps = () => {
-  return { props: { title: 'Whose Metaverse? | The Web3 Garage For Everyone' } }
+  return { props: { title: 'Whose Metaverse? | The Emerging Tech Garage For Everyone' } }
 }
 
 const Overlay = forwardRef((props, fRef) => {
@@ -285,29 +310,33 @@ const Overlay = forwardRef((props, fRef) => {
         METAVERSE?
       </div>
       <div
-        style={{
-          position: 'absolute',
-          bottom: spacer,
-          left: spacer,
-          width: 120,
-          height: 100,
-          maxWidth: '12vw',
-          maxHeight: '10vw',
-          borderLeft: `1.5px solid ${col}`,
-          borderBottom: `1.5px solid ${col}`,
-        }}
-      />
-      <div
+        className='topleft-bracket'
         style={{
           position: 'absolute',
           top: spacer,
+          left: spacer,
+          width: 64,
+          height: 64,
+          maxWidth: '12vw',
+          maxHeight: '10vw',
+          borderLeft: `1.5px solid ${col}`,
+          borderTop: `1.5px solid ${col}`,
+          transformOrigin: 'top left',
+        }}
+      />
+      <div
+        className='bottomRight-bracket'
+        style={{
+          position: 'absolute',
+          bottom: spacer,
           right: spacer,
-          width: 120,
-          height: 100,
+          width: 64,
+          height: 64,
           maxWidth: '12vw',
           maxHeight: '10vw',
           borderRight: `1.5px solid ${col}`,
-          borderTop: `1.5px solid ${col}`,
+          borderBottom: `1.5px solid ${col}`,
+          transformOrigin: 'bottom right',
         }}
       />
       <a
@@ -321,7 +350,7 @@ const Overlay = forwardRef((props, fRef) => {
           width: 64,
           maxWidth: '12vw',
           bottom: spacer,
-          right: spacer,
+          left: spacer,
           zIndex: 200,
         }}
         href='#nav'

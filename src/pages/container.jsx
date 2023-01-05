@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import Header from '../components/dom/header'
 import Image from 'next/image'
-import { unbounded, syne, rotonto } from '@/styles/fonts'
+import { unbounded, rotonto } from '@/styles/fonts'
 import Card from '@/components/dom/class-card'
 import gsap from 'gsap'
 
@@ -25,11 +25,13 @@ const Home = () => {
       {/* ABOUT SECTION */}
       <section id='about' className='simple'>
         <div className='column'>
-          <h2 className={`sectionTitle ${unbounded.className}`}>Web3 Garages for Everyone</h2>
+          <h2 className={`sectionTitle ${unbounded.className}`}>
+            Emerging Tech Garages for Everyone
+          </h2>
           <p>
             The problems of today’s Internet are due in large part to lack of diversity among its
-            leading creators. It’s critical that Web3 makers include everyone. These creators will
-            shape the Internet and culture for decades to come.
+            leading creators. It’s critical that Emerging Tech makers include everyone. These
+            creators will shape the Internet and culture for decades to come.
           </p>
         </div>
         <div className='framed' style={{ aspectRatio: 2, height: 300 }}>
@@ -42,8 +44,8 @@ const Home = () => {
           <h2 className={`sectionTitle ${unbounded.className}`}>Our Communities</h2>
           <p>
             The problems of today’s Internet are due in large part to lack of diversity among its
-            leading creators. It’s critical that Web3 makers include everyone. These creators will
-            shape the Internet and culture for decades to come.
+            leading creators. It’s critical that Emerging Tech makers include everyone. These
+            creators will shape the Internet and culture for decades to come.
           </p>
         </div>
         <div className='framed' style={{ aspectRatio: 2, height: 300 }}>
@@ -57,8 +59,8 @@ const Home = () => {
         </h2>
         <p>
           The problems of today’s Internet are due in large part to lack of diversity among its
-          leading creators. It’s critical that Web3 makers include everyone. These creators will
-          shape the Internet and culture for decades to come.
+          leading creators. It’s critical that Emerging Tech makers include everyone. These creators
+          will shape the Internet and culture for decades to come.
         </p>
         <div className='framed' style={{ aspectRatio: 2, height: 300 }}>
           <Image src='/img/barry.jpg' alt='' fill style={{ objectFit: 'cover' }} />
@@ -70,8 +72,8 @@ const Home = () => {
           <h2 className={`sectionTitle ${unbounded.className}`}>Curriculum</h2>
           <p>
             The problems of today’s Internet are due in large part to lack of diversity among its
-            leading creators. It’s critical that Web3 makers include everyone. These creators will
-            shape the Internet and culture for decades to come.
+            leading creators. It’s critical that Emerging Tech makers include everyone. These
+            creators will shape the Internet and culture for decades to come.
           </p>
         </div>
         <div>
@@ -87,7 +89,7 @@ const Home = () => {
           />
         </div>
       </section>
-      <footer className={syne.className}>
+      <footer className={unbounded.className}>
         <div className='footer-marquee'>
           <p>
             A{' '}
@@ -101,7 +103,7 @@ const Home = () => {
           <p aria-hidden>/</p>
           <p>A labor of love</p>
           <p aria-hidden>/</p>
-          <p>A Web3 Garage for Everyone</p>
+          <p>A Emerging Tech Garage for Everyone</p>
           <p aria-hidden>/</p>
           <p aria-hidden>
             A{' '}
@@ -115,7 +117,7 @@ const Home = () => {
           <p aria-hidden>/</p>
           <p aria-hidden>A labor of love</p>
           <p aria-hidden>/</p>
-          <p aria-hidden>A Web3 Garage for Everyone</p>
+          <p aria-hidden>A Emerging Tech Garage for Everyone</p>
           <p aria-hidden>/</p>
           <p aria-hidden>
             A{' '}
@@ -129,7 +131,7 @@ const Home = () => {
           <p aria-hidden>/</p>
           <p aria-hidden>A labor of love</p>
           <p aria-hidden>/</p>
-          <p aria-hidden>A Web3 Garage for Everyone</p>
+          <p aria-hidden>A Emerging Tech Garage for Everyone</p>
           <p aria-hidden>/</p>
         </div>
       </footer>
@@ -140,7 +142,7 @@ const Home = () => {
 export default Home
 
 export const getStaticProps = () => {
-  return { props: { title: 'Whose Metaverse? | The Web3 Garage For Everyone' } }
+  return { props: { title: 'Whose Metaverse? | The Emerging Tech Garage For Everyone' } }
 }
 
 function Overlay() {
