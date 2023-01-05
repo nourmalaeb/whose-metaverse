@@ -14,8 +14,10 @@ import {
 } from '@react-three/drei'
 import { geodeData } from './data'
 import * as THREE from 'three'
+import { useWindowSize } from 'react-use'
 
 const Hero = () => {
+  const { width } = useWindowSize()
   return (
     <div className={styles.hero}>
       <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
@@ -32,9 +34,9 @@ const Hero = () => {
         </Bounds>
         {/* <BoxFrame /> */}
         <Suspense fallback={null}>
-          <GeodeInstances01 amount={80} />
-          <GeodeInstances02 amount={80} />
-          <GeodeInstances03 amount={80} />
+          <GeodeInstances01 amount={10 + width / 50} />
+          <GeodeInstances02 amount={10 + width / 50} />
+          <GeodeInstances03 amount={10 + width / 50} />
           {/* <IPhoneInstances amount={50} /> */}
         </Suspense>
       </Canvas>
