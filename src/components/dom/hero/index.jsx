@@ -22,10 +22,10 @@ const Hero = () => {
         <color attach='background' args={[0x000000]} />
         <fog attach='fog' args={[0x000000, 9, 16]} />
 
-        <Environment preset='warehouse' />
-        <Bounds fit clip observe>
+        <Environment preset='studio' />
+        <Bounds fit observe>
           <mesh scale={2}>
-            <sphereBufferGeometry />
+            <sphereBufferGeometry args={[1, 64, 64]} />
             {/* <meshStandardMaterial color={'#220022'} /> */}
             <CoolMaterial color={'#000000'} />
           </mesh>
@@ -48,12 +48,12 @@ export default Hero
 
 const CoolMaterial = ({ color }) => (
   <MeshTransmissionMaterial
-    roughness={0}
+    roughness={0.25}
     background={new THREE.Color(color || '#440044')}
-    clearcoat={1}
     refraction={1.5}
-    rgbShift={0.625}
+    rgbShift={0.95}
     samples={10}
+    resolution={2048}
   />
 )
 
