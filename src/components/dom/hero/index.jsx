@@ -18,7 +18,7 @@ import { useWindowSize } from 'react-use'
 
 const Hero = () => {
   const { width } = useWindowSize()
-  const geodeNumber = 10 + width / 32
+  const geodeNumber = 30 + width / 32
   return (
     <div className={styles.hero}>
       <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
