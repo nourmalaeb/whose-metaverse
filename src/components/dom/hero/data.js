@@ -20,25 +20,25 @@ const geodeData = (r = 10, l = 10) => {
 
 const fixedData = [
   {
-    position: [-6.8, 1.97, 0],
+    position: [-2.8, 1.97, 0],
     rotation: [1.3, 3.13, 2.91],
     scale: 0.79,
     speed: '0.18',
   },
   {
-    position: [-7.49, 8.13, 0],
+    position: [-1.49, 0.13, 0],
     rotation: [0.63, 1.18, 2.18],
     scale: 0.45,
     speed: '0.96',
   },
   {
-    position: [-9.25, 9.7, 0],
+    position: [3, -2.7, 0.5],
     rotation: [1.03, 0.15, 0.56],
     scale: 0.6,
     speed: '0.82',
   },
   {
-    position: [7.17, 5.46, 0],
+    position: [2.17, 4.46, -1],
     rotation: [0.06, 1.65, 1.86],
     scale: 1.16,
     speed: '0.64',
@@ -92,13 +92,13 @@ const fixedData = [
     speed: '0.09',
   },
   {
-    position: [3.21, 0.69, 0],
+    position: [3.21, 0.69, -4],
     rotation: [2.69, 1.64, 1.89],
     scale: 1.02,
     speed: '0.37',
   },
   {
-    position: [7.12, -3.23, 0],
+    position: [0.12, -3.23, -2],
     rotation: [1.48, 0.86, 1.26],
     scale: 1.21,
     speed: '0.87',
@@ -128,7 +128,7 @@ const fixedData = [
     speed: '0.51',
   },
   {
-    position: [-8.97, 4.31, 0],
+    position: [-6.97, 4.31, 0],
     rotation: [0.85, 2.12, 0.49],
     scale: 0.51,
     speed: '0.32',
