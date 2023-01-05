@@ -24,11 +24,6 @@ const Hero = () => {
         <color attach='background' args={[0x000000]} />
         <fog attach='fog' args={[0x000000, 9, 20]} />
         <Environment preset='dawn' />
-        <Bounds fit observe>
-          <CoolIcosahedron scale={2} />
-          {/* <CoolGeode /> */}
-        </Bounds>
-        {/* <BoxFrame /> */}
         <GeodeInstances01 amount={geodeNumber} />
         <GeodeInstances02 amount={geodeNumber} />
         <GeodeInstances03 amount={geodeNumber} />

@@ -54,7 +54,7 @@ export const Navlink = ({ title, subtitle, href, onClick }) => {
 
   return (
     <a
-      className={`${styles.navlink} ${rotonto.className}`}
+      className={`${styles.navlink} ${syne.className}`}
       href={href}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}

@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useRef } from 'react'
 import Header from '../components/dom/header'
 import Image from 'next/image'
-import { unbounded, syne, rotonto, league_spartan } from '@/styles/fonts'
+import { unbounded, syne, rotonto, league_spartan, lexend } from '@/styles/fonts'
 import Card from '@/components/dom/class-card'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
@@ -27,7 +27,7 @@ const Home = () => {
   useEffect(() => {
     let mql = window.matchMedia('(min-width: 600px)')
 
-    const scaleFactor = mql.matches ? 120 : 180
+    const scaleFactor = mql.matches ? 140 : 200
 
     let ctx = gsap.context(() => {
       gsap.fromTo(
@@ -76,7 +76,7 @@ const Home = () => {
                 </Center>
               </Canvas>
             </div>
-            <h2 className={unbounded.className}>Web3 Garages for Everyone</h2>
+            <h2 className={unbounded.className}>Emerging Tech Garages for Everyone</h2>
           </div>
           <p>
             The problems of today’s Internet are due in large part to lack of diversity among its
@@ -278,7 +278,7 @@ const Overlay = forwardRef((props, fRef) => {
           letterSpacing: '0.1em',
           transformOrigin: 'top left',
         }}
-        className={`pageTitle ${rotonto.className}`}
+        className={`pageTitle ${unbounded.className}`}
       >
         WHOSE
         <br />
