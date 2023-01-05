@@ -3,12 +3,36 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { Nav } from '../nav'
 import styles from './hero.module.scss'
 import { Environment, useGLTF, Instance, Instances } from '@react-three/drei'
-import { fixedData } from './data'
+import { fixedData, geodeData } from './data'
 
 const Hero = () => (
   <div className={styles.hero}>
     <Canvas>
       <Environment preset='studio' />
+      <mesh scale={1.75}>
+        <icosahedronBufferGeometry />
+        <meshStandardMaterial color={'black'} />
+      </mesh>
+      <group>
+        <mesh position={[1.85, 2.5, 0]}>
+          <boxBufferGeometry args={[2, 0.2, 1]} />
+          <meshStandardMaterial color={'blue'} />
+        </mesh>
+        <mesh position={[2.75, 1.5, 0]}>
+          <boxBufferGeometry args={[0.2, 2, 1]} />
+          <meshStandardMaterial color={'blue'} />
+        </mesh>
+      </group>
+      <group>
+        <mesh position={[-1.85, -2.5, 0]}>
+          <boxBufferGeometry args={[2, 0.2, 1]} />
+          <meshStandardMaterial color={'blue'} />
+        </mesh>
+        <mesh position={[-2.75, -1.5, 0]}>
+          <boxBufferGeometry args={[0.2, 2, 1]} />
+          <meshStandardMaterial color={'blue'} />
+        </mesh>
+      </group>
       <GeodeInstances />
     </Canvas>
     <Nav />
@@ -19,13 +43,15 @@ export default Hero
 
 export function GeodeInstances() {
   const { nodes } = useGLTF('/models/geode-01.glb')
-  // const geodata = geodeData(20, 20)
-  // console.log(geodata)
+  const geodata = geodeData(30, 200)
+  console.log(geodata)
+  const ref = useRef()
+  useFrame((state, delta) => (ref.current.rotation.y += delta * 0.1))
   return (
     <Instances geometry={nodes.Cube.geometry}>
-      <meshNormalMaterial />
-      <group position={[0, 0, 0]}>
-        {fixedData.map((data, i) => (
+      <meshNormalMaterial transparent opacity={0.375} />
+      <group position={[0, 0, -3]} ref={ref}>
+        {geodata.map((data, i) => (
           <GeodeInstance key={i} {...data} />
         ))}
       </group>
@@ -36,6 +62,9 @@ export function GeodeInstances() {
 const GeodeInstance = ({ scale, speed, position, rotation }) => {
   const ref = useRef()
   useFrame((state, delta) => {
+    const t = state.clock.getElapsedTime() + speed * 10000
+    ref.current.rotation.set(Math.cos(t / 4) / 2, Math.sin(t / 4) / 2, Math.cos(t / 1.5) / 2)
+    ref.current.position.y = Math.sin(t / 1.5) / 2
     ref.current.rotation.y += delta * 0.25 * speed
     ref.current.rotation.z -= delta * 0.1 * speed
   })
