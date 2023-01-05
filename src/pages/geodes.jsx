@@ -19,6 +19,8 @@ const Home = () => {
   const containerRef = useRef()
 
   useEffect(() => {
+    let mql = window.matchMedia('(min-width: 600px)')
+    console.log(mql)
     let ctx = gsap.context(() => {
       gsap.fromTo(
         '.footer-marquee',
@@ -26,19 +28,20 @@ const Home = () => {
         { xPercent: `-49.66666`, duration: 30, repeat: -1, ease: 'none' },
       )
 
-      gsap.fromTo(
-        '.pageTitle',
-        { scale: 10, fontWeight: 900, letterSpacing: -0.0125, lineHeight: 0.9, x: 64, y: 64 },
-        {
-          scale: 1,
-          fontWeight: 500,
-          letterSpacing: 0,
-          lineHeight: 1,
-          x: 0,
-          y: 0,
-          scrollTrigger: { trigger: '#about', scrub: 0.5, start: 'top bottom', end: 'top top' },
-        },
-      )
+      mql.matches &&
+        gsap.fromTo(
+          '.pageTitle',
+          { scale: 10, fontWeight: 900, letterSpacing: -0.0125, lineHeight: 0.9, x: 64, y: 64 },
+          {
+            scale: 1,
+            fontWeight: 500,
+            letterSpacing: 0,
+            lineHeight: 1,
+            x: 0,
+            y: 0,
+            scrollTrigger: { trigger: '#about', scrub: 0.5, start: 'top bottom', end: 'top top' },
+          },
+        )
     }, gsapRef)
     return () => ctx.revert()
   }, [])
