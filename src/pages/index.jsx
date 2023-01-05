@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useRef } from 'react'
 import Header from '../components/dom/header'
 import Image from 'next/image'
-import { unbounded, syne, rotonto } from '@/styles/fonts'
+import { unbounded, syne, rotonto, league_spartan } from '@/styles/fonts'
 import Card from '@/components/dom/class-card'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
@@ -11,6 +11,9 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { Geode01, Shape01, Shape02, Shape03, Shape05 } from '@/components/canvas/shapes'
 import { forwardRef } from 'react'
 import { useWindowSize } from 'react-use'
+import dynamic from 'next/dynamic'
+
+const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false })
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -57,7 +60,7 @@ const Home = () => {
   }, [width])
 
   return (
-    <div ref={gsapRef}>
+    <div ref={gsapRef} className={league_spartan.className}>
       {/* <Header /> */}
       <Hero />
       <Overlay />
@@ -81,7 +84,13 @@ const Home = () => {
           </p>
         </div>
         <div className='framed' style={{ aspectRatio: 2, height: 300 }}>
-          <Image src='/img/w3gfe.jpg' alt='' fill style={{ objectFit: 'cover' }} />
+          <ReactPlayer
+            url={'/media/Whose_Metaverse_Video.mp4'}
+            controls
+            light
+            width='100%'
+            height='100%'
+          />
         </div>
       </section>
       {/* COMMUNITIES SECTION */}
@@ -123,7 +132,7 @@ const Home = () => {
           shape the Internet and culture for decades to come.
         </p>
         <div className='framed' style={{ aspectRatio: 2, height: 300 }}>
-          <Image src='/img/barry.jpg' alt='' fill style={{ objectFit: 'cover' }} />
+          <Image src='/img/w3gfe.jpg' alt='' fill style={{ objectFit: 'cover' }} />
         </div>
       </section>
       {/* CURRICULUM SECTION */}

@@ -20,25 +20,20 @@ const Hero = () => {
   const geodeNumber = 24 + width / 32
   return (
     <div className={styles.hero}>
-      <Suspense>
-        <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
-          <color attach='background' args={[0x000000]} />
-          <fog attach='fog' args={[0x000000, 9, 20]} />
-          <Environment preset='dawn' />
-          <Bounds fit observe>
-            <CoolIcosahedron scale={2} />
-            {/* <CoolGeode /> */}
-          </Bounds>
-          {/* <BoxFrame /> */}
-          <Suspense fallback={null}>
-            <GeodeInstances01 amount={geodeNumber} />
-            <GeodeInstances02 amount={geodeNumber} />
-            <GeodeInstances03 amount={geodeNumber} />
-            {/* <IPhoneInstances amount={50} /> */}
-          </Suspense>
-        </Canvas>
-        <Nav />
-      </Suspense>
+      <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
+        <color attach='background' args={[0x000000]} />
+        <fog attach='fog' args={[0x000000, 9, 20]} />
+        <Environment preset='dawn' />
+        <Bounds fit observe>
+          <CoolIcosahedron scale={2} />
+          {/* <CoolGeode /> */}
+        </Bounds>
+        {/* <BoxFrame /> */}
+        <GeodeInstances01 amount={geodeNumber} />
+        <GeodeInstances02 amount={geodeNumber} />
+        <GeodeInstances03 amount={geodeNumber} />
+      </Canvas>
+      <Nav />
     </div>
   )
 }
@@ -92,7 +87,6 @@ const CoolMaterial = ({ color = 0x110022 }) => (
     rgbShift={1.5}
     samples={10}
     resolution={2048}
-    noise={0.05}
   />
 )
 
@@ -119,12 +113,13 @@ const BoxFrame = () => (
 
 const GeodeMaterial = ({ color = 0x007799 }) => {
   // const [matcap] = useTexture(['/matcaps/normals']) // normal
-  const [matcap] = useTexture([
-    'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/materials/black-stone/matcap_black_stone.jpg',
-  ]) // black stone
+  // const [matcap] = useTexture([
+  //   'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/materials/black-stone/matcap_black_stone.jpg',
+  // ]) // black stone
   // const [matcap] = useTexture([
   //   'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/materials/chrome-2/matcap_chrome_2.jpg',
   // ]) // black chrome
+  const [matcap] = useTexture(['/matcaps/gem-green.png']) // green stone
 
   // return <meshStandardMaterial color={color} transparent opacity={0.6} />
   return <meshMatcapMaterial matcap={matcap} />
