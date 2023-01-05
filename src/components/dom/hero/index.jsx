@@ -7,7 +7,7 @@ import { fixedData, geodeData } from './data'
 
 const Hero = () => (
   <div className={styles.hero}>
-    <Canvas>
+    <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
       <Environment preset='studio' />
       <mesh scale={1.75}>
         <icosahedronBufferGeometry />
@@ -43,13 +43,13 @@ export default Hero
 
 export function GeodeInstances() {
   const { nodes } = useGLTF('/models/geode-01.glb')
-  const geodata = geodeData(30, 200)
+  const geodata = geodeData(30, 400)
   console.log(geodata)
   const ref = useRef()
   useFrame((state, delta) => (ref.current.rotation.y += delta * 0.1))
   return (
     <Instances geometry={nodes.Cube.geometry}>
-      <meshNormalMaterial transparent opacity={0.375} />
+      <meshNormalMaterial transparent opacity={0.675} />
       <group position={[0, 0, -3]} ref={ref}>
         {geodata.map((data, i) => (
           <GeodeInstance key={i} {...data} />

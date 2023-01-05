@@ -225,7 +225,7 @@ const Overlay = forwardRef((props, fRef) => {
           letterSpacing: '0.1em',
           transformOrigin: 'top left',
         }}
-        className={`pageTitle ${unbounded.className}`}
+        className={`pageTitle ${rotonto.className}`}
       >
         WHOSE
         <br />

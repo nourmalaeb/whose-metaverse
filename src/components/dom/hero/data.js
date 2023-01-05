@@ -13,7 +13,7 @@ const geodeData = (r = 10, l = 10) => {
   return Array.from({ length: l }, () => ({
     position: randomVector(r),
     rotation: randomEuler(),
-    scale: +(Math.random() + 0.25).toFixed(2),
+    scale: +(Math.random() * 0.5 + 0.25).toFixed(2),
     speed: Math.random().toFixed(2),
   }))
 }
