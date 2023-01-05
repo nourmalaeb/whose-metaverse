@@ -27,11 +27,8 @@ const Hero = () => {
 
         <Environment preset='studio' />
         <Bounds fit observe>
-          <mesh scale={2}>
-            <sphereBufferGeometry args={[1, 64, 64]} />
-            {/* <meshStandardMaterial color={'#220022'} /> */}
-            <CoolMaterial color={'#000000'} />
-          </mesh>
+          <CoolIcosahedron scale={2} />
+          {/* <CoolGeode /> */}
         </Bounds>
         {/* <BoxFrame /> */}
         <Suspense fallback={null}>
@@ -48,6 +45,36 @@ const Hero = () => {
 }
 
 export default Hero
+
+const CoolGeode = (props) => {
+  const { nodes } = useGLTF('/models/geode-01.glb')
+  const ref = useRef()
+  useFrame((state, delta) => {
+    ref.current.rotation.y += delta * 0.1
+  })
+  return (
+    <group ref={ref} {...props}>
+      <mesh geometry={nodes.Cube.geometry}>
+        <CoolMaterial />
+      </mesh>
+    </group>
+  )
+}
+
+const CoolIcosahedron = (props) => {
+  const ref = useRef()
+  useFrame((state, delta) => {
+    ref.current.rotation.y += delta * 0.1
+  })
+  return (
+    <group ref={ref} {...props}>
+      <mesh>
+        <icosahedronBufferGeometry />
+        <CoolMaterial />
+      </mesh>
+    </group>
+  )
+}
 
 const CoolMaterial = ({ color }) => (
   <MeshTransmissionMaterial
@@ -113,7 +140,7 @@ const GeodeInstances01 = ({ radius = 30, amount = 100 }) => {
           key={geodata.length + 1}
           scale={1}
           speed={geodata[0].speed}
-          position={[0, 1, -3]}
+          position={[3, 1, -5]}
           rotation={[0, 0, 0]}
         />
       </group>
@@ -142,7 +169,7 @@ const GeodeInstances02 = ({ radius = 30, amount = 100 }) => {
           key={geodata.length + 1}
           scale={1}
           speed={geodata[0].speed}
-          position={[0, 0, -3]}
+          position={[0, 0, -5]}
           rotation={[0, 0, 0]}
         />
       </group>
@@ -171,7 +198,7 @@ const GeodeInstances03 = ({ radius = 30, amount = 100 }) => {
           key={geodata.length + 1}
           scale={1}
           speed={geodata[0].speed}
-          position={[0, -1, -3]}
+          position={[1, -1, -5]}
           rotation={[0, 0, 0]}
         />
       </group>
