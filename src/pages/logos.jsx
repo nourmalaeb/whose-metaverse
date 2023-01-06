@@ -6,10 +6,10 @@ const LogoPage = () => {
     <div className={styles.main}>
       <h1>LOGO OPTIONS</h1>
       <p>Choose your preferred logo</p>
-      <LogoSet title={'Unbounded'} cn={unbounded.className} />
-      <LogoSet title={'Lexend'} cn={lexend.className} />
-      <LogoSet title={'Inter'} cn={inter.className} />
-      <LogoSet title={'Epilogue'} cn={epilogue.className} />
+      <LogoSet title={'A - Unbounded'} cn={unbounded.className} />
+      <LogoSet title={'B - Lexend'} cn={lexend.className} />
+      <LogoSet title={'C - Inter'} cn={inter.className} />
+      <LogoSet title={'D - Epilogue'} cn={epilogue.className} />
       {/* <LogoSet title={'Figtree'} cn={figtree.className} /> */}
     </div>
   )
