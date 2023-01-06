@@ -1,4 +1,4 @@
-import { lexend, unbounded } from '@/styles/fonts'
+import { epilogue, figtree, inter, lexend, unbounded } from '@/styles/fonts'
 import styles from '@/styles/logo.module.scss'
 
 const LogoPage = () => {
@@ -8,6 +8,9 @@ const LogoPage = () => {
       <p>Choose your preferred logo</p>
       <LogoSet title={'Unbounded'} cn={unbounded.className} />
       <LogoSet title={'Lexend'} cn={lexend.className} />
+      <LogoSet title={'Inter'} cn={inter.className} />
+      <LogoSet title={'Epilogue'} cn={epilogue.className} />
+      {/* <LogoSet title={'Figtree'} cn={figtree.className} /> */}
     </div>
   )
 }

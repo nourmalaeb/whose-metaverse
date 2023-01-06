@@ -32,7 +32,22 @@
 
 .logoOptionWrapper {
   padding: calc(var(--spacer) * 5);
-  width: 'max-content'
+  width: 'max-content';
+  transition: all 0.1s ease-out;
+
+  &:hover {
+    scale: 1.01;
+
+    & .topLeftBracket {
+      left: calc(-1.5 * var(--spacer));
+      top: calc(-1.5 * var(--spacer));
+    }
+
+    & .bottomRightBracket {
+      right: calc(-1.5 * var(--spacer));
+      bottom: calc(-1.5 * var(--spacer));
+    }
+  }
 }
 
 .logoOption {
@@ -49,6 +64,7 @@
   line-height: 0.95;
   letter-spacing: -0.01em;
   transform-origin: top left;
+  user-select: none;
 }
 
 .topLeftBracket {
@@ -59,6 +75,7 @@
   height: calc(var(--spacer) * 8);
   border-left: var(--spacer) solid black;
   border-top: var(--spacer) solid black;
+  transition: all 0.25s ease-out;
 }
 
 .bottomRightBracket {
@@ -69,4 +86,5 @@
   height: calc(var(--spacer) * 8);
   border-right: var(--spacer) solid black;
   border-bottom: var(--spacer) solid black;
+  transition: all 0.25s ease-out;
 }
