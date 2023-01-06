@@ -299,7 +299,7 @@ const AboutSection = () => {
         leading creators. It’s critical that Emerging Tech makers include everyone. These creators
         will shape the Internet and culture for decades to come.
       </p>
-      <div style={{ position: 'relative', aspectRatio: 16 / 9, width: '80vw' }}>
+      <div className='video'>
         <ReactPlayer
           url={'/media/Whose_Metaverse_Video.mp4'}
           controls
