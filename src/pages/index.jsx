@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useRef } from 'react'
+import React, { useMemo, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { unbounded, lexend } from '@/styles/fonts'
 import Card from '@/components/dom/class-card'
@@ -21,20 +21,20 @@ const scrollTriggerSettings = { trigger: '#about', scrub: 0.5, start: 'top 75%',
 
 const Home = () => {
   const gsapRef = useRef(null)
-  const mouseRef = useRef(null)
+  const mouseRef = useRef()
+  const [mouseHover, setMouseHover] = useState(false)
 
   const { width, height } = useWindowSize()
 
   // crazy mouse stuff
   useEffect(() => {
-    const links = document.querySelectorAll('a')
-    console.log(links)
+    const links = document.querySelectorAll('a, button')
     const mouseParty = () => {
-      mouseRef.current.style.scale = 1.5
+      setMouseHover(true)
     }
 
     const mouseUnparty = () => {
-      mouseRef.current.style.scale = 1
+      setMouseHover(false)
     }
 
     links.forEach((a) => {
@@ -115,7 +115,7 @@ const Home = () => {
 
   return (
     <div ref={gsapRef} className={lexend.className}>
-      <MouseTracker x={mouse.docX} y={mouse.docY} ref={mouseRef} />
+      <MouseTracker x={mouse.docX} y={mouse.docY} ref={mouseRef} hovered={mouseHover} />
       {/* <Header /> */}
       {heroMemo}
       <Overlay />
@@ -312,41 +312,86 @@ const AboutSection = () => {
   )
 }
 
-const MouseTracker = forwardRef(({ x, y }, fRef) => {
+const MouseTracker = forwardRef(({ x, y, hovered }, fRef) => {
   return (
     <div
       ref={fRef}
       style={{
-        width: 40,
-        height: 40,
+        width: 25,
+        height: 25,
         position: 'absolute',
-        left: `${x - 20}px`,
-        top: `${y - 20}px`,
+        left: `${x - 2}px`,
+        top: `${y - 2}px`,
         zIndex: 999999,
         pointerEvents: 'none',
         mixBlendMode: 'difference',
       }}
     >
       <div
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          width: '50%',
-          height: '50%',
-          borderLeft: '2px solid gold',
-          borderBottom: '2px solid gold',
-        }}
-      />
-      <div
+        className='mouseparty'
         style={{
           position: 'absolute',
           top: 0,
-          right: 0,
-          width: '50%',
-          height: '50%',
-          borderRight: '2px solid gold',
-          borderTop: '2px solid gold',
+          left: 0,
+          width: '70%',
+          height: '70%',
+          borderLeft: `2px solid ${hovered ? 'white' : 'gold'}`,
+          borderTop: `2px solid ${hovered ? 'white' : 'gold'}`,
+          borderWidth: hovered ? '4px' : '2px',
+          transformOrigin: 'top left',
+          transform: `scale(${hovered ? '1.5' : '1'})`,
+          transition: 'all 0.1s ease-out',
+        }}
+      />
+      <div
+        className='mouseparty'
+        style={{
+          position: 'absolute',
+          bottom: hovered ? 3 : 0,
+          right: hovered ? 3 : 0,
+          width: 10,
+          height: 10,
+          border: `2px solid ${hovered ? 'white' : 'gold'}`,
+          borderWidth: hovered ? '3px' : '2px',
+          // transformOrigin: 'bottom right',
+          transform: `rotate(${hovered ? '90deg' : '0deg'})`,
+          // borderRadius: hovered ? 99 : 0,
+          // background: hovered ? 'white' : 'transparent',
+          transition: 'all 0.1s ease-out',
+        }}
+      />
+      <div
+        className='mouseparty'
+        style={{
+          position: 'absolute',
+          bottom: hovered ? -5 : 0,
+          right: hovered ? -5 : 0,
+          width: 10,
+          height: 10,
+          border: `2px solid ${hovered ? 'white' : 'gold'}`,
+          borderWidth: hovered ? '3px' : '2px',
+          // transformOrigin: 'bottom right',
+          transform: `rotate(${hovered ? '90deg' : '0deg'})`,
+          // borderRadius: hovered ? 99 : 0,
+          // background: hovered ? 'white' : 'transparent',
+          transition: 'all 0.1s ease-out',
+        }}
+      />
+      <div
+        className='mouseparty'
+        style={{
+          position: 'absolute',
+          bottom: hovered ? -13 : 0,
+          right: hovered ? -13 : 0,
+          width: 10,
+          height: 10,
+          border: `2px solid ${hovered ? 'white' : 'gold'}`,
+          // borderWidth: hovered ? '3px' : '2px',
+          // transformOrigin: 'bottom right',
+          // transform: `rotate(${hovered ? '90deg' : '0deg'})`,
+          borderRadius: hovered ? 99 : 0,
+          background: hovered ? 'white' : 'transparent',
+          transition: 'all 0.1s ease-out',
         }}
       />
     </div>
