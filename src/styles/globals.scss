@@ -1,7 +1,7 @@
 :root {
   --color-bg: gold;
   --color-border: black;
-  --color-hot: #ff2f7b;
+  --color-hot: #f31c35;
   --menu-focus: black;
   --color-link: gold;
   --marquee-bg: blue;
@@ -107,6 +107,25 @@ h2 {
     left: -1.5rem;
     top: -1.5rem;
     z-index: -1;
+  }
+}
+
+section#about {
+  display: flex;
+  flex-direction: column;
+  gap: 2vw;
+  align-items: center;
+  margin: 5vw auto;
+
+  & h2 {
+    text-align: center;
+    font-size: 4rem;
+    max-width: 800px;
+  }
+
+  & p {
+    font-size: large;
+    max-width: 800px;
   }
 }
 

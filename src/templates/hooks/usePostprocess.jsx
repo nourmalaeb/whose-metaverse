@@ -3,7 +3,7 @@ import { useEffect, useMemo } from 'react'
 import * as THREE from 'three'
 
 function getFullscreenTriangle() {
-  const geometry = new THREE.BufferGeometry()
+  const geometry = new THREE.Geometry()
   const vertices = new Float32Array([-1, -1, 3, -1, -1, 3])
   const uvs = new Float32Array([0, 0, 2, 0, 0, 2])
 
@@ -25,7 +25,10 @@ const usePostProcess = () => {
     screen.frustumCulled = false
     screenScene.add(screen)
 
-    const renderTarget = new THREE.WebGLRenderTarget(512, 512, { samples: 4, encoding: gl.encoding })
+    const renderTarget = new THREE.WebGLRenderTarget(512, 512, {
+      samples: 4,
+      encoding: gl.encoding,
+    })
     renderTarget.depthTexture = new THREE.DepthTexture() // fix depth issues
 
     // use ShaderMaterial for linearToOutputTexel

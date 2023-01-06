@@ -103,7 +103,7 @@ const Home = () => {
           <p aria-hidden>/</p>
           <p>A labor of love</p>
           <p aria-hidden>/</p>
-          <p>A Emerging Tech Garage for Everyone</p>
+          <p>An Emerging Tech Garage for Everyone</p>
           <p aria-hidden>/</p>
           <p aria-hidden>
             A{' '}
@@ -117,7 +117,7 @@ const Home = () => {
           <p aria-hidden>/</p>
           <p aria-hidden>A labor of love</p>
           <p aria-hidden>/</p>
-          <p aria-hidden>A Emerging Tech Garage for Everyone</p>
+          <p aria-hidden>An Emerging Tech Garage for Everyone</p>
           <p aria-hidden>/</p>
           <p aria-hidden>
             A{' '}
@@ -131,7 +131,7 @@ const Home = () => {
           <p aria-hidden>/</p>
           <p aria-hidden>A labor of love</p>
           <p aria-hidden>/</p>
-          <p aria-hidden>A Emerging Tech Garage for Everyone</p>
+          <p aria-hidden>An Emerging Tech Garage for Everyone</p>
           <p aria-hidden>/</p>
         </div>
       </footer>

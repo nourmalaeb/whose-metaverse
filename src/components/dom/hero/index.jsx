@@ -1,5 +1,5 @@
-import { Suspense, useRef } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useRef } from 'react'
+import { Canvas, events, useFrame } from '@react-three/fiber'
 import { Nav } from '../nav'
 import styles from './hero.module.scss'
 import {
@@ -14,10 +14,12 @@ import {
 import { geodeData } from './data'
 import { Color } from 'three'
 import { useWindowSize } from 'react-use'
+import { useState, useEffect } from 'react'
 
 const Hero = () => {
+  const [geodeNumber, setGeodeNumber] = useState()
   const { width } = useWindowSize()
-  const geodeNumber = 24 + width / 32
+  useEffect(() => setGeodeNumber(24 + width / 32), [width])
   return (
     <div className={styles.hero}>
       <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
@@ -66,7 +68,7 @@ const CoolIcosahedron = (props) => {
   return (
     <group ref={ref} {...props}>
       <mesh>
-        <icosahedronBufferGeometry />
+        <icosahedronGeometry />
         <CoolMaterial />
       </mesh>
     </group>
@@ -88,19 +90,19 @@ const CoolMaterial = ({ color = 0x110022 }) => (
 const BoxFrame = () => (
   <group>
     <mesh position={[1.85, 2.5, 0]}>
-      <boxBufferGeometry args={[2, 0.2, 1]} />
+      <boxGeometry args={[2, 0.2, 1]} />
       <meshStandardMaterial color={0x006666} />
     </mesh>
     <mesh position={[2.75, 1.5, 0]}>
-      <boxBufferGeometry args={[0.2, 2, 1]} />
+      <boxGeometry args={[0.2, 2, 1]} />
       <meshStandardMaterial color={0x006666} />
     </mesh>
     <mesh position={[-1.85, -2.5, 0]}>
-      <boxBufferGeometry args={[2, 0.2, 1]} />
+      <boxGeometry args={[2, 0.2, 1]} />
       <meshStandardMaterial color={0x006666} />
     </mesh>
     <mesh position={[-2.75, -1.5, 0]}>
-      <boxBufferGeometry args={[0.2, 2, 1]} />
+      <boxGeometry args={[0.2, 2, 1]} />
       <meshStandardMaterial color={0x006666} />
     </mesh>
   </group>

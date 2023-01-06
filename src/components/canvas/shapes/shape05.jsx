@@ -24,7 +24,7 @@ export const Shape05 = (props) => {
         ref={cube}
         position={[Math.sin((Math.PI * 2) / 3), 0, Math.cos((Math.PI * 2) / 3)]}
       >
-        <boxBufferGeometry />
+        <boxGeometry />
         <meshNormalMaterial flatShading />
       </mesh>
       <mesh
@@ -33,7 +33,7 @@ export const Shape05 = (props) => {
         ref={cone}
         position={[Math.sin((Math.PI * 4) / 3), 0, Math.cos((Math.PI * 4) / 3)]}
       >
-        <coneBufferGeometry args={[0.625, 1, 4]} />
+        <coneGeometry args={[0.625, 1, 4]} />
         <meshNormalMaterial flatShading />
       </mesh>
       <mesh
@@ -42,7 +42,7 @@ export const Shape05 = (props) => {
         ref={ball}
         position={[Math.sin(Math.PI * 2), 0, Math.cos(Math.PI * 2)]}
       >
-        <icosahedronBufferGeometry args={[0.625, 1]} />
+        <icosahedronGeometry args={[0.625, 1]} />
         <meshNormalMaterial flatShading />
       </mesh>
     </group>

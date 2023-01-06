@@ -1,16 +1,15 @@
-import React, { Suspense, useEffect, useRef } from 'react'
-import Header from '../components/dom/header'
+import React, { useMemo, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { unbounded, rotonto, league_spartan, lexend } from '@/styles/fonts'
+import { unbounded, lexend } from '@/styles/fonts'
 import Card from '@/components/dom/class-card'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import Hero from '@/components/dom/hero'
-import { Center, Environment, PerspectiveCamera, Preload, View } from '@react-three/drei'
+import { Center, Environment } from '@react-three/drei'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Geode01, Shape01, Shape02, Shape03, Shape05 } from '@/components/canvas/shapes'
+import { Forefront, Geode01, Shape01, Shape02, Shape03, Shape05 } from '@/components/canvas/shapes'
 import { forwardRef } from 'react'
-import { useWindowSize } from 'react-use'
+import { useMouse, useWindowSize } from 'react-use'
 import dynamic from 'next/dynamic'
 import Slider from 'react-slick'
 
@@ -18,16 +17,41 @@ const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false })
 
 gsap.registerPlugin(ScrollTrigger)
 
+const scrollTriggerSettings = { trigger: '#about', scrub: 0.5, start: 'top 75%', end: 'top top' }
+
 const Home = () => {
-  const gsapRef = useRef()
-  const containerRef = useRef()
+  const gsapRef = useRef(null)
+  const mouseRef = useRef(null)
 
   const { width, height } = useWindowSize()
+
+  // crazy mouse stuff
+  useEffect(() => {
+    const links = document.querySelectorAll('a')
+    console.log(links)
+    const mouseParty = () => {
+      mouseRef.current.style.scale = 1.5
+    }
+
+    const mouseUnparty = () => {
+      mouseRef.current.style.scale = 1
+    }
+
+    links.forEach((a) => {
+      a.addEventListener('mouseenter', () => mouseParty())
+      a.addEventListener('mouseleave', () => mouseUnparty())
+    })
+
+    return links.forEach((target) => {
+      target.removeEventListener('mouseenter', () => mouseParty())
+      target.removeEventListener('mouseleave', () => mouseUnparty())
+    })
+  }, [])
 
   useEffect(() => {
     let mql = window.matchMedia('(min-width: 600px)')
 
-    const scaleFactor = mql.matches ? 140 : 200
+    const scaleFactor = mql.matches ? 120 : 180
 
     let ctx = gsap.context(() => {
       gsap.fromTo(
@@ -40,20 +64,20 @@ const Home = () => {
         '.pageTitle',
         {
           scale: 1 + width / scaleFactor,
-          fontWeight: 900,
-          letterSpacing: -0.0125,
-          lineHeight: 0.9,
-          x: width / 32,
+          fontWeight: 1000,
+          letterSpacing: -0.0225,
+          lineHeight: 0.8,
+          x: width / 24,
           y: 64,
         },
         {
           scale: 1,
-          fontWeight: 500,
+          fontWeight: 600,
           letterSpacing: 0,
           lineHeight: 1,
           x: 5,
           y: 5,
-          scrollTrigger: { trigger: '#about', scrub: 0.5, start: 'top bottom', end: 'top top' },
+          scrollTrigger: scrollTriggerSettings,
         },
       )
 
@@ -66,7 +90,7 @@ const Home = () => {
         {
           scale: 1,
           borderWidth: 2,
-          scrollTrigger: { trigger: '#about', scrub: 0.5, start: 'top bottom', end: 'top top' },
+          scrollTrigger: scrollTriggerSettings,
         },
       )
       gsap.fromTo(
@@ -78,48 +102,25 @@ const Home = () => {
         {
           scale: 1,
           borderWidth: 2,
-          scrollTrigger: { trigger: '#about', scrub: 0.5, start: 'top bottom', end: 'top top' },
+          scrollTrigger: scrollTriggerSettings,
         },
       )
     }, gsapRef)
     return () => ctx.revert()
   }, [width])
 
+  const mouse = useMouse(gsapRef)
+
+  const heroMemo = useMemo(() => <Hero />, [])
+
   return (
-    <div ref={gsapRef} className={league_spartan.className}>
+    <div ref={gsapRef} className={lexend.className}>
+      <MouseTracker x={mouse.docX} y={mouse.docY} ref={mouseRef} />
       {/* <Header /> */}
-      <Hero />
+      {heroMemo}
       <Overlay />
       {/* ABOUT SECTION */}
-      <section id='about' className='simple'>
-        <div className='column'>
-          <div className='sectionTitle'>
-            <div className='sectionTitle-widget'>
-              <Canvas>
-                <Center scale={3}>
-                  <Shape02 />
-                </Center>
-              </Canvas>
-            </div>
-            <h2 className={unbounded.className}>Emerging Tech Garages for Everyone</h2>
-          </div>
-          <p>
-            The problems of today’s Internet are due in large part to lack of diversity among its
-            leading creators. It’s critical that Emerging Tech makers include everyone. These
-            creators will shape the Internet and culture for decades to come.
-          </p>
-        </div>
-        <div className='framed' style={{ aspectRatio: 16 / 9, height: 300 }}>
-          <ReactPlayer
-            url={'/media/Whose_Metaverse_Video.mp4'}
-            controls
-            light='/img/video-thumb.png'
-            width='100%'
-            height='100%'
-            style={{ zIndex: 999, position: 'relative' }}
-          />
-        </div>
-      </section>
+      <AboutSection />
       {/* COMMUNITIES SECTION */}
       <section id='communities' className='simple'>
         <div className='column'>
@@ -176,6 +177,14 @@ const Home = () => {
       {/* CURRICULUM SECTION */}
       <section id='curriculum' className='simple vert'>
         <div className='column'>
+          <div style={{ width: 100, height: 100 }}>
+            <Canvas camera={{ position: [20, 0, 20], fov: 20 }}>
+              <Center scale={3}>
+                <Common />
+                <Forefront />
+              </Center>
+            </Canvas>
+          </div>
           <h2 className={`sectionTitle ${unbounded.className}`}>Curriculum</h2>
           <p>
             The problems of today’s Internet are due in large part to lack of diversity among its
@@ -199,7 +208,7 @@ const Home = () => {
           <p aria-hidden>/</p>
           <p>A labor of love</p>
           <p aria-hidden>/</p>
-          <p>A Emerging Tech Garage for Everyone</p>
+          <p>An Emerging Tech Garage for Everyone</p>
           <p aria-hidden>/</p>
           <p aria-hidden>
             A{' '}
@@ -213,7 +222,7 @@ const Home = () => {
           <p aria-hidden>/</p>
           <p aria-hidden>A labor of love</p>
           <p aria-hidden>/</p>
-          <p aria-hidden>A Emerging Tech Garage for Everyone</p>
+          <p aria-hidden>An Emerging Tech Garage for Everyone</p>
           <p aria-hidden>/</p>
           <p aria-hidden>
             A{' '}
@@ -227,7 +236,7 @@ const Home = () => {
           <p aria-hidden>/</p>
           <p aria-hidden>A labor of love</p>
           <p aria-hidden>/</p>
-          <p aria-hidden>A Emerging Tech Garage for Everyone</p>
+          <p aria-hidden>An Emerging Tech Garage for Everyone</p>
           <p aria-hidden>/</p>
         </div>
       </footer>
@@ -274,6 +283,78 @@ export const getStaticProps = () => {
   return { props: { title: 'Whose Metaverse? | The Emerging Tech Garage For Everyone' } }
 }
 
+const AboutSection = () => {
+  return (
+    <section id='about'>
+      <div className='sectionTitle-widget'>
+        <Canvas>
+          <Center scale={3}>
+            <Shape02 />
+          </Center>
+        </Canvas>
+      </div>
+      <h2 className={unbounded.className}>Emerging Tech Garages for Everyone</h2>
+      <p>
+        The problems of today’s Internet are due in large part to lack of diversity among its
+        leading creators. It’s critical that Emerging Tech makers include everyone. These creators
+        will shape the Internet and culture for decades to come.
+      </p>
+      <div style={{ position: 'relative', aspectRatio: 16 / 9, width: '80vw' }}>
+        <ReactPlayer
+          url={'/media/Whose_Metaverse_Video.mp4'}
+          controls
+          width='100%'
+          height='100%'
+          style={{ zIndex: 999, position: 'relative' }}
+        />
+      </div>
+    </section>
+  )
+}
+
+const MouseTracker = forwardRef(({ x, y }, fRef) => {
+  return (
+    <div
+      ref={fRef}
+      style={{
+        width: 40,
+        height: 40,
+        position: 'absolute',
+        left: `${x - 20}px`,
+        top: `${y - 20}px`,
+        zIndex: 999999,
+        pointerEvents: 'none',
+        mixBlendMode: 'difference',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          width: '50%',
+          height: '50%',
+          borderLeft: '2px solid gold',
+          borderBottom: '2px solid gold',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          width: '50%',
+          height: '50%',
+          borderRight: '2px solid gold',
+          borderTop: '2px solid gold',
+        }}
+      />
+    </div>
+  )
+})
+
+MouseTracker.displayName = 'MouseTracker'
+
 const Overlay = forwardRef((props, fRef) => {
   const spacer = 20
   const col = 'var(--color-bg)'
@@ -303,7 +384,7 @@ const Overlay = forwardRef((props, fRef) => {
           letterSpacing: '0.1em',
           transformOrigin: 'top left',
         }}
-        className={`pageTitle ${unbounded.className}`}
+        className={`pageTitle ${lexend.className}`}
       >
         WHOSE
         <br />
@@ -372,7 +453,6 @@ const Common = ({ color }) => (
     <pointLight position={[2, 3, 1]} intensity={1} />
     <pointLight position={[-1, -1, -1]} color='magenta' />
     <Environment preset='dawn' />
-    <PerspectiveCamera makeDefault fov={20} position={[0, 0, 6]} />
   </>
 )
 
@@ -382,7 +462,7 @@ const CubeScene = () => {
   return (
     <Center scale={3}>
       <mesh ref={ref}>
-        <boxBufferGeometry />
+        <boxGeometry />
         <meshNormalMaterial />
       </mesh>
     </Center>
