@@ -10,18 +10,25 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { Forefront, Geode01, Shape01, Shape02, Shape03, Shape05 } from '@/components/canvas/shapes'
 import { forwardRef } from 'react'
 import { useMouse, useWindowSize } from 'react-use'
-import dynamic from 'next/dynamic'
 import Slider from 'react-slick'
-
-const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false })
+import { sanityClient } from '@/lib/sanity'
+import {
+  AboutSection,
+  CommunitiesSection,
+  CurriculumSection,
+  Footer,
+  GallerySection,
+} from '@/components/dom/sections'
+import { groq } from 'next-sanity'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const scrollTriggerSettings = { trigger: '#about', scrub: 0.5, start: 'top 75%', end: 'top top' }
 
-const Home = () => {
+const Home = ({ data }) => {
+  const page = data[0]
+  console.log(page)
   const gsapRef = useRef(null)
-  const mouseRef = useRef()
   const [mouseHover, setMouseHover] = useState(false)
 
   const { width, height } = useWindowSize()
@@ -42,9 +49,9 @@ const Home = () => {
       a.addEventListener('mouseleave', () => mouseUnparty())
     })
 
-    return links.forEach((target) => {
-      target.removeEventListener('mouseenter', () => mouseParty())
-      target.removeEventListener('mouseleave', () => mouseUnparty())
+    return links.forEach((a) => {
+      a.removeEventListener('mouseenter', () => mouseParty())
+      a.removeEventListener('mouseleave', () => mouseUnparty())
     })
   }, [])
 
@@ -54,12 +61,14 @@ const Home = () => {
     const scaleFactor = mql.matches ? 120 : 180
 
     let ctx = gsap.context(() => {
+      // FOOTER MARQUEE
       gsap.fromTo(
         '.footer-marquee',
-        { xPercent: `-16.6666` },
-        { xPercent: `-49.66666`, duration: 30, repeat: -1, ease: 'none' },
+        { xPercent: `0` },
+        { xPercent: `-50`, duration: 30, repeat: -1, ease: 'none' },
       )
 
+      // OVERLAY
       gsap.fromTo(
         '.pageTitle',
         {
@@ -105,214 +114,86 @@ const Home = () => {
           scrollTrigger: scrollTriggerSettings,
         },
       )
+
+      // GALLERY
+      gsap.fromTo(
+        '.galleryAnimTarget',
+        { rotateY: `0` },
+        {
+          rotateY: `360deg`,
+          duration: 30,
+          repeat: -1,
+          ease: 'none',
+          // scrollTrigger: {
+          //   trigger: '#gallery',
+          //   scrub: 0.5,
+          //   start: 'top bottom',
+          //   end: 'bottom bottom',
+          // },
+        },
+      )
+
+      // COURSES
+      gsap.fromTo(
+        '.courseCarousel',
+        { yPercent: 0 },
+        {
+          yPercent: -50,
+          duration: 30,
+          repeat: -1,
+          ease: 'none',
+          // scrollTrigger: {
+          //   trigger: '#gallery',
+          //   scrub: 0.5,
+          //   start: 'top bottom',
+          //   end: 'bottom bottom',
+          // },
+        },
+      )
     }, gsapRef)
     return () => ctx.revert()
   }, [width])
-
-  const mouse = useMouse(gsapRef)
 
   const heroMemo = useMemo(() => <Hero />, [])
 
   return (
     <div ref={gsapRef} className={lexend.className}>
-      <MouseTracker x={mouse.docX} y={mouse.docY} ref={mouseRef} hovered={mouseHover} />
+      <MouseTracker hovered={mouseHover} space={gsapRef} />
       {/* <Header /> */}
       {heroMemo}
       <Overlay />
       {/* ABOUT SECTION */}
-      <AboutSection />
+      <AboutSection title={page.aboutTitle} body={page.aboutBody} video={page.aboutVideoURL} />
       {/* COMMUNITIES SECTION */}
-      <section id='communities' className='simple'>
-        <div className='column'>
-          <div className='sectionTitle'>
-            <div className='sectionTitle-widget'>
-              <Canvas>
-                <Shape01 scale={3} />
-              </Canvas>
-            </div>
-            <h2 className={unbounded.className}>Our Communities</h2>
-          </div>
-          <p>
-            The problems of today’s Internet are due in large part to lack of diversity among its
-            leading creators. It’s critical that Emerging Tech makers include everyone. These
-            creators will shape the Internet and culture for decades to come.
-          </p>
-        </div>
-        <div className='framed' style={{ aspectRatio: 2, height: 300 }}>
-          <Image src='/img/barry.jpg' alt='' fill style={{ objectFit: 'cover' }} />
-        </div>
-      </section>
+      <CommunitiesSection
+        title={page.communitiesTitle}
+        body={page.communitiesBody}
+        communities={page.communitiesFeatured}
+      />
       {/* GALLERY SECTION */}
-      <section id='gallery' className='gallery'>
-        <div style={{ width: 200, height: 100 }}>
-          <Canvas>
-            <Center scale={2}>
-              <Shape05 />
-            </Center>
-          </Canvas>
-        </div>
-        <h2
-          className={`${unbounded.className}`}
-          style={{ textTransform: 'uppercase', marginBottom: 50 }}
-        >
-          Gallery
-        </h2>
-        <div
-          style={{ position: 'relative', aspectRatio: 2, width: '50vw', left: '-12vw', margin: 20 }}
-        >
-          <Image src='/img/w3gfe.jpg' alt='' fill style={{ objectFit: 'cover' }} />
-        </div>
-        <div
-          style={{
-            position: 'relative',
-            aspectRatio: 14 / 11,
-            width: '50vw',
-            left: '12vw',
-            margin: 20,
-          }}
-        >
-          <Image src='/img/lobby2.jpg' alt='' fill style={{ objectFit: 'cover' }} />
-        </div>
-      </section>
+      <GallerySection title={page.galleryTitle} images={page.galleryImages} />
       {/* CURRICULUM SECTION */}
-      <section id='curriculum' className='simple vert'>
-        <div className='column'>
-          <div style={{ width: 100, height: 100 }}>
-            <Canvas camera={{ position: [20, 0, 20], fov: 20 }}>
-              <Center scale={3}>
-                <Common />
-                <Forefront />
-              </Center>
-            </Canvas>
-          </div>
-          <h2 className={`sectionTitle ${unbounded.className}`}>Curriculum</h2>
-          <p>
-            The problems of today’s Internet are due in large part to lack of diversity among its
-            leading creators. It’s critical that Emerging Tech makers include everyone. These
-            creators will shape the Internet and culture for decades to come.
-          </p>
-        </div>
-        <Courses />
-      </section>
-      <footer className={unbounded.className}>
-        <div className='footer-marquee'>
-          <p>
-            A{' '}
-            <a href='https://lightshed.io/' target='_blank' rel='noreferrer noopener'>
-              Lightshed
-            </a>{' '}
-            Project
-          </p>
-          <p aria-hidden>/</p>
-          <p>A Shared Studios Project</p>
-          <p aria-hidden>/</p>
-          <p>A labor of love</p>
-          <p aria-hidden>/</p>
-          <p>An Emerging Tech Garage for Everyone</p>
-          <p aria-hidden>/</p>
-          <p aria-hidden>
-            A{' '}
-            <a href='https://lightshed.io/' target='_blank' rel='noreferrer noopener'>
-              Lightshed
-            </a>{' '}
-            Project
-          </p>
-          <p aria-hidden>/</p>
-          <p aria-hidden>A Shared Studios Project</p>
-          <p aria-hidden>/</p>
-          <p aria-hidden>A labor of love</p>
-          <p aria-hidden>/</p>
-          <p aria-hidden>An Emerging Tech Garage for Everyone</p>
-          <p aria-hidden>/</p>
-          <p aria-hidden>
-            A{' '}
-            <a href='https://lightshed.io/' target='_blank' rel='noreferrer noopener'>
-              Lightshed
-            </a>{' '}
-            Project
-          </p>
-          <p aria-hidden>/</p>
-          <p aria-hidden>A Shared Studios Project</p>
-          <p aria-hidden>/</p>
-          <p aria-hidden>A labor of love</p>
-          <p aria-hidden>/</p>
-          <p aria-hidden>An Emerging Tech Garage for Everyone</p>
-          <p aria-hidden>/</p>
-        </div>
-      </footer>
+      <CurriculumSection
+        title={page.curriculumTitle}
+        body={page.curriculumBody}
+        courses={page.curriculumCourses}
+      />
+      <Footer items={page.footerItems} />
     </div>
   )
 }
 
 export default Home
 
-const Courses = () => {
-  const settings = {
-    className: 'center',
-    centerMode: true,
-    infinite: true,
-    centerPadding: '60px',
-    slidesToShow: 2,
-    speed: 500,
-  }
-
-  return (
-    <div className='courses'>
-      <Slider {...settings}>
-        <Card
-          title='Introduction to the Metaverse'
-          content='Intro class getting acquainted with terms, technology, and real-world applications of Virtual Reality.'
-          pic='/img/barry.jpg'
-        />
-        <Card
-          title='What Makes a Game a Game?'
-          content='Game vs. Play; Parts of a Game; Core Mechanics, Components, and their Affordances.'
-          pic='/img/lobby2.jpg'
-        />
-        <Card
-          title='What Makes a Game a Game?'
-          content='Game vs. Play; Parts of a Game; Core Mechanics, Components, and their Affordances.'
-          pic='/img/lobby2.jpg'
-        />
-      </Slider>
-    </div>
+export const getStaticProps = async () => {
+  const data = await sanityClient.fetch(
+    groq`*[_type == 'home']{..., "aboutVideoURL": aboutVideo.asset->url}`,
   )
+  return { props: { title: 'Whose Metaverse? | The Emerging Tech Garage For Everyone', data } }
 }
 
-export const getStaticProps = () => {
-  return { props: { title: 'Whose Metaverse? | The Emerging Tech Garage For Everyone' } }
-}
-
-const AboutSection = () => {
-  return (
-    <section id='about'>
-      <div className='sectionTitle-widget'>
-        <Canvas>
-          <Center scale={3}>
-            <Shape02 />
-          </Center>
-        </Canvas>
-      </div>
-      <h2 className={unbounded.className}>Emerging Tech Garages for Everyone</h2>
-      <p>
-        The problems of today’s Internet are due in large part to lack of diversity among its
-        leading creators. It’s critical that Emerging Tech makers include everyone. These creators
-        will shape the Internet and culture for decades to come.
-      </p>
-      <div className='video'>
-        <ReactPlayer
-          url={'/media/Whose_Metaverse_Video.mp4'}
-          controls
-          width='100%'
-          height='100%'
-          style={{ zIndex: 999, position: 'relative' }}
-        />
-      </div>
-    </section>
-  )
-}
-
-const MouseTracker = forwardRef(({ x, y, hovered }, fRef) => {
+const MouseTracker = forwardRef(({ x, y, hovered, space }, fRef) => {
+  const { docX, docY } = useMouse(space)
   return (
     <div
       ref={fRef}
@@ -320,8 +201,8 @@ const MouseTracker = forwardRef(({ x, y, hovered }, fRef) => {
         width: 25,
         height: 25,
         position: 'absolute',
-        left: `${x - 2}px`,
-        top: `${y - 2}px`,
+        left: `${docX - 2}px`,
+        top: `${docY - 2}px`,
         zIndex: 999999,
         pointerEvents: 'none',
         mixBlendMode: 'difference',
@@ -490,16 +371,6 @@ const Overlay = forwardRef((props, fRef) => {
 })
 
 Overlay.displayName = 'Overlay'
-
-const Common = ({ color }) => (
-  <>
-    {color && <color attach='background' args={[color]} />}
-    <ambientLight intensity={0.5} />
-    <pointLight position={[2, 3, 1]} intensity={1} />
-    <pointLight position={[-1, -1, -1]} color='magenta' />
-    <Environment preset='dawn' />
-  </>
-)
 
 const CubeScene = () => {
   const ref = useRef()

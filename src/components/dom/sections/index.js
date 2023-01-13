@@ -1,0 +1,5 @@
+export { AboutSection } from './about'
+export { CommunitiesSection } from './communities'
+export { GallerySection } from './gallery'
+export { CurriculumSection } from './curriculum'
+export { Footer } from './footer'
