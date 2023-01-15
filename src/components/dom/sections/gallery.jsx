@@ -13,7 +13,6 @@ import gsap from 'gsap'
 // gsap.registerPlugin(ScrollTrigger)
 
 export const GallerySection = ({ title, body, images }) => {
-  const increment = 1 / images.length
   return (
     <section id='gallery' className='gallery'>
       {/* <div className='galleryInner'> */}
