@@ -12,7 +12,7 @@ import gsap from 'gsap'
 
 // gsap.registerPlugin(ScrollTrigger)
 
-export const GallerySection = ({ title, body, images, skew }) => {
+export const GallerySection = ({ title, body, images }) => {
   const increment = 1 / images.length
   return (
     <section id='gallery' className='gallery'>
@@ -44,7 +44,7 @@ export const GallerySection = ({ title, body, images, skew }) => {
           return (
             <div
               key={`img-${idx}`}
-              className={`galleryScroller${idx}`}
+              className={`galleryScroller`}
               style={{ padding: '5vh', position: 'relative', margin: '0 auto' }}
             >
               <div
@@ -53,7 +53,7 @@ export const GallerySection = ({ title, body, images, skew }) => {
                   width: '80vw',
                   aspectRatio: getImageDimensions(img).aspectRatio,
                 }}
-                className={`galleryImg${idx}`}
+                className={`galleryImg`}
               >
                 <Image
                   src={urlFor(img).width(1600).url()}

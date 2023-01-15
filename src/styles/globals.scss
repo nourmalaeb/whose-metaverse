@@ -149,7 +149,7 @@ section#about {
     width: 100%;
 
     &.inlineVideo {
-      width: 80vw;
+      width: 90vw;
       margin: 5vw auto;
     }
 
@@ -288,8 +288,8 @@ section.gallery {
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    width: calc(100% - 80px);
+    padding: 10px;
+    width: calc(100% - 40px);
 
     & h4 {
       font-size: 24px;

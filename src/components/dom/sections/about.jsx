@@ -4,8 +4,11 @@ import { unbounded } from '@/styles/fonts'
 import { PortableText } from '@portabletext/react'
 import { Center } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
+import dynamic from 'next/dynamic'
 
-export const AboutSection = ({ title, body }) => {
+const VideoPlayer = dynamic(() => import('../videoPlayer'), { ssr: false })
+
+export const AboutSection = ({ title, body, video }) => {
   return (
     <section id='about'>
       <div className='sectionTitle-widget'>
@@ -19,6 +22,7 @@ export const AboutSection = ({ title, body }) => {
       <div className='aboutContent'>
         <PortableText value={body} components={portableTextComponents} />
       </div>
+      <VideoPlayer url={video} />
     </section>
   )
 }

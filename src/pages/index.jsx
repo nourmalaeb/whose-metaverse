@@ -1,16 +1,12 @@
-import React, { useMemo, useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
+import React, { useMemo, useEffect, useRef, useState, useLayoutEffect, forwardRef } from 'react'
 import { unbounded, lexend } from '@/styles/fonts'
-import Card from '@/components/dom/class-card'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import Hero from '@/components/dom/hero'
-import { Center, Environment } from '@react-three/drei'
+import { Center } from '@react-three/drei'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Forefront, Geode01, Shape01, Shape02, Shape03, Shape05 } from '@/components/canvas/shapes'
-import { forwardRef } from 'react'
+import { Geode01 } from '@/components/canvas/shapes'
 import { useMouse, useWindowSize } from 'react-use'
-import Slider from 'react-slick'
 import { sanityClient } from '@/lib/sanity'
 import {
   AboutSection,
@@ -27,10 +23,9 @@ const scrollTriggerSettings = { trigger: '#about', scrub: 0.5, start: 'top 75%',
 
 const Home = ({ data }) => {
   const page = data[0]
-  // console.log(page)
+  console.log(page)
   const gsapRef = useRef(null)
   const [mouseHover, setMouseHover] = useState(false)
-  const [skew, setSkew] = useState(0)
 
   const { width, height } = useWindowSize()
 
@@ -56,7 +51,7 @@ const Home = ({ data }) => {
     })
   }, [])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let mql = window.matchMedia('(min-width: 600px)')
 
     const scaleFactor = mql.matches ? 120 : 180
@@ -117,81 +112,25 @@ const Home = ({ data }) => {
       )
 
       // GALLERY
-      gsap.fromTo(
-        '.galleryImg0',
-        { opacity: 0, scale: 0.75 },
-        {
-          opacity: 2,
-          scale: 1.25,
-          ease: 'linear',
-          scrollTrigger: {
-            trigger: '.galleryScroller0',
-            scrub: 0.5,
-            start: 'top bottom',
-            end: 'bottom top',
+
+      gsap.utils.toArray('.galleryScroller').forEach((scroller) => {
+        const gImg = scroller.querySelector('.galleryImg')
+        gsap.fromTo(
+          gImg,
+          { opacity: 0, scale: 0.75 },
+          {
+            opacity: 2,
+            scale: 1.25,
+            ease: 'linear',
+            scrollTrigger: {
+              trigger: scroller,
+              scrub: 0.5,
+              start: 'top bottom',
+              end: 'bottom top',
+            },
           },
-        },
-      )
-      gsap.fromTo(
-        '.galleryImg1',
-        { opacity: 0, scale: 0.75 },
-        {
-          opacity: 2,
-          scale: 1.25,
-          ease: 'linear',
-          scrollTrigger: {
-            trigger: '.galleryScroller1',
-            scrub: 0.5,
-            start: 'top bottom',
-            end: 'bottom top',
-          },
-        },
-      )
-      gsap.fromTo(
-        '.galleryImg2',
-        { opacity: 0, scale: 0.75 },
-        {
-          opacity: 2,
-          scale: 1.25,
-          ease: 'linear',
-          scrollTrigger: {
-            trigger: '.galleryScroller2',
-            scrub: 0.5,
-            start: 'top bottom',
-            end: 'bottom top',
-          },
-        },
-      )
-      gsap.fromTo(
-        '.galleryImg3',
-        { opacity: 0, scale: 0.75 },
-        {
-          opacity: 2,
-          scale: 1.25,
-          ease: 'linear',
-          scrollTrigger: {
-            trigger: '.galleryScroller3',
-            scrub: 0.5,
-            start: 'top bottom',
-            end: 'bottom top',
-          },
-        },
-      )
-      gsap.fromTo(
-        '.galleryImg4',
-        { opacity: 0, scale: 0.75 },
-        {
-          opacity: 2,
-          scale: 1.25,
-          ease: 'linear',
-          scrollTrigger: {
-            trigger: '.galleryScroller4',
-            scrub: 0.5,
-            start: 'top bottom',
-            end: 'bottom top',
-          },
-        },
-      )
+        )
+      })
 
       // COURSES
       gsap.fromTo(
@@ -199,15 +138,9 @@ const Home = ({ data }) => {
         { yPercent: 0 },
         {
           yPercent: -50,
-          duration: 30,
+          duration: () => innerHeight / 10,
           repeat: -1,
           ease: 'none',
-          // scrollTrigger: {
-          //   trigger: '#gallery',
-          //   scrub: 0.5,
-          //   start: 'top bottom',
-          //   end: 'bottom bottom',
-          // },
         },
       )
     }, gsapRef)
@@ -231,7 +164,7 @@ const Home = ({ data }) => {
         communities={page.communitiesFeatured}
       />
       {/* GALLERY SECTION */}
-      <GallerySection title={page.galleryTitle} images={page.galleryImages} skew={skew} />
+      <GallerySection title={page.galleryTitle} images={page.galleryImages} />
       {/* CURRICULUM SECTION */}
       <CurriculumSection
         title={page.curriculumTitle}
