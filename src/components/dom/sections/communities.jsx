@@ -31,7 +31,7 @@ export const CommunitiesSection = ({ title, body, communities }) => {
                 aspectRatio: getImageDimensions(communityImage).aspectRatio,
               }}
             >
-              <Image src={urlFor(communityImage).width(1000).url()} fill />
+              <Image src={urlFor(communityImage).width(1000).url()} fill alt='' />
             </div>
             <h3>{communityName}</h3>
             <PortableText value={communityDescription} />

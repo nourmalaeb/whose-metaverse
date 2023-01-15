@@ -76,13 +76,11 @@ h2 {
   padding: 8rem 0 0 1rem;
   border-left: 1px solid black;
 
-  .sectionTitle-widget {
-    position: absolute;
-    top: 0;
-    left: 20px;
-    width: 64px;
-    height: 64px;
-  }
+}
+
+.sectionTitle-widget {
+  width: calc(64px + 4vw);
+  height: calc(64px + 4vw);
 }
 
 .framed {
@@ -119,7 +117,7 @@ section#about {
   flex-direction: column;
   gap: 2vw;
   align-items: center;
-  margin: 5vw auto;
+  margin: 0 auto;
   padding: 5vw;
   text-align: center;
 
@@ -207,14 +205,24 @@ section.simple {
 }
 
 section#communities {
+  position: relative;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   gap: 5vw;
   padding: 5vw;
   background-color: var(--color-hot);
 
+  div.intro {
+    background-color: black;
+    color: white;
+    padding: 5vw;
+    max-width: 800px;
+  }
+
   div.content {
     position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: 5vw;
@@ -223,12 +231,6 @@ section#communities {
     margin: 0 auto;
   }
 
-  div.intro {
-    background-color: black;
-    color: white;
-    padding: 5vw;
-    max-width: 800px;
-  }
 
   div.community {
     padding: 5vw;
@@ -245,6 +247,16 @@ section#communities {
       font-weight: 900;
     }
   }
+
+  div.communityBG {
+    width: 100vw;
+    height: 100vh;
+    background-color: blue;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
 }
 
 section.gallery {
@@ -257,7 +269,7 @@ section.gallery {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  perspective: 10000px;
+  perspective: 1000px;
 }
 
 .courseCarouselContainer {

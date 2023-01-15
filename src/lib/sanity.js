@@ -1,14 +1,10 @@
-import {
-  buildFileUrl,
-  getAssetUrlType,
-  getFile,
-  getFileAsset,
-  getIdFromString,
-  parseAssetId,
-} from '@sanity/asset-utils'
+import { buildFileUrl, parseAssetId } from '@sanity/asset-utils'
 import imageUrlBuilder from '@sanity/image-url'
 import { createClient } from 'next-sanity'
-import ReactPlayer from 'react-player'
+// import ReactPlayer from 'react-player'
+import dynamic from 'next/dynamic'
+
+const VideoPlayer = dynamic(() => import('../components/dom/videoPlayer'), { ssr: false })
 
 export const sanityClient = createClient({
   projectId: 'owrqzb2p',
@@ -27,20 +23,7 @@ const getVideoURL = (value) => {
 export const urlFor = (source) => imageBuilder.image(source)
 
 const VideoBlock = ({ value }) => {
-  return (
-    <div className='video inlineVideo'>
-      <ReactPlayer
-        url={getVideoURL(value)}
-        controls
-        width='100%'
-        height='100%'
-        style={{ zIndex: 999, position: 'relative' }}
-        playing
-        playsinline
-        muted
-      />
-    </div>
-  )
+  return <VideoPlayer url={getVideoURL(value)} />
 }
 
 export const portableTextComponents = {

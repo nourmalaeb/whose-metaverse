@@ -12,33 +12,10 @@ import gsap from 'gsap'
 
 // gsap.registerPlugin(ScrollTrigger)
 
-export const GallerySection = ({ title, body, images }) => {
+export const GallerySection = ({ title, body, images, skew }) => {
   const increment = 1 / images.length
-  const galleryRef = useRef()
-
-  // useEffect(() => {
-  //   let ctx = gsap.context(() => {
-  //     gsap.fromTo(
-  //       '.galleryAnimTarget',
-  //       { rotateY: `0` },
-  //       {
-  //         rotateY: `360deg`,
-  //         // duration: 10,
-  //         // repeat: -1,
-  //         // ease: 'none',
-  //         scrollTrigger: {
-  //           trigger: '#gallery',
-  //           scrub: 0.5,
-  //           start: 'top bottom',
-  //           end: 'bottom top',
-  //         },
-  //       },
-  //     )
-  //   }, galleryRef)
-  //   return () => ctx.revert()
-  // }, [])
   return (
-    <section id='gallery' className='gallery' ref={galleryRef}>
+    <section id='gallery' className='gallery'>
       {/* <div className='galleryInner'> */}
       <div style={{ width: 200, height: 100 }}>
         <Canvas>
@@ -58,24 +35,36 @@ export const GallerySection = ({ title, body, images }) => {
         className='galleryAnimTarget'
         style={{
           position: 'relative',
-          transformStyle: 'preserve-3d',
-          width: '80vw',
-          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10vw',
         }}
       >
-        {images.map((img, idx) => (
-          <div
-            key={`img-${idx}`}
-            style={{
-              position: 'absolute',
-              width: '50vw',
-              transform: `rotateY(${360 * increment * idx}deg) translateZ(800px)`,
-              aspectRatio: getImageDimensions(img).aspectRatio,
-            }}
-          >
-            <Image src={urlFor(img).width(800).url()} alt='' fill style={{ objectFit: 'cover' }} />
-          </div>
-        ))}
+        {images.map((img, idx) => {
+          return (
+            <div
+              key={`img-${idx}`}
+              className={`galleryScroller${idx}`}
+              style={{ padding: '5vh', position: 'relative', margin: '0 auto' }}
+            >
+              <div
+                style={{
+                  position: 'relative',
+                  width: '80vw',
+                  aspectRatio: getImageDimensions(img).aspectRatio,
+                }}
+                className={`galleryImg${idx}`}
+              >
+                <Image
+                  src={urlFor(img).width(1600).url()}
+                  alt=''
+                  fill
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+            </div>
+          )
+        })}
         {/* </div> */}
       </div>
     </section>
