@@ -109,7 +109,7 @@ const Home = ({ data }) => {
 
         ScrollTrigger.create({
           trigger: questionsSection,
-          scrub: 0.25,
+          scrub: true,
           start: `top ${idx * -q.offsetHeight + heights}`,
           end: `bottom ${-q.offsetHeight}`,
           pin: qh2,
