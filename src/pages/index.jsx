@@ -100,31 +100,37 @@ const Home = ({ data }) => {
       const questions = self.selector('.questionContainer')
       questions.forEach((q, idx) => {
         const qh2 = q.querySelector('.question')
-        // console.log(qh2.offsetWidth)
+        // console.log(qh2.offsetHeight)
+        let heights = 0
+
+        for (let i = 0; i < idx; i++) {
+          heights += questions[i].querySelector('.question').offsetHeight
+        }
+
         ScrollTrigger.create({
           trigger: questionsSection,
           scrub: 0.25,
-          start: `top ${idx * -q.offsetHeight + idx * qh2.offsetHeight}`,
+          start: `top ${idx * -q.offsetHeight + heights}`,
           end: `bottom ${-q.offsetHeight}`,
           pin: qh2,
         })
-        gsap.fromTo(
-          qh2,
-          {
-            x: 0,
-          },
+        // gsap.fromTo(
+        //   q,
+        //   {
+        //     paddingBottom: '100vh',
+        //   },
 
-          {
-            x: q.offsetWidth - qh2.offsetWidth,
-            ease: 'linear',
-            scrollTrigger: {
-              scrub: true,
-              trigger: questionsSection,
-              start: `top ${idx * -q.offsetHeight + idx * qh2.offsetHeight}`,
-              end: `bottom -100%`,
-            },
-          },
-        )
+        //   {
+        //     paddingBottom: 0,
+        //     ease: 'linear',
+        //     scrollTrigger: {
+        //       scrub: true,
+        //       trigger: questionsSection,
+        //       start: `top bottom`,
+        //       end: `bottom bottom`,
+        //     },
+        //   },
+        // )
       })
 
       // GALLERY
