@@ -28,9 +28,8 @@ const scrollTriggerSettings = { trigger: '#about', scrub: 0.5, start: 'top 75%',
 
 const Home = ({ data }) => {
   const page = data[0]
-  console.log(page)
+  // console.log(page)
   const gsapRef = useRef(null)
-  const tl = useRef()
   const ctx = useGsapContext(gsapRef)
 
   const { width } = useWindowSize()
@@ -100,7 +99,6 @@ const Home = ({ data }) => {
       const questions = self.selector('.questionContainer')
       questions.forEach((q, idx) => {
         const qh2 = q.querySelector('.question')
-        // console.log(qh2.offsetHeight)
         let heights = 0
 
         for (let i = 0; i < idx; i++) {
