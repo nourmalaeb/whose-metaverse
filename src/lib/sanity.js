@@ -1,5 +1,8 @@
+import { Button } from '@/components/dom/ui'
+import { unbounded } from '@/styles/fonts'
 import { buildFileUrl, parseAssetId } from '@sanity/asset-utils'
 import imageUrlBuilder from '@sanity/image-url'
+import classNames from 'classnames'
 import { createClient } from 'next-sanity'
 // import ReactPlayer from 'react-player'
 import dynamic from 'next/dynamic'
@@ -26,8 +29,17 @@ const VideoBlock = ({ value }) => {
   return <VideoPlayer url={getVideoURL(value)} />
 }
 
+const JuicyLinkBlock = ({ value }) => {
+  return (
+    <Button href={value.url} classes={classNames('center', unbounded.className)}>
+      {value.linkText}
+    </Button>
+  )
+}
+
 export const portableTextComponents = {
   types: {
     video: VideoBlock,
+    juicyLink: JuicyLinkBlock,
   },
 }

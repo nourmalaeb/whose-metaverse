@@ -1,4 +1,5 @@
 export { AboutSection } from './about'
+export { FourQuestions } from './fourQuestions'
 export { CommunitiesSection } from './communities'
 export { GallerySection } from './gallery'
 export { CurriculumSection } from './curriculum'

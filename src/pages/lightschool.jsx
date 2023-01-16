@@ -5,9 +5,9 @@ const Lightschool = () => (
       height='100%'
       src='https://ynceoz.gmetri.com/whose_metaverse'
       id=''
-      frameborder='0'
       allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; microphone; camera; display-capture;'
-      allowfullscreen
+      allowFullscreen
+      style={{ border: 0 }}
     ></iframe>
   </div>
 )

@@ -4,9 +4,7 @@ import { unbounded } from '@/styles/fonts'
 import { PortableText } from '@portabletext/react'
 import { Center } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
-import dynamic from 'next/dynamic'
-
-const VideoPlayer = dynamic(() => import('../videoPlayer'), { ssr: false })
+import VideoPlayer from '../videoPlayer'
 
 export const AboutSection = ({ title, body, video }) => {
   return (

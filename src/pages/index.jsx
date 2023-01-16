@@ -1,7 +1,8 @@
-import React, { useMemo, useEffect, useRef, forwardRef } from 'react'
+import React, { useMemo, useLayoutEffect, useRef, forwardRef, Suspense } from 'react'
 import { lexend } from '@/styles/fonts'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
 import Hero from '@/components/dom/hero'
 import { Canvas } from '@react-three/fiber'
 import { Geode01 } from '@/components/canvas/shapes'
@@ -12,27 +13,31 @@ import {
   CommunitiesSection,
   CurriculumSection,
   Footer,
+  FourQuestions,
   GallerySection,
 } from '@/components/dom/sections'
 import { groq } from 'next-sanity'
+import { useGsapContext } from '@/lib/anims'
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin)
 
 const scrollTriggerSettings = { trigger: '#about', scrub: 0.5, start: 'top 75%', end: 'top top' }
 
 const Home = ({ data }) => {
   const page = data[0]
-  // console.log(page)
+  console.log(page)
   const gsapRef = useRef(null)
+  const tl = useRef()
+  const ctx = useGsapContext(gsapRef)
 
   const { width } = useWindowSize()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let mql = window.matchMedia('(min-width: 600px)')
 
     const scaleFactor = mql.matches ? 120 : 180
 
-    let ctx = gsap.context(() => {
+    ctx.add((self) => {
       // FOOTER MARQUEE
       gsap.fromTo(
         '.footer-marquee',
@@ -87,24 +92,100 @@ const Home = ({ data }) => {
         },
       )
 
-      // GALLERY
-
-      gsap.utils.toArray('.galleryScroller').forEach((scroller) => {
+      // QUESTIONS
+      const questionsSection = self.selector('.questionsQuestions')[0]
+      const questions = self.selector('.questionContainer')
+      questions.forEach((q, idx) => {
+        const qh2 = q.querySelector('.question')
+        // console.log(qh2.offsetWidth)
+        ScrollTrigger.create({
+          trigger: questionsSection,
+          scrub: 0.25,
+          start: `top ${idx * -q.offsetHeight + idx * qh2.offsetHeight}`,
+          end: `bottom ${-q.offsetHeight}`,
+          pin: qh2,
+        })
         gsap.fromTo(
-          scroller.querySelector('.galleryImg'),
-          { opacity: 0.1, scale: 0.75 },
+          qh2,
           {
-            opacity: 2,
-            scale: 1.25,
+            x: 0,
+          },
+          {
+            x: q.offsetWidth - qh2.offsetWidth / 3,
             ease: 'linear',
             scrollTrigger: {
-              trigger: scroller,
-              scrub: 0.5,
-              start: 'top bottom',
-              end: 'bottom top',
+              trigger: questionsSection,
+              scrub: true,
+              start: `top ${idx * -q.offsetHeight + idx * qh2.offsetHeight}`,
+              end: `top ${(idx + 0.5) * -q.offsetHeight + idx * 2 * qh2.offsetHeight}`,
             },
           },
         )
+        gsap.fromTo(
+          qh2,
+          {
+            x: q.offsetWidth - qh2.offsetWidth / 3,
+          },
+          {
+            x: q.offsetWidth - qh2.offsetWidth,
+            ease: 'linear',
+            scrollTrigger: {
+              scrub: true,
+              trigger: questionsSection,
+              start: `top ${(idx + 0.5) * -q.offsetHeight + idx * 2 * qh2.offsetHeight}`,
+              end: `bottom ${-q.offsetHeight}`,
+            },
+          },
+        )
+      })
+
+      // GALLERY
+      const imgs = self.selector('.galleryScroller')
+      imgs.forEach((scroller, index) => {
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: scroller,
+              scrub: 0.5,
+              start: 'top center',
+              end: 'bottom center',
+            },
+          })
+          .from(scroller.querySelector('.galleryImg'), { opacity: 0.1, scale: 0.75 })
+          .to(scroller.querySelector('.galleryImg'), {
+            opacity: 1,
+            scale: 1,
+            ease: 'linear',
+          })
+          .to(scroller.querySelector('.galleryImg'), {
+            opacity: 1,
+            scale: 1,
+            ease: 'linear',
+          })
+          .to(scroller.querySelector('.galleryImg'), {
+            opacity: 1,
+            scale: 1,
+            ease: 'linear',
+          })
+          .to(scroller.querySelector('.galleryImg'), {
+            opacity: 0,
+            scale: 1.5,
+            ease: 'linear',
+          })
+
+        const r = 15
+        gsap.to(scroller.querySelector('.galleryImg'), {
+          motionPath: {
+            path:
+              index % 2 === 0
+                ? `M-12.0874 19.4813C-20.98329 14.728 -13.99695 -25.29181 5.1581 -19.85131C15.3918 -14.11096 33.154 10.2124 18.3269 3.241C-1.793 -6.5267 5.1581 -4.2346 -12.0874 19.4813Z`
+                : `M25.293 -10.1657C29.2725 -4.7063 15.6696 -3.0997 4.0642 1.2432C-7.2372 5.1087 -16.58479 13.2143 -19.81617 6.305C-21.60456 -3.7684 -14.56521 -28.39443 -10.846 -16.517C-4.197 0.6563 17.601 -22.47672 25.293 -10.1657Z`,
+          },
+          duration: 15 + index,
+          start: 1 / imgs.length,
+          repeat: -1,
+          ease: 'none',
+        })
       })
 
       // COURSES
@@ -118,10 +199,10 @@ const Home = ({ data }) => {
           ease: 'none',
         },
       )
-    }, gsapRef)
+    })
 
     return () => ctx.revert()
-  }, [width, page])
+  }, [width, page, ctx])
 
   const heroMemo = useMemo(() => <Hero />, [])
 
@@ -130,12 +211,15 @@ const Home = ({ data }) => {
       {heroMemo}
       <Overlay />
       <AboutSection title={page.aboutTitle} body={page.aboutBody} video={page.aboutVideoURL} />
+      <FourQuestions questions={page.questions} questionsBody={page.questionsBody} />
       <CommunitiesSection
         title={page.communitiesTitle}
         body={page.communitiesBody}
         communities={page.communitiesFeatured}
       />
-      <GallerySection title={page.galleryTitle} images={page.galleryImages} />
+      <Suspense fallback={<div>LOADING...</div>}>
+        <GallerySection title={page.galleryTitle} images={page.galleryImages} />
+      </Suspense>
       <CurriculumSection
         title={page.curriculumTitle}
         body={page.curriculumBody}

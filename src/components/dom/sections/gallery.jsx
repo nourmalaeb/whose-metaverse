@@ -1,21 +1,16 @@
+// import { useEffect, useLayoutEffect, useRef } from 'react'
 import { Shape05 } from '@/components/canvas/shapes'
 import { urlFor } from '@/lib/sanity'
-import { useEffect, useRef } from 'react'
 import { unbounded } from '@/styles/fonts'
 import { PortableText } from '@portabletext/react'
 import { Center } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import Image from 'next/image'
 import { getImageDimensions } from '@sanity/asset-utils'
-import gsap from 'gsap'
-// import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-
-// gsap.registerPlugin(ScrollTrigger)
 
 export const GallerySection = ({ title, body, images }) => {
   return (
     <section id='gallery' className='gallery'>
-      {/* <div className='galleryInner'> */}
       <div style={{ width: 200, height: 100 }}>
         <Canvas>
           <Center scale={2}>
@@ -39,33 +34,39 @@ export const GallerySection = ({ title, body, images }) => {
           gap: '10vw',
         }}
       >
-        {images.map((img, idx) => {
+        {images.map((img) => {
           return (
-            <div
-              key={`img-${idx}`}
-              className={`galleryScroller`}
-              style={{ padding: '5vh', position: 'relative', margin: '0 auto' }}
-            >
-              <div
-                style={{
-                  position: 'relative',
-                  width: '80vw',
-                  aspectRatio: getImageDimensions(img).aspectRatio,
-                }}
-                className={`galleryImg`}
-              >
-                <Image
-                  src={urlFor(img).width(1600).url()}
-                  alt=''
-                  fill
-                  style={{ objectFit: 'cover' }}
-                />
-              </div>
-            </div>
+            <GalleryScroller
+              url={urlFor(img).width(1600).url()}
+              aspect={getImageDimensions(img).aspectRatio}
+              key={img._key}
+            />
           )
         })}
-        {/* </div> */}
       </div>
     </section>
+  )
+}
+
+const GalleryScroller = ({ url, aspect }) => {
+  return (
+    <div
+      className={`galleryScroller`}
+      style={{ padding: '5vh', position: 'relative', margin: '0 auto' }}
+    >
+      <div
+        style={{
+          position: 'relative',
+          width: '80vw',
+          maxHeight: '100vw',
+          aspectRatio: aspect,
+          borderRadius: 8,
+          overflow: 'hidden',
+        }}
+        className={`galleryImg`}
+      >
+        <Image src={url} alt='' fill style={{ objectFit: 'contain' }} />
+      </div>
+    </div>
   )
 }

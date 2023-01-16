@@ -204,6 +204,80 @@ section.simple {
   width: 100%;
 }
 
+section#fourQuestions {
+  position: relative;
+
+  & .questionsQuestions {
+    position: relative;
+    z-index: 0;
+    padding-bottom: 50vh;
+  }
+
+  & .questionsContentWrapper {
+    position: relative;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .questionsContent {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem;
+      background-color: var(--color-hot);
+      color: white;
+      font-size: 1.25em;
+
+      & p:last-of-type {
+        margin-bottom: 0;
+      }
+
+      & p:first-of-type {
+        margin-top: 0;
+      }
+    }
+  }
+
+  & .questionContainer {
+    position: relative;
+    width: 100vw;
+    overflow: hidden;
+    height: 100vmax;
+  }
+
+  & h2 {
+    background-color: black;
+    color: gold;
+    position: relative;
+    border-bottom: 1px solid gold;
+    font-size: calc(45px + 12vmin);
+    white-space: nowrap;
+    width: max-content;
+    // animation: questionMarquee 10s linear infinite;
+    display: flex;
+    flex-direction: row;
+
+    & span {
+      padding: 0.05em 0.25em;
+    }
+  }
+}
+
+@keyframes questionMarquee {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 section#communities {
   position: relative;
   display: flex;
@@ -269,7 +343,6 @@ section.gallery {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  perspective: 1000px;
 }
 
 .courseCarouselContainer {
