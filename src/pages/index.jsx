@@ -15,6 +15,7 @@ import {
   Footer,
   FourQuestions,
   GallerySection,
+  SignUpSection,
 } from '@/components/dom/sections'
 import { groq } from 'next-sanity'
 import { useGsapContext } from '@/lib/anims'
@@ -133,7 +134,7 @@ const Home = ({ data }) => {
               scrub: true,
               trigger: questionsSection,
               start: `top ${(idx + 0.5) * -q.offsetHeight + idx * 2 * qh2.offsetHeight}`,
-              end: `bottom ${-q.offsetHeight}`,
+              end: `bottom -100%`,
             },
           },
         )
@@ -147,8 +148,8 @@ const Home = ({ data }) => {
             scrollTrigger: {
               trigger: scroller,
               scrub: 0.5,
-              start: 'top center',
-              end: 'bottom center',
+              start: 'top 85%',
+              end: 'bottom 25%',
             },
           })
           .from(scroller.querySelector('.galleryImg'), { opacity: 0.1, scale: 0.75 })
@@ -217,14 +218,13 @@ const Home = ({ data }) => {
         body={page.communitiesBody}
         communities={page.communitiesFeatured}
       />
-      <Suspense fallback={<div>LOADING...</div>}>
-        <GallerySection title={page.galleryTitle} images={page.galleryImages} />
-      </Suspense>
+      <GallerySection title={page.galleryTitle} images={page.galleryImages} />
       <CurriculumSection
         title={page.curriculumTitle}
         body={page.curriculumBody}
         courses={page.curriculumCourses}
       />
+      <SignUpSection />
       <Footer items={page.footerItems} />
     </div>
   )

@@ -60,7 +60,7 @@ const GalleryScroller = ({ url, aspect }) => {
           width: '80vw',
           maxHeight: '100vw',
           aspectRatio: aspect,
-          borderRadius: 8,
+          borderRadius: '2vmax',
           overflow: 'hidden',
         }}
         className={`galleryImg`}
