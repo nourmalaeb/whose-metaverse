@@ -7,7 +7,7 @@ import Hero from '@/components/dom/hero'
 import { Canvas } from '@react-three/fiber'
 import { Geode01 } from '@/components/canvas/shapes'
 import { useWindowSize } from 'react-use'
-import { sanityClient } from '@/lib/sanity'
+import { sanityClient, urlFor } from '@/lib/sanity'
 import {
   AboutSection,
   CommunitiesSection,
@@ -15,10 +15,12 @@ import {
   Footer,
   FourQuestions,
   GallerySection,
+  People,
   SignUpSection,
 } from '@/components/dom/sections'
 import { groq } from 'next-sanity'
 import { useGsapContext } from '@/lib/anims'
+import Head from 'next/head'
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin)
 
@@ -209,6 +211,23 @@ const Home = ({ data }) => {
 
   return (
     <div ref={gsapRef} className={lexend.className}>
+      <Head>
+        <title>{page.seoTitle}</title>
+        <meta name='title' content={page.seoTitle} />
+        <meta name='description' content={page.seoDescription} />
+
+        <meta property='og:type' content='website' />
+        <meta property='og:url' content='https://whosemetaverse.org/' />
+        <meta property='og:title' content={page.seoTitle} />
+        <meta property='og:description' content={page.seoDescription} />
+        <meta property='og:image' content={urlFor(page.seoImage).width(1600).url()} />
+
+        <meta property='twitter:card' content='summary_large_image' />
+        <meta property='twitter:url' content='https://whosemetaverse.org/' />
+        <meta property='twitter:title' content={page.seoTitle} />
+        <meta property='twitter:description' content={page.seoDescription} />
+        <meta property='twitter:image' content={urlFor(page.seoImage).width(1600).url()} />
+      </Head>
       {heroMemo}
       <Overlay />
       <AboutSection title={page.aboutTitle} body={page.aboutBody} video={page.aboutVideoURL} />
@@ -225,6 +244,7 @@ const Home = ({ data }) => {
         courses={page.curriculumCourses}
       />
       <SignUpSection />
+      <People people={page.people} />
       <Footer items={page.footerItems} />
     </div>
   )
