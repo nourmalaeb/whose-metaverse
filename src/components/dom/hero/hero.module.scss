@@ -6,7 +6,26 @@
   align-items: stretch;
   justify-content: flex-end;
   background-color: black;
-  background: linear-gradient(black, rgb(34, 0, 49));
+  background: linear-gradient(239deg, #002535, #28003a, #005043,
+      #28003a, #002535,
+      #28003a);
+  background-size: 400% 400%;
+
+  animation: gradientAnimation 21s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%
+  }
+
+  50% {
+    background-position: 100% 50%
+  }
+
+  100% {
+    background-position: 0% 50%
+  }
 }
 
 .loader {

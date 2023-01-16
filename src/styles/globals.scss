@@ -238,9 +238,10 @@ section#fourQuestions {
 
     .questionsContent {
       position: relative;
-      max-width: 800px;
+      width: 800px;
+      max-width: 90vw;
       margin: 0 auto;
-      padding: 3rem;
+      padding: 7vw;
       background-color: var(--color-hot);
       color: white;
       font-size: 1.25em;
@@ -502,6 +503,12 @@ section#people {
       border: 1px solid black;
       z-index: 100;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+
+      &.isShiny {
+        transform: rotate(-1deg);
+        background-color: var(--color-hot);
+        color: white;
+      }
     }
   }
 

@@ -15,6 +15,8 @@ import { geodeData } from './data'
 import { Color } from 'three'
 import { useWindowSize } from 'react-use'
 import { useState, useEffect } from 'react'
+import ParticleScene from '../../canvas/particles/ParticleScene'
+import { WarpShaderScene } from '@/components/canvas/shaderPlanes/warpShader'
 
 const Hero = () => {
   const [geodeNumber, setGeodeNumber] = useState()
@@ -22,14 +24,16 @@ const Hero = () => {
   useEffect(() => setGeodeNumber(24 + width / 32), [width])
   return (
     <div className={styles.hero}>
-      <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
+      {/* <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
         <color attach='background' args={[0x000000]} />
         <fog attach='fog' args={[0x000000, 9, 20]} />
         <Environment preset='dawn' />
         <GeodeInstances01 amount={geodeNumber} />
         <GeodeInstances02 amount={geodeNumber} />
         <GeodeInstances03 amount={geodeNumber} />
-      </Canvas>
+      </Canvas> */}
+      {/* <ParticleScene /> */}
+      <WarpShaderScene />
       <Nav />
     </div>
   )

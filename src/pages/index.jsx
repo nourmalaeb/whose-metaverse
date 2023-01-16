@@ -113,29 +113,14 @@ const Home = ({ data }) => {
           {
             x: 0,
           },
-          {
-            x: q.offsetWidth - qh2.offsetWidth / 3,
-            ease: 'linear',
-            scrollTrigger: {
-              trigger: questionsSection,
-              scrub: true,
-              start: `top ${idx * -q.offsetHeight + idx * qh2.offsetHeight}`,
-              end: `top ${(idx + 0.5) * -q.offsetHeight + idx * 2 * qh2.offsetHeight}`,
-            },
-          },
-        )
-        gsap.fromTo(
-          qh2,
-          {
-            x: q.offsetWidth - qh2.offsetWidth / 3,
-          },
+
           {
             x: q.offsetWidth - qh2.offsetWidth,
             ease: 'linear',
             scrollTrigger: {
               scrub: true,
               trigger: questionsSection,
-              start: `top ${(idx + 0.5) * -q.offsetHeight + idx * 2 * qh2.offsetHeight}`,
+              start: `top ${idx * -q.offsetHeight + idx * qh2.offsetHeight}`,
               end: `bottom -100%`,
             },
           },
@@ -176,7 +161,6 @@ const Home = ({ data }) => {
             ease: 'linear',
           })
 
-        const r = 15
         gsap.to(scroller.querySelector('.galleryImg'), {
           motionPath: {
             path:
