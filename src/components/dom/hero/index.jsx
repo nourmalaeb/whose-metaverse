@@ -1,22 +1,13 @@
 import { useRef } from 'react'
-import { Canvas, events, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { Nav } from '../nav'
 import styles from './hero.module.scss'
-import {
-  Environment,
-  useGLTF,
-  Instance,
-  Instances,
-  MeshTransmissionMaterial,
-  useTexture,
-  Bounds,
-} from '@react-three/drei'
+import { Environment, useGLTF, Instance, Instances, useTexture } from '@react-three/drei'
 import { geodeData } from './data'
-import { Color } from 'three'
 import { useWindowSize } from 'react-use'
 import { useState, useEffect } from 'react'
-import ParticleScene from '../../canvas/particles/ParticleScene'
-import { WarpShaderScene } from '@/components/canvas/shaderPlanes/warpShader'
+// import ParticleScene from '../../canvas/particles/ParticleScene'
+// import { WarpShaderScene } from '@/components/canvas/shaderPlanes/warpShader'
 
 const Hero = () => {
   const [geodeNumber, setGeodeNumber] = useState()
@@ -41,102 +32,20 @@ const Hero = () => {
 
 export default Hero
 
-const CoolGeode = (props) => {
-  const { nodes } = useGLTF('/models/geode-01.glb')
-  const ref = useRef()
-  useFrame((state, delta) => {
-    ref.current.rotation.y += delta * 0.1
-  })
-  return (
-    <group ref={ref} {...props}>
-      <mesh geometry={nodes.Cube.geometry}>
-        <CoolMaterial />
-      </mesh>
-    </group>
-  )
-}
-
-const Loading = () => (
-  <div className={styles.loader}>
-    <p>Loading...</p>
-  </div>
-)
-
-const CoolIcosahedron = (props) => {
-  const ref = useRef()
-  useFrame((state, delta) => {
-    ref.current.rotation.y -= delta * 0.1
-    ref.current.rotation.x -= delta * 0.02
-    ref.current.rotation.z -= delta * 0.05
-  })
-  return (
-    <group ref={ref} {...props}>
-      <mesh>
-        <icosahedronGeometry />
-        <CoolMaterial />
-      </mesh>
-    </group>
-  )
-}
-
-const CoolMaterial = ({ color = 0x110022 }) => (
-  <MeshTransmissionMaterial
-    roughness={0.15}
-    background={new Color(color)}
-    refraction={1.5}
-    refractionTint={new Color(color)}
-    rgbShift={1.5}
-    samples={10}
-    resolution={2048}
-  />
-)
-
-const BoxFrame = () => (
-  <group>
-    <mesh position={[1.85, 2.5, 0]}>
-      <boxGeometry args={[2, 0.2, 1]} />
-      <meshStandardMaterial color={0x006666} />
-    </mesh>
-    <mesh position={[2.75, 1.5, 0]}>
-      <boxGeometry args={[0.2, 2, 1]} />
-      <meshStandardMaterial color={0x006666} />
-    </mesh>
-    <mesh position={[-1.85, -2.5, 0]}>
-      <boxGeometry args={[2, 0.2, 1]} />
-      <meshStandardMaterial color={0x006666} />
-    </mesh>
-    <mesh position={[-2.75, -1.5, 0]}>
-      <boxGeometry args={[0.2, 2, 1]} />
-      <meshStandardMaterial color={0x006666} />
-    </mesh>
-  </group>
-)
-
-const GeodeMaterial = ({ color = 0x007799 }) => {
-  // const [matcap] = useTexture(['/matcaps/normals']) // normal
-  // const [matcap] = useTexture([
-  //   'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/materials/black-stone/matcap_black_stone.jpg',
-  // ]) // black stone
-  // const [matcap] = useTexture([
-  //   'https://market-assets.fra1.cdn.digitaloceanspaces.com/market-assets/materials/chrome-2/matcap_chrome_2.jpg',
-  // ]) // black chrome
+const GeodeMaterial = () => {
   const [matcap] = useTexture(['/matcaps/gem-green.png']) // green stone
 
-  // return <meshStandardMaterial color={color} transparent opacity={0.6} />
   return <meshMatcapMaterial matcap={matcap} />
 }
 
 const GeodeInstances01 = ({ radius = 30, amount = 100 }) => {
   const { nodes } = useGLTF('/models/geode-01.glb')
   const geodata = geodeData(radius, amount)
-  // console.log(geodata)
   const ref = useRef()
   useFrame((state, delta) => (ref.current.rotation.y += delta * 0.1))
   return (
     <Instances geometry={nodes.Cube.geometry}>
-      {/* <meshNormalMaterial transparent opacity={0.675} /> */}
       <GeodeMaterial />
-      {/* <CoolMaterial /> */}
       <group position={[0, 0, -3]} ref={ref}>
         {geodata.map((data, i) => (
           <GeodeInstance key={i} {...data} />
@@ -158,14 +67,11 @@ const GeodeInstances02 = ({ radius = 30, amount = 100 }) => {
     'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/small-menhir/model.gltf',
   )
   const geodata = geodeData(radius, amount)
-  // console.log(geodata)
   const ref = useRef()
   useFrame((state, delta) => (ref.current.rotation.y += delta * 0.1))
   return (
     <Instances geometry={nodes.menhir_petit.geometry}>
-      {/* <meshNormalMaterial transparent opacity={0.675} /> */}
       <GeodeMaterial />
-      {/* <CoolMaterial /> */}
       <group position={[0, 0, -3]} ref={ref}>
         {geodata.map((data, i) => (
           <GeodeInstance key={i} {...data} />
@@ -187,14 +93,11 @@ const GeodeInstances03 = ({ radius = 30, amount = 100 }) => {
     'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/medium-menhir/model.gltf',
   )
   const geodata = geodeData(radius, amount)
-  // console.log(geodata)
   const ref = useRef()
   useFrame((state, delta) => (ref.current.rotation.y += delta * 0.1))
   return (
     <Instances geometry={nodes.menhir_moyen.geometry}>
-      {/* <meshNormalMaterial transparent opacity={0.675} /> */}
       <GeodeMaterial />
-      {/* <CoolMaterial /> */}
       <group position={[0, 0, -3]} ref={ref}>
         {geodata.map((data, i) => (
           <GeodeInstance key={i} {...data} />

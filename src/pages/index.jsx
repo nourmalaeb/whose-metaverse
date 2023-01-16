@@ -1,4 +1,4 @@
-import React, { useMemo, useLayoutEffect, useRef, forwardRef, Suspense } from 'react'
+import React, { useMemo, useLayoutEffect, useRef, forwardRef } from 'react'
 import { lexend } from '@/styles/fonts'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
@@ -114,23 +114,6 @@ const Home = ({ data }) => {
           end: `bottom ${-q.offsetHeight}`,
           pin: qh2,
         })
-        // gsap.fromTo(
-        //   q,
-        //   {
-        //     paddingBottom: '100vh',
-        //   },
-
-        //   {
-        //     paddingBottom: 0,
-        //     ease: 'linear',
-        //     scrollTrigger: {
-        //       scrub: true,
-        //       trigger: questionsSection,
-        //       start: `top bottom`,
-        //       end: `bottom bottom`,
-        //     },
-        //   },
-        // )
       })
 
       // GALLERY

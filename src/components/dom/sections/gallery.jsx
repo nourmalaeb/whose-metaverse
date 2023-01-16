@@ -1,4 +1,3 @@
-// import { useEffect, useLayoutEffect, useRef } from 'react'
 import { Shape05 } from '@/components/canvas/shapes'
 import { urlFor } from '@/lib/sanity'
 import { unbounded } from '@/styles/fonts'

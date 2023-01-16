@@ -1,9 +1,9 @@
 import { GoogleSpreadsheet } from 'google-spreadsheet'
 
 export default async function handler(req, res) {
-  // if (req.method !== 'POST') {
-  //   return res.status(405).send({ message: 'Only POST requests allowed' })
-  // }
+  if (req.method !== 'POST') {
+    return res.status(405).send({ message: 'Only POST requests allowed' })
+  }
 
   const body = req.body
   const now = new Date()

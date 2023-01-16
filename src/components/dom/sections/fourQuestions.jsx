@@ -9,12 +9,7 @@ export const FourQuestions = ({ questions = [], questionsBody }) => {
       <div className='questionsQuestions'>
         {questions.map((question, idx) => (
           <div className='questionContainer' key={`question-${idx}`}>
-            <h2 className={cn(unbounded.className, 'question')}>
-              {question}
-              {/* <span>{question}</span> */}
-              {/* <span aria-hidden>{question}</span>
-              <span aria-hidden>{question}</span> */}
-            </h2>
+            <h2 className={cn(unbounded.className, 'question')}>{question}</h2>
           </div>
         ))}
       </div>

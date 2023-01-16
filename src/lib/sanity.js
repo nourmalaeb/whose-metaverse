@@ -4,7 +4,6 @@ import { buildFileUrl, parseAssetId } from '@sanity/asset-utils'
 import imageUrlBuilder from '@sanity/image-url'
 import classNames from 'classnames'
 import { createClient } from 'next-sanity'
-// import ReactPlayer from 'react-player'
 import dynamic from 'next/dynamic'
 
 const VideoPlayer = dynamic(() => import('../components/dom/videoPlayer'), { ssr: false })
