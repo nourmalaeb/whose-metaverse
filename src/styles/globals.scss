@@ -71,10 +71,6 @@ label {
 body .column {
   width: 500px;
   max-width: 100%;
-
-  p {
-    padding-left: 1rem;
-  }
 }
 
 h2 {
@@ -86,14 +82,13 @@ h2 {
 
 .sectionTitle {
   position: relative;
-  padding: 8rem 0 0 1rem;
-  border-left: 1px solid black;
-
 }
 
 .sectionTitle-widget {
+  position: relative;
   width: calc(64px + 4vw);
   height: calc(64px + 4vw);
+  left: -24px;
 }
 
 .framed {

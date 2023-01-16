@@ -9,7 +9,7 @@ export const CurriculumSection = ({ title, body, courses }) => {
   return (
     <section id='curriculum' className='simple vert'>
       <div className='column'>
-        <div style={{ width: 100, height: 100 }}>
+        <div style={{ width: 100, height: 100, position: 'relative', left: -16 }}>
           <Canvas camera={{ position: [20, 0, 20], fov: 20 }}>
             <Center scale={3}>
               <Common />
