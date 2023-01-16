@@ -271,7 +271,7 @@ const Overlay = forwardRef((props, fRef) => {
         pointerEvents: 'none',
         width: '100vw',
         height: '100dvh',
-        zIndex: 20,
+        zIndex: 500,
         mixBlendMode: 'difference',
         color: col,
       }}
