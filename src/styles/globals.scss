@@ -286,13 +286,12 @@ section#fourQuestions {
   & .questionsQuestions {
     position: relative;
     z-index: 0;
-    padding-bottom: 50vh;
   }
 
   & .questionContainer {
     position: relative;
     width: 100vw;
-    height: 100vh;
+    height: 70vh;
 
     &:first-of-type h2 {
       padding-top: 2em;
@@ -547,8 +546,10 @@ section#people {
     }
 
     &.isShiny {
-      grid-column: 1 / -1;
-      font-size: 1.5em;
+      // grid-column: 1 / -1;
+      // font-size: 1.5em;
+      background-color: var(--color-hot);
+      color: white;
     }
 
     &:hover {
@@ -558,11 +559,11 @@ section#people {
       z-index: 100;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 
-      &.isShiny {
-        transform: rotate(-1deg);
-        background-color: var(--color-hot);
-        color: white;
-      }
+      // &.isShiny {
+      // transform: rotate(-1deg);
+      // background-color: var(--color-hot);
+      // color: white;
+      // }
     }
   }
 
