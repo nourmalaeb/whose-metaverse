@@ -286,7 +286,8 @@ section#fourQuestions {
   & .questionContainer {
     position: relative;
     width: 100vw;
-    height: 70vh;
+    height: 50vh;
+    min-height: max-content;
 
     &:first-of-type h2 {
       padding-top: 2em;
@@ -377,7 +378,7 @@ section#communities {
     }
 
     & h3 {
-      font-size: 3rem;
+      font-size: calc(1.5rem + 1vw);
       margin: 1rem 0 0 0;
       font-weight: 900;
       line-height: 1;

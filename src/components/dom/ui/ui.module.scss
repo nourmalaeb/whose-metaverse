@@ -10,12 +10,17 @@
   border-radius: 10px;
   transition: all .3s ease-in-out;
   font-family: inherit;
-  font-size: inherit;
+  font-size: 1.125em;
+  font-weight: bold;
   padding: 0.5em 1.5em;
   border: 1px solid white;
 
   &.center {
     margin: 0 auto;
+  }
+
+  &.mt {
+    margin-top: 1em;
   }
 
   &::before {

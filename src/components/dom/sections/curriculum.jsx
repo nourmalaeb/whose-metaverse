@@ -1,5 +1,6 @@
 import { Common } from '@/components/canvas/common'
 import { Forefront } from '@/components/canvas/shapes'
+import { portableTextComponents } from '@/lib/sanity'
 import { unbounded } from '@/styles/fonts'
 import { PortableText } from '@portabletext/react'
 import { Center } from '@react-three/drei'
@@ -18,7 +19,7 @@ export const CurriculumSection = ({ title, body, courses }) => {
           </Canvas>
         </div>
         <h2 className={`sectionTitle ${unbounded.className}`}>{title}</h2>
-        <PortableText value={body} />
+        <PortableText value={body} components={portableTextComponents} />
       </div>
       <div className='courseCarouselContainer'>
         <div className='courseCarousel'>

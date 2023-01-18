@@ -4,6 +4,7 @@ import { buildFileUrl, parseAssetId } from '@sanity/asset-utils'
 import imageUrlBuilder from '@sanity/image-url'
 import classNames from 'classnames'
 import { createClient } from 'next-sanity'
+import styles from '@/components/dom/ui/ui.module.scss'
 import dynamic from 'next/dynamic'
 
 const VideoPlayer = dynamic(() => import('../components/dom/videoPlayer'), { ssr: false })
@@ -30,8 +31,8 @@ const VideoBlock = ({ value }) => {
 
 const JuicyLinkBlock = ({ value }) => {
   return (
-    <Button href={value.url} classes={classNames('center', unbounded.className)}>
-      {value.linkText}
+    <Button href={value.url} classes={classNames(styles.mt, unbounded.className)}>
+      {value.buttonText}
     </Button>
   )
 }
