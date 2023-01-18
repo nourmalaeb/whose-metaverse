@@ -43,7 +43,7 @@ export const SignUpSection = ({ title = 'Sign up for updates', cta = `Submit` })
       <form>
         <div className={'field'}>
           <label htmlFor='email' name='email'>
-            Email
+            Enter your email to receive project updates
           </label>
           <input
             required

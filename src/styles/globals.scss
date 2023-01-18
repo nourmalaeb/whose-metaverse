@@ -300,7 +300,7 @@ section#fourQuestions {
 
   & h2 {
     background-color: black;
-    color: gold;
+    color: white;
     position: relative;
     border-top: 2px solid gold;
     border-bottom: 1px solid gold;
@@ -513,6 +513,14 @@ section#signUp {
     border: 1px solid gold;
     padding: 2vmax;
     border-radius: 2px;
+  }
+
+  & input {
+    border: 1px solid white;
+    background-color: black;
+    color: gold;
+    padding: 0.5em 0.75em;
+    border-radius: 3px;
   }
 }
 
