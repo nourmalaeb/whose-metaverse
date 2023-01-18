@@ -215,7 +215,7 @@ const Home = ({ data }) => {
         courses={page.curriculumCourses}
       />
       <SignUpSection />
-      <People people={page.people} />
+      <People people={page.people} title={page.peopleTitle} />
       <Footer items={page.footerItems} />
     </div>
   )
