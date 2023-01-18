@@ -6,7 +6,9 @@ import { Environment, useGLTF, Instance, Instances, useTexture } from '@react-th
 import { geodeData } from './data'
 import { useWindowSize } from 'react-use'
 import { useState, useEffect } from 'react'
-// import ParticleScene from '../../canvas/particles/ParticleScene'
+import ParticleScene from '../../canvas/particles/ParticleScene'
+import PointsScene from '../../canvas/pointCloud/Scene'
+import { EffectComposer, DotScreen } from '@react-three/postprocessing'
 // import { WarpShaderScene } from '@/components/canvas/shaderPlanes/warpShader'
 
 const Hero = () => {
@@ -15,15 +17,23 @@ const Hero = () => {
   useEffect(() => setGeodeNumber(24 + width / 32), [width])
   return (
     <div className={styles.hero}>
-      <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
+      {/* <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
         <color attach='background' args={[0x000000]} />
         <fog attach='fog' args={[0x000000, 9, 20]} />
         <Environment preset='dawn' />
         <GeodeInstances01 amount={geodeNumber} />
         <GeodeInstances02 amount={geodeNumber} />
         <GeodeInstances03 amount={geodeNumber} />
-      </Canvas>
+        <EffectComposer>
+          <DotScreen
+            // blendFunction={BlendFunction.NORMAL} // blend mode
+            angle={Math.PI * 0.5} // angle of the dot pattern
+            scale={12.0} // scale of the dot pattern
+          />
+        </EffectComposer>
+      </Canvas> */}
       {/* <ParticleScene /> */}
+      <PointsScene />
       {/* <WarpShaderScene /> */}
       <Nav />
     </div>
