@@ -33,12 +33,13 @@ export const GallerySection = ({ title, body, images }) => {
           gap: '10vw',
         }}
       >
-        {images.map((img) => {
+        {images.map((img, idx) => {
           return (
             <GalleryScroller
               url={urlFor(img).width(1600).url()}
               aspect={getImageDimensions(img).aspectRatio}
               key={img._key}
+              idx={idx}
             />
           )
         })}
@@ -47,7 +48,7 @@ export const GallerySection = ({ title, body, images }) => {
   )
 }
 
-const GalleryScroller = ({ url, aspect }) => {
+const GalleryScroller = ({ url, aspect, idx }) => {
   return (
     <div
       className={`galleryScroller`}
@@ -64,7 +65,7 @@ const GalleryScroller = ({ url, aspect }) => {
         }}
         className={`galleryImg`}
       >
-        <Image src={url} alt='' fill style={{ objectFit: 'contain' }} />
+        <Image src={url} alt='' fill style={{ objectFit: 'contain' }} priority={idx <= 2} />
       </div>
     </div>
   )
