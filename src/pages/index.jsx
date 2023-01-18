@@ -112,6 +112,37 @@ const Home = ({ data }) => {
           end: `bottom ${-q.offsetHeight}`,
           pin: qh2,
         })
+
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: q,
+              scrub: true,
+              start: `top 80%`,
+              end: `top 30%`,
+            },
+          })
+          .from(qh2, { opacity: 0 })
+          .to(qh2, { opacity: 1 })
+      })
+
+      gsap.to('.questionsContentWrapper', {
+        backgroundColor: 'rgba(0, 0, 0, 1)',
+        scrollTrigger: {
+          trigger: '.questionsContentWrapper',
+          scrub: true,
+          start: 'top bottom',
+          end: 'bottom top',
+        },
+      })
+      gsap.to('.questionsFader', {
+        backgroundColor: 'rgba(0, 0, 0, 1)',
+        scrollTrigger: {
+          trigger: '.questionsContentWrapper',
+          scrub: true,
+          start: 'top bottom',
+          end: 'bottom top',
+        },
       })
 
       // GALLERY
@@ -121,12 +152,15 @@ const Home = ({ data }) => {
           .timeline({
             scrollTrigger: {
               trigger: scroller,
-              scrub: 0.5,
-              start: 'top 85%',
+              scrub: 0.15,
+              start: 'top 65%',
               end: 'bottom 25%',
             },
           })
-          .from(scroller.querySelector('.galleryImg'), { opacity: 0.1, scale: 0.75 })
+          .from(scroller.querySelector('.galleryImg'), {
+            opacity: 0,
+            scale: 0.5,
+          })
           .to(scroller.querySelector('.galleryImg'), {
             opacity: 1,
             scale: 1,
