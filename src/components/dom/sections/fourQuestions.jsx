@@ -14,6 +14,7 @@ export const FourQuestions = ({ questions = [], questionsBody }) => {
         ))}
       </div>
       <div className='questionsContentWrapper'>
+        <div className='questionsFader' />
         <div className='questionsContent'>
           <PortableText value={questionsBody} components={portableTextComponents} />
         </div>
