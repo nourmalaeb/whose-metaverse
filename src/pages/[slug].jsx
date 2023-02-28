@@ -19,7 +19,8 @@ const Person = ({ page }) => {
         width='100%'
         height='100%'
         src={page.iframeSrc}
-        id=''
+        title={page.title}
+        id={page.slug.current}
         allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; microphone; camera; display-capture;'
         allowFullscreen
         style={{ border: 0 }}
