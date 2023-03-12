@@ -6,8 +6,8 @@ import {
   Inter,
   Epilogue,
   Figtree,
-} from '@next/font/google'
-import localFont from '@next/font/local'
+} from "next/font/google"
+import localFont from "next/font/local"
 
 export const unbounded = Unbounded({ subsets: ['latin'] })
 export const lexend = Lexend({ subsets: ['latin'] })
