@@ -52,7 +52,7 @@ const GalleryScroller = ({ url, aspect, idx }) => {
   return (
     <div
       className={`galleryScroller`}
-      style={{ padding: '5vh', position: 'relative', margin: '0 auto' }}
+      style={{ padding: '0', position: 'relative', margin: '0 auto' }}
     >
       <div
         style={{

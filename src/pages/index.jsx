@@ -1,5 +1,5 @@
 import React, { useMemo, useLayoutEffect, useRef, forwardRef } from 'react'
-import { lexend } from '@/styles/fonts'
+import { lexend, unbounded } from '@/styles/fonts'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
@@ -21,6 +21,7 @@ import {
 import { groq } from 'next-sanity'
 import { useGsapContext } from '@/lib/anims'
 import Head from 'next/head'
+import { Button } from '@/components/dom/ui'
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin)
 
@@ -268,88 +269,87 @@ const Overlay = forwardRef((props, fRef) => {
   const spacer = 20
   const col = 'var(--color-bg)'
   return (
-    <div
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        pointerEvents: 'none',
-        width: '100vw',
-        height: '100dvh',
-        zIndex: 500,
-        mixBlendMode: 'difference',
-        color: col,
-      }}
-      {...props}
-    >
+    <>
       <div
         style={{
-          position: 'absolute',
-          top: spacer + 5,
-          left: spacer + 5,
-          fontSize: '13px',
-          fontWeight: 600,
-          lineHeight: 1.1,
-          letterSpacing: '0.1em',
-          transformOrigin: 'top left',
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          pointerEvents: 'none',
+          width: '100vw',
+          height: '100dvh',
+          zIndex: 5000,
+          mixBlendMode: 'difference',
+          color: col,
         }}
-        className={`pageTitle ${lexend.className}`}
+        {...props}
       >
-        WHOSE
-        <br />
-        METAVERSE?
+        <div
+          style={{
+            position: 'absolute',
+            top: spacer + 5,
+            left: spacer + 5,
+            fontSize: '13px',
+            fontWeight: 600,
+            lineHeight: 1.1,
+            letterSpacing: '0.1em',
+            transformOrigin: 'top left',
+          }}
+          className={`pageTitle ${lexend.className}`}
+        >
+          WHOSE
+          <br />
+          METAVERSE?
+        </div>
+        <div
+          className='topleft-bracket'
+          style={{
+            position: 'absolute',
+            top: spacer,
+            left: spacer,
+            width: 64,
+            height: 64,
+            maxWidth: '12vw',
+            maxHeight: '10vw',
+            borderLeft: `1.5px solid ${col}`,
+            borderTop: `1.5px solid ${col}`,
+            transformOrigin: 'top left',
+          }}
+        />
+        <div
+          className='bottomRight-bracket'
+          style={{
+            position: 'absolute',
+            bottom: spacer,
+            right: spacer,
+            width: 64,
+            height: 64,
+            maxWidth: '12vw',
+            maxHeight: '10vw',
+            borderRight: `1.5px solid ${col}`,
+            borderBottom: `1.5px solid ${col}`,
+            transformOrigin: 'bottom right',
+          }}
+        />
       </div>
       <div
-        className='topleft-bracket'
-        style={{
-          position: 'absolute',
-          top: spacer,
-          left: spacer,
-          width: 64,
-          height: 64,
-          maxWidth: '12vw',
-          maxHeight: '10vw',
-          borderLeft: `1.5px solid ${col}`,
-          borderTop: `1.5px solid ${col}`,
-          transformOrigin: 'top left',
-        }}
-      />
-      <div
-        className='bottomRight-bracket'
-        style={{
-          position: 'absolute',
-          bottom: spacer,
-          right: spacer,
-          width: 64,
-          height: 64,
-          maxWidth: '12vw',
-          maxHeight: '10vw',
-          borderRight: `1.5px solid ${col}`,
-          borderBottom: `1.5px solid ${col}`,
-          transformOrigin: 'bottom right',
-        }}
-      />
-      <a
         ref={fRef}
-        className='s01-gsap'
+        className={unbounded.className}
         style={{
-          position: 'absolute',
-          transformOrigin: 'top right',
-          aspectRatio: 1,
-          // border: '3px solid blue',
-          width: 64,
+          position: 'fixed',
           maxWidth: '12vw',
           bottom: spacer,
           left: spacer,
-          zIndex: 200,
+          zIndex: 5000,
+          pointerEvents: 'auto',
+          fontSize: '0.75em',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
         }}
-        href='#nav'
       >
-        <Canvas>
-          <Geode01 scale={0.5} />
-        </Canvas>
-      </a>
-    </div>
+        <Button href='#nav'>Get in touch</Button>
+      </div>
+    </>
   )
 })
 

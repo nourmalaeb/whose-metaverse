@@ -31,7 +31,7 @@ const VideoBlock = ({ value }) => {
 
 const JuicyLinkBlock = ({ value }) => {
   return (
-    <Button href={value.url} classes={classNames(styles.mt, unbounded.className)}>
+    <Button href={value.url} classes={classNames(styles.mt, unbounded.className, styles.filled)}>
       {value.buttonText}
     </Button>
   )
