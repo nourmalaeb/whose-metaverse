@@ -347,7 +347,9 @@ const Overlay = forwardRef((props, fRef) => {
           letterSpacing: '0.1em',
         }}
       >
-        <Button href='#nav'>Get in touch</Button>
+        <Button href='mailto:hello@lightshed.io?subject=%5BWhose%20Metaverse%3F%5D'>
+          Get in touch
+        </Button>
       </div>
     </>
   )
