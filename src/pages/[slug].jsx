@@ -8,23 +8,27 @@ const embedPagesQuery = groq`*[_type == "embedPage"] { slug }`
 const singleEmbedPageQuery = (slug) => groq`*[_type == "embedPage" && slug.current == "${slug}"][0]`
 
 const Person = ({ page }) => {
-  // console.log('PAGE', page)
+  console.log('PAGE', page)
   return (
     <div style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}>
       <Head>
         <title>Whose Metaverse | {page.title}</title>
         <meta name='title' content={page.title} />
       </Head>
-      <iframe
-        width='100%'
-        height='100%'
-        src={page.iframeSrc}
-        title={page.title}
-        id={page.slug.current}
-        allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; microphone; camera; display-capture;'
-        allowFullscreen
-        style={{ border: 0 }}
-      ></iframe>
+      {page.pageType === 'iframeSrc' ? (
+        <iframe
+          width='100%'
+          height='100%'
+          src={page.iframeSrc}
+          title={page.title}
+          id={page.slug.current}
+          allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; microphone; camera; display-capture;'
+          allowFullscreen
+          style={{ border: 0 }}
+        ></iframe>
+      ) : (
+        <div dangerouslySetInnerHTML={{ __html: page.embedCode.code }} />
+      )}
     </div>
   )
 }
