@@ -8,7 +8,7 @@ const embedPagesQuery = groq`*[_type == "embedPage"] { slug }`
 const singleEmbedPageQuery = (slug) => groq`*[_type == "embedPage" && slug.current == "${slug}"][0]`
 
 const Person = ({ page }) => {
-  console.log('PAGE', page)
+  // console.log('PAGE', page)
   return (
     <div style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}>
       <Head>
