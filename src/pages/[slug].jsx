@@ -27,7 +27,10 @@ const Person = ({ page }) => {
           style={{ border: 0 }}
         ></iframe>
       ) : (
-        <div dangerouslySetInnerHTML={{ __html: page.embedCode.code }} />
+        <div
+          style={{ width: '100vw', height: '100vh' }}
+          dangerouslySetInnerHTML={{ __html: page.embedCode.code }}
+        />
       )}
     </div>
   )
