@@ -29,7 +29,7 @@ const Person = ({ page }) => {
       ) : (
         <div
           style={{ width: '100vw', height: '100vh' }}
-          dangerouslySetInnerHTML={{ __html: page.embedCode.code }}
+          dangerouslySetInnerHTML={{ __html: page.embedCode?.code }}
         />
       )}
     </div>
