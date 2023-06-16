@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react'
 
 const Hero = () => {
   const [geodeNumber, setGeodeNumber] = useState(null)
-  useEffect(() => setGeodeNumber(24 + window.innerWidth / 32), [])
+  useEffect(() => setGeodeNumber(Math.floor(24 + window.innerWidth / 32)), [])
 
   if (!geodeNumber) return null
   return (
