@@ -10,7 +10,7 @@ export const SignUpSection = ({ title = 'Sign up for updates', cta = `Submit` })
   const signUpHandler = async (e) => {
     e.preventDefault()
 
-    console.log(formData)
+    // console.log(formData)
 
     if (
       !formData.email ||

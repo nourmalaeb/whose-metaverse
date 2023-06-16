@@ -1,11 +1,9 @@
-import React, { useMemo, useLayoutEffect, useRef, forwardRef } from 'react'
+import React, { useMemo, useRef, forwardRef, useEffect } from 'react'
 import { lexend, unbounded } from '@/styles/fonts'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
 import Hero from '@/components/dom/hero'
-import { Canvas } from '@react-three/fiber'
-import { Geode01 } from '@/components/canvas/shapes'
 import { useWindowSize } from 'react-use'
 import { sanityClient, urlFor } from '@/lib/sanity'
 import {
@@ -35,7 +33,7 @@ const Home = ({ data }) => {
 
   const { width } = useWindowSize()
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     let mql = window.matchMedia('(min-width: 600px)')
 
     const scaleFactor = mql.matches ? 120 : 180
@@ -183,18 +181,18 @@ const Home = ({ data }) => {
             ease: 'linear',
           })
 
-        gsap.to(scroller.querySelector('.galleryImg'), {
-          motionPath: {
-            path:
-              index % 2 === 0
-                ? `M-12.0874 19.4813C-20.98329 14.728 -13.99695 -25.29181 5.1581 -19.85131C15.3918 -14.11096 33.154 10.2124 18.3269 3.241C-1.793 -6.5267 5.1581 -4.2346 -12.0874 19.4813Z`
-                : `M25.293 -10.1657C29.2725 -4.7063 15.6696 -3.0997 4.0642 1.2432C-7.2372 5.1087 -16.58479 13.2143 -19.81617 6.305C-21.60456 -3.7684 -14.56521 -28.39443 -10.846 -16.517C-4.197 0.6563 17.601 -22.47672 25.293 -10.1657Z`,
-          },
-          duration: 15 + index,
-          start: 1 / imgs.length,
-          repeat: -1,
-          ease: 'none',
-        })
+        // gsap.to(scroller.querySelector('.galleryImg'), {
+        //   motionPath: {
+        //     path:
+        //       index % 2 === 0
+        //         ? `M-12.0874 19.4813C-20.98329 14.728 -13.99695 -25.29181 5.1581 -19.85131C15.3918 -14.11096 33.154 10.2124 18.3269 3.241C-1.793 -6.5267 5.1581 -4.2346 -12.0874 19.4813Z`
+        //         : `M25.293 -10.1657C29.2725 -4.7063 15.6696 -3.0997 4.0642 1.2432C-7.2372 5.1087 -16.58479 13.2143 -19.81617 6.305C-21.60456 -3.7684 -14.56521 -28.39443 -10.846 -16.517C-4.197 0.6563 17.601 -22.47672 25.293 -10.1657Z`,
+        //   },
+        //   duration: 15 + index,
+        //   start: 1 / imgs.length,
+        //   repeat: -1,
+        //   ease: 'none',
+        // })
       })
 
       // COURSES

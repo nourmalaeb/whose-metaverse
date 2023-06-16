@@ -21,11 +21,11 @@ export default async function handler(req, res) {
     })
 
     await doc.loadInfo() // loads document properties and worksheets
-    console.log(doc.title)
+    // console.log(doc.title)
 
     const sheet = doc.sheetsByIndex[0] // or use doc.sheetsById[id] or doc.sheetsByTitle[title]
-    console.log(sheet.title)
-    console.log(sheet.rowCount)
+    // console.log(sheet.title)
+    // console.log(sheet.rowCount)
 
     const newRow = await sheet.addRow({ created: now, email: body.email })
     return res.status(201).json({
