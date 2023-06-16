@@ -10,7 +10,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "lint": "yarn prettier && yarn eslint",
+    "lint": "npm prettier && npm eslint",
     "eslint": "next lint --fix --dir src",
     "prettier": "prettier -l \"./src/**/*.{js,jsx,md}\"",
     "dev": "next dev",

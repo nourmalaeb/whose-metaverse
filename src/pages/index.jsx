@@ -4,8 +4,8 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
 import Hero from '@/components/dom/hero'
-import { Canvas } from '@react-three/fiber'
-import { Geode01 } from '@/components/canvas/shapes'
+// import { Canvas } from '@react-three/fiber'
+// import { Geode01 } from '@/components/canvas/shapes'
 import { useWindowSize } from 'react-use'
 import { sanityClient, urlFor } from '@/lib/sanity'
 import {
@@ -191,7 +191,7 @@ const Home = ({ data }) => {
                 : `M25.293 -10.1657C29.2725 -4.7063 15.6696 -3.0997 4.0642 1.2432C-7.2372 5.1087 -16.58479 13.2143 -19.81617 6.305C-21.60456 -3.7684 -14.56521 -28.39443 -10.846 -16.517C-4.197 0.6563 17.601 -22.47672 25.293 -10.1657Z`,
           },
           duration: 15 + index,
-          start: 1 / imgs.length,
+          // start: 1 / imgs.length,
           repeat: -1,
           ease: 'none',
         })
@@ -213,7 +213,7 @@ const Home = ({ data }) => {
     return () => ctx.revert()
   }, [width, page, ctx])
 
-  const heroMemo = useMemo(() => <Hero />, [])
+  // const heroMemo = useMemo(() => <Hero />, [])
 
   return (
     <div ref={gsapRef} className={lexend.className}>
@@ -234,7 +234,8 @@ const Home = ({ data }) => {
         <meta property='twitter:description' content={page.seoDescription} />
         <meta property='twitter:image' content={urlFor(page.seoImage).width(1600).url()} />
       </Head>
-      {heroMemo}
+      {/* {heroMemo} */}
+      <Hero />
       <Overlay />
       <AboutSection title={page.aboutTitle} body={page.aboutBody} video={page.aboutVideoURL} />
       <FourQuestions questions={page.questions} questionsBody={page.questionsBody} />
