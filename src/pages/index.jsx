@@ -211,7 +211,7 @@ const Home = ({ data }) => {
     return () => ctx.revert()
   }, [width, page, ctx])
 
-  const heroMemo = useMemo(() => <Hero />, [])
+  // const heroMemo = useMemo(() => <Hero />, [])
 
   return (
     <div ref={gsapRef} className={lexend.className}>
@@ -232,7 +232,8 @@ const Home = ({ data }) => {
         <meta property='twitter:description' content={page.seoDescription} />
         <meta property='twitter:image' content={urlFor(page.seoImage).width(1600).url()} />
       </Head>
-      {heroMemo}
+      {/* {heroMemo} */}
+      <Hero />
       <Overlay />
       <AboutSection title={page.aboutTitle} body={page.aboutBody} video={page.aboutVideoURL} />
       <FourQuestions questions={page.questions} questionsBody={page.questionsBody} />
