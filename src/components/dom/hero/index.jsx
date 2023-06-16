@@ -1,30 +1,31 @@
-import { useRef } from 'react'
+import { Suspense, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Nav } from '../nav'
 import styles from './hero.module.scss'
 import { Environment, useGLTF, Instance, Instances, useTexture } from '@react-three/drei'
 import { geodeData } from './data'
-import { useWindowSize } from 'react-use'
+import { useWindowSize, useMountedState } from 'react-use'
 import { useState, useEffect } from 'react'
 // import ParticleScene from '../../canvas/particles/ParticleScene'
 // import { WarpShaderScene } from '@/components/canvas/shaderPlanes/warpShader'
 
 const Hero = () => {
-  const [geodeNumber, setGeodeNumber] = useState()
-  const { width } = useWindowSize()
-  useEffect(() => setGeodeNumber(24 + width / 32), [width])
+  const [geodeNumber, setGeodeNumber] = useState(null)
+  useEffect(() => setGeodeNumber(24 + window.innerWidth / 32), [])
+
+  if (!geodeNumber) return null
   return (
     <div className={styles.hero}>
       <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
         <color attach='background' args={[0x000000]} />
         <fog attach='fog' args={[0x000000, 9, 20]} />
-        <Environment preset='dawn' />
-        <GeodeInstances01 amount={geodeNumber} />
-        <GeodeInstances02 amount={geodeNumber} />
-        <GeodeInstances03 amount={geodeNumber} />
+        <Suspense fallback={null}>
+          <Environment preset='dawn' />
+          <GeodeInstances01 amount={geodeNumber} />
+          <GeodeInstances02 amount={geodeNumber} />
+          <GeodeInstances03 amount={geodeNumber} />
+        </Suspense>
       </Canvas>
-      {/* <ParticleScene /> */}
-      {/* <WarpShaderScene /> */}
       <Nav />
     </div>
   )
@@ -44,7 +45,7 @@ const GeodeInstances01 = ({ radius = 30, amount = 100 }) => {
   const ref = useRef()
   useFrame((state, delta) => (ref.current.rotation.y += delta * 0.1))
   return (
-    <Instances geometry={nodes.Cube.geometry}>
+    <Instances geometry={nodes.Cube.geometry} limit={amount}>
       <GeodeMaterial />
       <group position={[0, 0, -3]} ref={ref}>
         {geodata.map((data, i) => (
@@ -70,7 +71,7 @@ const GeodeInstances02 = ({ radius = 30, amount = 100 }) => {
   const ref = useRef()
   useFrame((state, delta) => (ref.current.rotation.y += delta * 0.1))
   return (
-    <Instances geometry={nodes.menhir_petit.geometry}>
+    <Instances geometry={nodes.menhir_petit.geometry} limit={amount}>
       <GeodeMaterial />
       <group position={[0, 0, -3]} ref={ref}>
         {geodata.map((data, i) => (
@@ -96,7 +97,7 @@ const GeodeInstances03 = ({ radius = 30, amount = 100 }) => {
   const ref = useRef()
   useFrame((state, delta) => (ref.current.rotation.y += delta * 0.1))
   return (
-    <Instances geometry={nodes.menhir_moyen.geometry}>
+    <Instances geometry={nodes.menhir_moyen.geometry} limit={amount}>
       <GeodeMaterial />
       <group position={[0, 0, -3]} ref={ref}>
         {geodata.map((data, i) => (

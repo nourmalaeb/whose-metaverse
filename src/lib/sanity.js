@@ -12,7 +12,7 @@ const VideoPlayer = dynamic(() => import('../components/dom/videoPlayer'), { ssr
 export const sanityClient = createClient({
   projectId: 'owrqzb2p',
   dataset: 'production',
-  apiVersion: '2022-03-25',
+  apiVersion: '2023-06-15',
   useCdn: typeof document !== 'undefined',
 })
 
