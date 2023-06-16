@@ -138,6 +138,3 @@ useGLTF.preload(
 useGLTF.preload(
   'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/small-menhir/model.gltf',
 )
-useGLTF.preload(
-  'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/iphone-x/model.gltf',
-)
