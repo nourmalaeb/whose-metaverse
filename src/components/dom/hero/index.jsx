@@ -4,10 +4,7 @@ import { Nav } from '../nav'
 import styles from './hero.module.scss'
 import { Environment, useGLTF, Instance, Instances, useTexture } from '@react-three/drei'
 import { geodeData } from './data'
-import { useWindowSize, useMountedState } from 'react-use'
 import { useState, useEffect } from 'react'
-// import ParticleScene from '../../canvas/particles/ParticleScene'
-// import { WarpShaderScene } from '@/components/canvas/shaderPlanes/warpShader'
 
 const Hero = () => {
   const [geodeNumber, setGeodeNumber] = useState(null)
@@ -16,7 +13,7 @@ const Hero = () => {
   if (!geodeNumber) return null
   return (
     <div className={styles.hero}>
-      <Canvas camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
+      <Canvas className={styles.heroCanvas} camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
         <color attach='background' args={[0x000000]} />
         <fog attach='fog' args={[0x000000, 9, 20]} />
         <Suspense fallback={null}>

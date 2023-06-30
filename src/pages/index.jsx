@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, forwardRef, useEffect } from 'react'
+import React, { useMemo, useRef, forwardRef, useEffect, Suspense } from 'react'
 import { lexend, unbounded } from '@/styles/fonts'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
@@ -211,7 +211,7 @@ const Home = ({ data }) => {
     return () => ctx.revert()
   }, [width, page, ctx])
 
-  // const heroMemo = useMemo(() => <Hero />, [])
+  const heroMemo = useMemo(() => <Hero />, [])
 
   return (
     <div ref={gsapRef} className={lexend.className}>
@@ -232,8 +232,7 @@ const Home = ({ data }) => {
         <meta property='twitter:description' content={page.seoDescription} />
         <meta property='twitter:image' content={urlFor(page.seoImage).width(1600).url()} />
       </Head>
-      {/* {heroMemo} */}
-      <Hero />
+      <HeroLoading>{heroMemo}</HeroLoading>
       <Overlay />
       <AboutSection title={page.aboutTitle} body={page.aboutBody} video={page.aboutVideoURL} />
       <FourQuestions questions={page.questions} questionsBody={page.questionsBody} />
@@ -263,6 +262,8 @@ export const getStaticProps = async () => {
   )
   return { props: { title: 'Whose Metaverse? | The Emerging Tech Garage For Everyone', data } }
 }
+
+const HeroLoading = ({ children }) => <div style={{ height: '100svh' }}>{children}</div>
 
 const Overlay = forwardRef((props, fRef) => {
   const spacer = 20
