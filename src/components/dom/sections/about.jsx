@@ -20,7 +20,9 @@ export const AboutSection = ({ title, body, video }) => {
       <div className='aboutContent'>
         <PortableText value={body} components={portableTextComponents} />
       </div>
-      <VideoPlayer url={`/media/Whose Metaverse__Student Video__optimized.mp4`} />
+      <VideoPlayer
+        url={[{ src: `/media/Whose Metaverse__Student Video__optimized.mp4`, type: 'video/mp4' }]}
+      />
     </section>
   )
 }
