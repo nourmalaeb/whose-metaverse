@@ -161,6 +161,10 @@ section#about {
       margin: 5vw auto;
     }
 
+    & video {
+      width: 100%;
+    }
+
     &::before {
       content: '';
       display: block;

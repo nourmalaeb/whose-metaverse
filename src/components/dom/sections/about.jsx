@@ -20,12 +20,37 @@ export const AboutSection = ({ title, body, video }) => {
       <div className='aboutContent'>
         <PortableText value={body} components={portableTextComponents} />
       </div>
-      <VideoPlayer
+      {/* <VideoPlayer
         url={[
-          { src: `/media/Whose_Metaverse__Student_Video.mp4`, type: 'video/mp4' },
-          { src: `/media/Whose_Metaverse__Student_Video.webm`, type: 'video/webm' },
+          {
+            src: `https://d1eqjf0s95vgsu.cloudfront.net/Whose_Metaverse__Student_Video.mp4`,
+            type: 'video/mp4',
+          },
+          {
+            src: `https://d1eqjf0s95vgsu.cloudfront.net/Whose_Metaverse__Student_Video.webm`,
+            type: 'video/webm',
+          },
         ]}
-      />
+      /> */}
+      <div className='video inlineVideo'>
+        <video playsInline muted autoPlay loop controls preload='auto'>
+          <source
+            src='https://d1eqjf0s95vgsu.cloudfront.net/Whose_Metaverse__Student_Video.webm'
+            type='video/webm'
+          />
+          <source
+            src='https://d1eqjf0s95vgsu.cloudfront.net/Whose_Metaverse__Student_Video.mp4'
+            type='video/mp4'
+          />
+          <p>
+            Your browser doesn't support HTML video. Here is a
+            <a href='https://d1eqjf0s95vgsu.cloudfront.net/Whose_Metaverse__Student_Video.mp4'>
+              link to the video
+            </a>{' '}
+            instead.
+          </p>
+        </video>
+      </div>
     </section>
   )
 }
