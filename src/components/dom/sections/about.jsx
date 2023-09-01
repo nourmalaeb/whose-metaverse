@@ -43,7 +43,7 @@ export const AboutSection = ({ title, body, video }) => {
             type='video/mp4'
           />
           <p>
-            Your browser doesn't support HTML video. Here is a
+            Your browser does not support HTML video. Here is a
             <a href='https://d1eqjf0s95vgsu.cloudfront.net/Whose_Metaverse__Student_Video.mp4'>
               link to the video
             </a>{' '}
