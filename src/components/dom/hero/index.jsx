@@ -14,9 +14,9 @@ const Hero = () => {
   return (
     <div className={styles.hero}>
       <Canvas className={styles.heroCanvas} camera={{ position: [0, 0, 10], fov: 50, near: 2 }}>
-        <color attach='background' args={[0x000000]} />
-        <fog attach='fog' args={[0x000000, 9, 20]} />
         <Suspense fallback={null}>
+          <color attach='background' args={[0x000000]} />
+          <fog attach='fog' args={[0x000000, 9, 20]} />
           <Environment preset='dawn' />
           <GeodeInstances01 amount={geodeNumber} />
           <GeodeInstances02 amount={geodeNumber} />
