@@ -24,7 +24,7 @@ import dynamic from 'next/dynamic'
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin)
 
-const scrollTriggerSettings = { trigger: '#about', scrub: 0.5, start: 'top 75%', end: 'top top' }
+const scrollTriggerSettings = { trigger: '#heroLoading', scrub: 0.5, start: 'top -50%', end: 'top -125%' }
 
 const Home = ({ data }) => {
   const page = data[0]
@@ -270,7 +270,7 @@ export const getStaticProps = async () => {
   return { props: { title: 'Whose Metaverse? | The Emerging Tech Garage For Everyone', data } }
 }
 
-const HeroLoading = ({ children }) => <div style={{ height: '100svh' }}>{children}</div>
+const HeroLoading = ({ children }) => <div style={{ height: '100svh' }} id="heroLoading">{children}</div>
 
 const Overlay = forwardRef((props, fRef) => {
   const spacer = 20
