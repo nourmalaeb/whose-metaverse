@@ -7,7 +7,7 @@ const embedPagesQuery = groq`*[_type == "embedPage"] { slug }`
 
 const singleEmbedPageQuery = (slug) => groq`*[_type == "embedPage" && slug.current == "${slug}"][0]`
 
-const Person = ({ page }) => {
+const Page = ({ page }) => {
   // console.log('PAGE', page)
   return (
     <div style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}>
@@ -37,7 +37,6 @@ const Person = ({ page }) => {
 }
 
 export const getStaticPaths = async () => {
-  // Get the paths we want to pre-render based on persons
   const pages = await sanityClient.fetch(embedPagesQuery)
   const paths = pages.map((page) => ({
     params: { slug: page.slug.current },
@@ -54,4 +53,4 @@ export const getStaticProps = async ({ params }) => {
   return { props: { page } }
 }
 
-export default Person
+export default Page

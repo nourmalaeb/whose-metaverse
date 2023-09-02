@@ -2,7 +2,7 @@ import { Suspense, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Nav } from '../nav'
 import styles from './hero.module.scss'
-import { Environment, useGLTF, Instance, Instances, useTexture } from '@react-three/drei'
+import { Environment, useGLTF, Instance, Instances, useTexture, Loader } from '@react-three/drei'
 import { geodeData } from './data'
 import { useState, useEffect } from 'react'
 
@@ -23,6 +23,7 @@ const Hero = () => {
           <GeodeInstances03 amount={geodeNumber} />
         </Suspense>
       </Canvas>
+      <Loader />
       <Nav />
     </div>
   )

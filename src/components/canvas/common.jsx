@@ -1,4 +1,4 @@
-const { Environment } = require('@react-three/drei')
+import { Environment } from '@react-three/drei'
 
 export const Common = ({ color }) => (
   <>
