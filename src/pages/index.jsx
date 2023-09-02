@@ -20,6 +20,7 @@ import { groq } from 'next-sanity'
 import { useGsapContext } from '@/lib/anims'
 import Head from 'next/head'
 import { Button } from '@/components/dom/ui'
+import dynamic from 'next/dynamic'
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin)
 
@@ -36,7 +37,7 @@ const Home = ({ data }) => {
   useEffect(() => {
     let mql = window.matchMedia('(min-width: 600px)')
 
-    const scaleFactor = mql.matches ? 120 : 180
+    const scaleFactor = 135
 
     ctx.add((self) => {
       // FOOTER MARQUEE
@@ -54,8 +55,8 @@ const Home = ({ data }) => {
           fontWeight: 1000,
           letterSpacing: -0.0225,
           lineHeight: 0.8,
-          x: width / 24,
-          y: 64,
+          x: mql.matches ? width / 24 : -10,
+          y: mql.matches ? 64 : 72,
         },
         {
           scale: 1,
@@ -211,7 +212,11 @@ const Home = ({ data }) => {
     return () => ctx.revert()
   }, [width, page, ctx])
 
-  const heroMemo = useMemo(() => <Hero />, [])
+  // const heroMemo = useMemo(() => <Hero />, [])
+  const DynamicHero = dynamic(()=> import('../components/dom/hero'), {
+    loading: () => <HeroLoading>Loading...</HeroLoading>,
+    ssr: false
+})
 
   return (
     <div ref={gsapRef} className={lexend.className}>
@@ -232,7 +237,9 @@ const Home = ({ data }) => {
         <meta property='twitter:description' content={page.seoDescription} />
         <meta property='twitter:image' content={urlFor(page.seoImage).width(1600).url()} />
       </Head>
-      <HeroLoading>{heroMemo}</HeroLoading>
+      <HeroLoading>
+      <DynamicHero />
+      </HeroLoading>
       <Overlay />
       <AboutSection title={page.aboutTitle} body={page.aboutBody} video={page.aboutVideoURL} />
       <FourQuestions questions={page.questions} questionsBody={page.questionsBody} />
@@ -289,7 +296,7 @@ const Overlay = forwardRef((props, fRef) => {
             position: 'absolute',
             top: spacer + 5,
             left: spacer + 5,
-            fontSize: '13px',
+            fontSize: '14px',
             fontWeight: 600,
             lineHeight: 1.1,
             letterSpacing: '0.1em',

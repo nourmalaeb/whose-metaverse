@@ -1,6 +1,5 @@
 import Header from '@/config'
 import '@/styles/globals.scss'
-import '@/styles/slick.css'
 
 import { lexend } from '@/styles/fonts'
 
