@@ -20,7 +20,7 @@ const Hero = () => {
           <Environment preset='dawn' />
           <GeodeInstances01 amount={geodeNumber} />
           <GeodeInstances02 amount={geodeNumber} />
-          <GeodeInstances03 amount={geodeNumber} />
+          {/* <GeodeInstances03 amount={geodeNumber} /> */}
         </Suspense>
       </Canvas>
       <Loader />
@@ -62,9 +62,7 @@ const GeodeInstances01 = ({ radius = 30, amount = 100 }) => {
 }
 
 const GeodeInstances02 = ({ radius = 30, amount = 100 }) => {
-  const { nodes } = useGLTF(
-    'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/small-menhir/model.gltf',
-  )
+  const { nodes } = useGLTF('/models/geode-02.glb')
   const geodata = geodeData(radius, amount)
   const ref = useRef()
   useFrame((state, delta) => (ref.current.rotation.y += delta * 0.1))
@@ -87,31 +85,31 @@ const GeodeInstances02 = ({ radius = 30, amount = 100 }) => {
   )
 }
 
-const GeodeInstances03 = ({ radius = 30, amount = 100 }) => {
-  const { nodes } = useGLTF(
-    'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/medium-menhir/model.gltf',
-  )
-  const geodata = geodeData(radius, amount)
-  const ref = useRef()
-  useFrame((state, delta) => (ref.current.rotation.y += delta * 0.1))
-  return (
-    <Instances geometry={nodes.menhir_moyen.geometry} limit={amount}>
-      <GeodeMaterial />
-      <group position={[0, 0, -3]} ref={ref}>
-        {geodata.map((data, i) => (
-          <GeodeInstance key={i} {...data} />
-        ))}
-        <GeodeInstance
-          key={geodata.length + 1}
-          scale={1}
-          speed={geodata[0].speed}
-          position={[1, -1, -5]}
-          rotation={[0, 0, 0]}
-        />
-      </group>
-    </Instances>
-  )
-}
+// const GeodeInstances03 = ({ radius = 30, amount = 100 }) => {
+//   const { nodes } = useGLTF(
+//     'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/medium-menhir/model.gltf',
+//   )
+//   const geodata = geodeData(radius, amount)
+//   const ref = useRef()
+//   useFrame((state, delta) => (ref.current.rotation.y += delta * 0.1))
+//   return (
+//     <Instances geometry={nodes.menhir_moyen.geometry} limit={amount}>
+//       <GeodeMaterial />
+//       <group position={[0, 0, -3]} ref={ref}>
+//         {geodata.map((data, i) => (
+//           <GeodeInstance key={i} {...data} />
+//         ))}
+//         <GeodeInstance
+//           key={geodata.length + 1}
+//           scale={1}
+//           speed={geodata[0].speed}
+//           position={[1, -1, -5]}
+//           rotation={[0, 0, 0]}
+//         />
+//       </group>
+//     </Instances>
+//   )
+// }
 
 const GeodeInstance = ({ scale, speed, position, rotation }) => {
   const ref = useRef()
@@ -131,9 +129,7 @@ const GeodeInstance = ({ scale, speed, position, rotation }) => {
 }
 
 useGLTF.preload('/models/geode-01.glb')
-useGLTF.preload(
-  'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/medium-menhir/model.gltf',
-)
-useGLTF.preload(
-  'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/small-menhir/model.gltf',
-)
+useGLTF.preload('/models/geode-02.glb')
+// useGLTF.preload(
+//   'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/small-menhir/model.gltf',
+// )
