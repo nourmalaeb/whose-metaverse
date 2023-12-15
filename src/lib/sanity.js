@@ -12,8 +12,9 @@ const VideoPlayer = dynamic(() => import('../components/dom/videoPlayer'), { ssr
 export const sanityClient = createClient({
   projectId: 'owrqzb2p',
   dataset: 'production',
-  apiVersion: '2023-06-15',
+  apiVersion: '2022-03-07',
   useCdn: typeof document !== 'undefined',
+  perspective: 'previewDrafts',
 })
 
 const imageBuilder = imageUrlBuilder(sanityClient)

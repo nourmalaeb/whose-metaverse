@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, forwardRef, useEffect, Suspense } from 'react'
-import { lexend, unbounded } from '@/styles/fonts'
+import { epilogue, figtree, lexend, roboto_flex, unbounded, bigshoulders } from '@/styles/fonts'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
@@ -32,7 +32,8 @@ const scrollTriggerSettings = {
 }
 
 const Home = ({ data }) => {
-  const page = data[0]
+  // console.log(data)
+  const page = data[1]
   // console.log(page)
   const gsapRef = useRef(null)
   const ctx = useGsapContext(gsapRef)
@@ -42,7 +43,7 @@ const Home = ({ data }) => {
   useEffect(() => {
     let mql = window.matchMedia('(min-width: 600px)')
 
-    const scaleFactor = 135
+    const scaleFactor = mql.matches ? 110 : 80
 
     ctx.add((self) => {
       // FOOTER MARQUEE
@@ -56,18 +57,20 @@ const Home = ({ data }) => {
       gsap.fromTo(
         '.pageTitle',
         {
-          scale: 1 + width / scaleFactor,
-          fontWeight: 1000,
-          letterSpacing: -0.0225,
-          lineHeight: 0.8,
-          x: mql.matches ? width / 24 : -10,
-          y: mql.matches ? 64 : 72,
+          fontSize: 16 * (1 + width / scaleFactor),
+          // fontWeight: 1000,
+          lineHeight: 0.9,
+          letterSpacing: 0,
+          // fontVariationSettings: `"wdth" 125`,
+          x: mql.matches ? width / 20 : 0,
+          y: mql.matches ? 80 : 90,
         },
         {
-          scale: 1,
-          fontWeight: 600,
-          letterSpacing: 0,
+          fontSize: 16,
+          // fontWeight: 600,
           lineHeight: 1,
+          letterSpacing: 2,
+          // fontVariationSettings: `"wdth" 75`,
           x: 5,
           y: 5,
           scrollTrigger: scrollTriggerSettings,
@@ -305,17 +308,18 @@ const Overlay = forwardRef((props, fRef) => {
             position: 'absolute',
             top: spacer + 5,
             left: spacer + 5,
-            fontSize: '14px',
-            fontWeight: 600,
+            fontSize: '16px',
+            fontWeight: 1000,
             lineHeight: 1.1,
-            letterSpacing: '0.1em',
             transformOrigin: 'top left',
+            fontVariationSettings: `"wdth" 110`,
+            // fontStretch: 125,
           }}
-          className={`pageTitle ${lexend.className}`}
+          className={`pageTitle ${bigshoulders.className}`}
         >
           WHOSE
           <br />
-          METAVERSE?
+          FUTURE?
         </div>
         <div
           className='topleft-bracket'
