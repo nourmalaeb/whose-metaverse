@@ -621,9 +621,9 @@ section#people {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
-      & .person {
-        // height: calc(100% + 1px);
-      }
+      // & .person {
+      //   // height: calc(100% + 1px);
+      // }
     }
   }
 }
