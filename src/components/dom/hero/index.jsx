@@ -13,7 +13,6 @@ const Hero = () => {
         className={styles.heroCanvas}
         camera={{ position: [0, 0, 10], fov: 50, near: 2 }}
         resize={{ debounce: 500, offsetSize: true }}
-        onCreated={(e) => console.log(e)}
       >
         <Suspense fallback={null}>
           <color attach='background' args={[0x000000]} />

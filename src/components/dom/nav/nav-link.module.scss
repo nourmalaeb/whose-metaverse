@@ -31,14 +31,14 @@
   }
 }
 
-// .navlink:focus,
-// .navlink:focus-visible {
-//   color: var(--color-hot);
-// }
+.navlink:focus,
+.navlink:focus-visible {
+  color: var(--color-hot);
+}
 
-// .navlink:focus:not(:focus-visible) {
-//   color: var(--color-hot);
-// }
+.navlink:focus:not(:focus-visible) {
+  color: var(--color-hot);
+}
 
 .marqueeContainer {
   position: absolute;

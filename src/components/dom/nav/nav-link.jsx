@@ -21,7 +21,6 @@ export const Navlink = ({ title, subtitle, href, onClick }) => {
 
   // hover animation
   const onEnter = (e) => {
-    console.log(e)
     const edge =
       Math.abs(e.clientY - e.target.getBoundingClientRect().top) < 0.5 * e.target.offsetHeight
         ? 50
@@ -53,7 +52,6 @@ export const Navlink = ({ title, subtitle, href, onClick }) => {
     )
   }
   const onTouchEnd = (e) => {
-    console.log(e)
     gsap.fromTo(
       e.target.querySelector('.gsap-marquee'),
       {
