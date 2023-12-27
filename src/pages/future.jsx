@@ -287,7 +287,7 @@ const Home = ({ data }) => {
         <meta property='twitter:image' content={urlFor(page.seoImage).width(1600).url()} />
       </Head>
       <HeroLoading>
-        <HeroMemo />
+        <Hero />
       </HeroLoading>
       <Overlay />
       <AboutSection title={page.aboutTitle} body={page.aboutBody} video={page.aboutVideoURL} />
