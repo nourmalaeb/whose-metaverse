@@ -1,10 +1,9 @@
-import { Suspense, memo, useEffect, useMemo, useRef } from 'react'
+import { Suspense, memo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Nav } from '../nav'
 import styles from './hero.module.scss'
 import { useGLTF, Instance, Instances, useTexture } from '@react-three/drei'
 import { geodeData } from './data'
-import { useWindowSize } from 'react-use'
 
 const Hero = () => {
   return (
@@ -15,18 +14,32 @@ const Hero = () => {
         resize={{ debounce: 500, offsetSize: true }}
       >
         <Suspense fallback={null}>
+          <FadeInEffect />
           <color attach='background' args={[0x000000]} />
           <fog attach='fog' args={[0x000000, 9, 20]} />
           <GeodeInstances01 amount={72} />
           <GeodeInstances02 amount={72} />
         </Suspense>
       </Canvas>
+      {/* <Loader /> */}
       <Nav />
     </div>
   )
 }
 
 export default memo(Hero)
+
+const FadeInEffect = () => {
+  const ref = useRef()
+  useFrame((state, delta) => (ref.current.opacity -= delta * 2))
+
+  return (
+    <mesh position={[0, 0, 8]} scale={10}>
+      <planeGeometry />
+      <meshBasicMaterial color={0x000000} ref={ref} transparent={true} />
+    </mesh>
+  )
+}
 
 const GeodeMaterial = () => {
   const [matcap] = useTexture(['/matcaps/gem-green.png']) // green stone
