@@ -67,10 +67,11 @@ const Home = ({ data }) => {
   })
 
   useGSAP(() => {
-    let mql = window.matchMedia('(min-width: 600px)')
+    let mql = window.matchMedia('(min-width: 800px)')
 
     // const scaleFactor = mql.matches ? 125 : 80
-    const scaleFactor = 135
+    const scaleFactor = width > height * 1.25 ? height / width : 1
+    const vMin = width < height ? width / 100 : height / 110
     // FOOTER MARQUEE
     gsap.fromTo(
       '.footer-marquee',
@@ -96,13 +97,13 @@ const Home = ({ data }) => {
     gsap.fromTo(
       '.pageTitle',
       {
-        scale: 1 + width / scaleFactor,
+        scale: 1 + vMin / scaleFactor,
         // fontSize: 16 * (1 + width / scaleFactor),
         fontWeight: 1000,
         lineHeight: 0.8,
         letterSpacing: '-0.05em',
         // fontVariationSettings: `"wdth" 125`,
-        x: mql.matches ? width / 20 : 0,
+        x: mql.matches ? width / 20 : 10,
         y: mql.matches ? 80 : 90,
         // rotationY: 45,
       },
@@ -123,7 +124,7 @@ const Home = ({ data }) => {
     gsap.fromTo(
       '.topleft-bracket',
       {
-        scale: 1 + width / (scaleFactor * 6),
+        scale: 1 + vMin / (scaleFactor * 6),
         borderWidth: 10,
       },
       {
@@ -135,7 +136,7 @@ const Home = ({ data }) => {
     gsap.fromTo(
       '.bottomRight-bracket',
       {
-        scale: 1 + width / (scaleFactor * 6),
+        scale: 1 + vMin / (scaleFactor * 6),
         borderWidth: 10,
       },
       {
@@ -275,13 +276,13 @@ const Home = ({ data }) => {
         <meta name='description' content={page.seoDescription} />
 
         <meta property='og:type' content='website' />
-        <meta property='og:url' content='https://whosemetaverse.org/' />
+        <meta property='og:url' content='https://whosefuture.org/' />
         <meta property='og:title' content={page.seoTitle} />
         <meta property='og:description' content={page.seoDescription} />
         <meta property='og:image' content={urlFor(page.seoImage).width(1600).url()} />
 
         <meta property='twitter:card' content='summary_large_image' />
-        <meta property='twitter:url' content='https://whosemetaverse.org/' />
+        <meta property='twitter:url' content='https://whosefuture.org/' />
         <meta property='twitter:title' content={page.seoTitle} />
         <meta property='twitter:description' content={page.seoDescription} />
         <meta property='twitter:image' content={urlFor(page.seoImage).width(1600).url()} />
@@ -316,7 +317,7 @@ export const getStaticProps = async () => {
   const data = await sanityClient.fetch(
     groq`*[_type == 'home']{..., "aboutVideoURL": aboutVideo.asset->url}`,
   )
-  return { props: { title: 'Whose Metaverse? | The Emerging Tech Garage For Everyone', data } }
+  return { props: { title: 'Whose Future? | The Emerging Tech Garage For Everyone', data } }
 }
 
 const HeroLoading = ({ children }) => (
@@ -410,7 +411,7 @@ const Overlay = forwardRef((props, fRef) => {
           letterSpacing: '0.1em',
         }}
       >
-        <Button href='mailto:hello@lightshed.io?subject=%5BWhose%20Metaverse%3F%5D'>
+        <Button href='mailto:hello@lightshed.io?subject=%5BWhose%20Future%3F%5D'>
           Get in touch
         </Button>
       </div>
