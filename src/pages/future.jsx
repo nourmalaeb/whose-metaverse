@@ -46,10 +46,10 @@ const Home = ({ data }) => {
 
   const { contextSafe } = useGSAP(
     () => {
-      ;(xRot.current = gsap.quickTo('.rotato', 'rotationY', { duration: 0.5, ease: 'power3' })),
-        (yRot.current = gsap.quickTo('.rotato', 'rotationX', { duration: 0.5, ease: 'power3' })),
-        (xPos.current = gsap.quickTo('.rotato', 'x', { duration: 0.5, ease: 'power3' })),
-        (yPos.current = gsap.quickTo('.rotato', 'y', { duration: 0.5, ease: 'power3' }))
+      ;(xRot.current = gsap.quickTo('.rotato', 'rotationY', { duration: 0.75, ease: 'power3' })),
+        (yRot.current = gsap.quickTo('.rotato', 'rotationX', { duration: 0.75, ease: 'power3' })),
+        (xPos.current = gsap.quickTo('.rotato', 'x', { duration: 0.75, ease: 'power3' })),
+        (yPos.current = gsap.quickTo('.rotato', 'y', { duration: 0.75, ease: 'power3' }))
     },
     { scope: gsapRef },
   )
@@ -103,7 +103,7 @@ const Home = ({ data }) => {
         lineHeight: 0.85,
         letterSpacing: '-0.05em',
         // fontVariationSettings: `"wdth" 125`,
-        x: mql.matches ? width / 20 : 0,
+        x: mql.matches ? vMin * 11 : 0,
         y: mql.matches ? 80 : 90,
         // rotationY: 45,
       },
@@ -261,12 +261,6 @@ const Home = ({ data }) => {
       },
     )
   }, [width, page, ctx])
-
-  const HeroMemo = useMemo(() => <Hero />, [])
-  const DynamicHero = dynamic(() => import('../components/dom/hero'), {
-    loading: () => <HeroLoading>Loading...</HeroLoading>,
-    ssr: false,
-  })
 
   return (
     <div ref={gsapRef} className={lexend.className} onMouseMove={(e) => moveShape(e)}>
