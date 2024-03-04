@@ -12,7 +12,7 @@ const Page = ({ page }) => {
   return (
     <div style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }}>
       <Head>
-        <title>Whose Metaverse | {page.title}</title>
+        <title>Whose Future | {page.title}</title>
         <meta name='title' content={page.title} />
       </Head>
       {page.pageType === 'iframeSrc' ? (
