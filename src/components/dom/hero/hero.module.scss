@@ -6,12 +6,12 @@
   align-items: stretch;
   justify-content: flex-end;
   background-color: black;
-  background: linear-gradient(239deg, #002535, #28003a, #005043,
-      #28003a, #002535,
-      #28003a);
-  background-size: 400% 400%;
+  // background: linear-gradient(239deg, #002535, #28003a, #005043,
+  //     #28003a, #002535,
+  //     #28003a);
+  // background-size: 400% 400%;
 
-  animation: gradientAnimation 21s ease infinite;
+  // animation: gradientAnimation 21s ease infinite;
 }
 
 .heroCanvas {
@@ -35,10 +35,10 @@
 .loader {
   position: fixed;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   top: 0;
   left: 0;
   background-color: black;
-  color: gold;
+  color: var(--color-link);
   z-index: 100000;
 }

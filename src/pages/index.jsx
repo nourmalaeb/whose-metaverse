@@ -1,6 +1,7 @@
 import React, { useMemo, useRef, forwardRef, useEffect, Suspense } from 'react'
-import { lexend, unbounded } from '@/styles/fonts'
+import { epilogue, figtree, lexend, roboto_flex, unbounded, bigshoulders } from '@/styles/fonts'
 import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
 import Hero from '@/components/dom/hero'
@@ -24,221 +25,264 @@ import dynamic from 'next/dynamic'
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin)
 
-const scrollTriggerSettings = { trigger: '#heroLoading', scrub: 0.5, start: 'top -50%', end: 'top -125%' }
+const scrollTriggerSettings = {
+  trigger: '#heroLoading',
+  scrub: 0.5,
+  start: 'top -50%',
+  end: 'top -125%',
+}
 
 const Home = ({ data }) => {
+  // console.log(data)
   const page = data[0]
   // console.log(page)
   const gsapRef = useRef(null)
   const ctx = useGsapContext(gsapRef)
 
-  const { width } = useWindowSize()
+  const xRot = useRef()
+  const yRot = useRef()
+  const xPos = useRef()
+  const yPos = useRef()
 
-  useEffect(() => {
-    let mql = window.matchMedia('(min-width: 600px)')
+  const { contextSafe } = useGSAP(
+    () => {
+      ;(xRot.current = gsap.quickTo('.rotato', 'rotationY', { duration: 0.75, ease: 'power3' })),
+        (yRot.current = gsap.quickTo('.rotato', 'rotationX', { duration: 0.75, ease: 'power3' })),
+        (xPos.current = gsap.quickTo('.rotato', 'x', { duration: 0.75, ease: 'power3' })),
+        (yPos.current = gsap.quickTo('.rotato', 'y', { duration: 0.75, ease: 'power3' }))
+    },
+    { scope: gsapRef },
+  )
 
-    const scaleFactor = 135
+  const { width, height } = useWindowSize()
 
-    ctx.add((self) => {
-      // FOOTER MARQUEE
-      gsap.fromTo(
-        '.footer-marquee',
-        { xPercent: `0` },
-        { xPercent: `-50`, duration: 30, repeat: -1, ease: 'none' },
-      )
+  const moveShape = contextSafe((e) => {
+    // xRot.current(((e.clientX - 0.5 * width) / width) * 90)
+    // yRot.current((-(e.clientY - 0.5 * height) / height) * 90)
+    const factor = Math.max(0, (height - window.scrollY) / height)
 
-      // OVERLAY
-      gsap.fromTo(
-        '.pageTitle',
-        {
-          scale: 1 + width / scaleFactor,
-          fontWeight: 1000,
-          letterSpacing: -0.0225,
-          lineHeight: 0.8,
-          x: mql.matches ? width / 24 : -10,
-          y: mql.matches ? 64 : 72,
-        },
-        {
-          scale: 1,
-          fontWeight: 600,
-          letterSpacing: 0,
-          lineHeight: 1,
-          x: 5,
-          y: 5,
-          scrollTrigger: scrollTriggerSettings,
-        },
-      )
+    if (factor === 0) return
+    xPos.current(((e.clientX - 0.5 * width) / width) * 5 * factor)
+    yPos.current(((e.clientY - 0.5 * height) / height) * 5 * factor)
+  })
 
-      gsap.fromTo(
-        '.topleft-bracket',
-        {
-          scale: 1 + width / (scaleFactor * 6),
-          borderWidth: 10,
-        },
-        {
-          scale: 1,
-          borderWidth: 2,
-          scrollTrigger: scrollTriggerSettings,
-        },
-      )
-      gsap.fromTo(
-        '.bottomRight-bracket',
-        {
-          scale: 1 + width / (scaleFactor * 6),
-          borderWidth: 10,
-        },
-        {
-          scale: 1,
-          borderWidth: 2,
-          scrollTrigger: scrollTriggerSettings,
-        },
-      )
+  useGSAP(() => {
+    let mql = window.matchMedia('(min-width: 800px)')
 
-      // QUESTIONS
-      const questionsSection = self.selector('.questionsQuestions')[0]
-      const questions = self.selector('.questionContainer')
-      questions.forEach((q, idx) => {
-        const qh2 = q.querySelector('.question')
-        let heights = 0
+    // const scaleFactor = mql.matches ? 125 : 80
+    const scaleFactor = width > height * 1.25 ? height / width : 1
+    const vMin = width < height ? width / 100 : height / 110
+    // FOOTER MARQUEE
+    gsap.fromTo(
+      '.footer-marquee',
+      { xPercent: `0` },
+      { xPercent: `-50`, duration: 30, repeat: -1, ease: 'none' },
+    )
 
-        for (let i = 0; i < idx; i++) {
-          heights += questions[i].querySelector('.question').offsetHeight
-        }
+    // OVERLAY PERSPECTIVE
+    // gsap.set('.rotato', {
+    //   transformPerspective: 100,
+    //   transformOrigin: `center center`,
+    // })
 
-        ScrollTrigger.create({
-          trigger: questionsSection,
-          scrub: true,
-          start: `top ${idx * -q.offsetHeight + heights}`,
-          end: `bottom ${-q.offsetHeight}`,
-          pin: qh2,
+    // gsap.fromTo(
+    //   '.rotato',
+    //   {
+    //     transformPerspective: 100,
+    //   },
+    //   { transformPerspective: 1000000, scrollTrigger: scrollTriggerSettings },
+    // )
+
+    // OVERLAY
+    gsap.fromTo(
+      '.pageTitle',
+      {
+        scale: 1 + vMin / scaleFactor,
+        // fontSize: 16 * (1 + width / scaleFactor),
+        fontWeight: 1000,
+        lineHeight: 0.85,
+        letterSpacing: '-0.05em',
+        // fontVariationSettings: `"wdth" 125`,
+        x: mql.matches ? vMin * 11 : 0,
+        y: mql.matches ? 80 : 90,
+        // rotationY: 45,
+      },
+      {
+        scale: 1,
+        // fontSize: 16,
+        fontWeight: 600,
+        lineHeight: 1,
+        letterSpacing: '0.1em',
+        // fontVariationSettings: `"wdth" 75`,
+        x: 5,
+        y: 5,
+        // rotationY: 0,
+        scrollTrigger: scrollTriggerSettings,
+      },
+    )
+
+    gsap.fromTo(
+      '.topleft-bracket',
+      {
+        scale: 1 + vMin / (scaleFactor * 6),
+        borderWidth: 10,
+      },
+      {
+        scale: 1,
+        borderWidth: 2,
+        scrollTrigger: scrollTriggerSettings,
+      },
+    )
+    gsap.fromTo(
+      '.bottomRight-bracket',
+      {
+        scale: 1 + vMin / (scaleFactor * 6),
+        borderWidth: 10,
+      },
+      {
+        scale: 1,
+        borderWidth: 2,
+        scrollTrigger: scrollTriggerSettings,
+      },
+    )
+
+    // QUESTIONS
+    let q = gsap.utils.selector(gsapRef)
+    const questionsSection = q('.questionsQuestions')[0]
+    const questions = q('.questionContainer')
+    questions.forEach((q, idx) => {
+      const qh2 = q.querySelector('.question')
+      let heights = 0
+
+      for (let i = 0; i < idx; i++) {
+        heights += questions[i].querySelector('.question').offsetHeight
+      }
+
+      ScrollTrigger.create({
+        trigger: questionsSection,
+        scrub: true,
+        start: `top ${idx * -q.offsetHeight + heights}`,
+        end: `bottom ${-q.offsetHeight}`,
+        pin: qh2,
+      })
+
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: q,
+            scrub: true,
+            start: `top 80%`,
+            end: `top 30%`,
+          },
         })
-
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: q,
-              scrub: true,
-              start: `top 80%`,
-              end: `top 30%`,
-            },
-          })
-          .from(qh2, { opacity: 0 })
-          .to(qh2, { opacity: 1 })
-      })
-
-      gsap.to('.questionsContentWrapper', {
-        backgroundColor: 'rgba(0, 0, 0, 1)',
-        scrollTrigger: {
-          trigger: '.questionsContentWrapper',
-          scrub: true,
-          start: 'top bottom',
-          end: 'bottom top',
-        },
-      })
-      gsap.to('.questionsFader', {
-        backgroundColor: 'rgba(0, 0, 0, 1)',
-        scrollTrigger: {
-          trigger: '.questionsContentWrapper',
-          scrub: true,
-          start: 'top bottom',
-          end: 'bottom top',
-        },
-      })
-
-      // GALLERY
-      const imgs = self.selector('.galleryScroller')
-      imgs.forEach((scroller, index) => {
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: scroller,
-              scrub: 0.15,
-              start: 'top 65%',
-              end: 'bottom 25%',
-            },
-          })
-          .from(scroller.querySelector('.galleryImg'), {
-            opacity: 0,
-            scale: 0.5,
-          })
-          .to(scroller.querySelector('.galleryImg'), {
-            opacity: 1,
-            scale: 1,
-            ease: 'linear',
-          })
-          .to(scroller.querySelector('.galleryImg'), {
-            opacity: 1,
-            scale: 1,
-            ease: 'linear',
-          })
-          .to(scroller.querySelector('.galleryImg'), {
-            opacity: 1,
-            scale: 1,
-            ease: 'linear',
-          })
-          .to(scroller.querySelector('.galleryImg'), {
-            opacity: 0,
-            scale: 1.5,
-            ease: 'linear',
-          })
-
-        // gsap.to(scroller.querySelector('.galleryImg'), {
-        //   motionPath: {
-        //     path:
-        //       index % 2 === 0
-        //         ? `M-12.0874 19.4813C-20.98329 14.728 -13.99695 -25.29181 5.1581 -19.85131C15.3918 -14.11096 33.154 10.2124 18.3269 3.241C-1.793 -6.5267 5.1581 -4.2346 -12.0874 19.4813Z`
-        //         : `M25.293 -10.1657C29.2725 -4.7063 15.6696 -3.0997 4.0642 1.2432C-7.2372 5.1087 -16.58479 13.2143 -19.81617 6.305C-21.60456 -3.7684 -14.56521 -28.39443 -10.846 -16.517C-4.197 0.6563 17.601 -22.47672 25.293 -10.1657Z`,
-        //   },
-        //   duration: 15 + index,
-        //   start: 1 / imgs.length,
-        //   repeat: -1,
-        //   ease: 'none',
-        // })
-      })
-
-      // COURSES
-      gsap.fromTo(
-        '.courseCarousel',
-        { yPercent: 0 },
-        {
-          yPercent: -50,
-          duration: () => innerHeight / 10,
-          repeat: -1,
-          ease: 'none',
-        },
-      )
+        .from(qh2, { opacity: 0 })
+        .to(qh2, { opacity: 1 })
     })
 
-    return () => ctx.revert()
+    gsap.to('.questionsContentWrapper', {
+      backgroundColor: 'rgba(0, 0, 0, 1)',
+      scrollTrigger: {
+        trigger: '.questionsContentWrapper',
+        scrub: true,
+        start: 'top bottom',
+        end: 'bottom top',
+      },
+    })
+    gsap.to('.questionsFader', {
+      backgroundColor: 'rgba(0, 0, 0, 1)',
+      scrollTrigger: {
+        trigger: '.questionsContentWrapper',
+        scrub: true,
+        start: 'top bottom',
+        end: 'bottom top',
+      },
+    })
+
+    // GALLERY
+    const imgs = q('.galleryScroller')
+    imgs.forEach((scroller, index) => {
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: scroller,
+            scrub: 0.15,
+            start: 'top 65%',
+            end: 'bottom 25%',
+          },
+        })
+        .from(scroller.querySelector('.galleryImg'), {
+          opacity: 0,
+          scale: 0.5,
+        })
+        .to(scroller.querySelector('.galleryImg'), {
+          opacity: 1,
+          scale: 1,
+          ease: 'linear',
+        })
+        .to(scroller.querySelector('.galleryImg'), {
+          opacity: 1,
+          scale: 1,
+          ease: 'linear',
+        })
+        .to(scroller.querySelector('.galleryImg'), {
+          opacity: 1,
+          scale: 1,
+          ease: 'linear',
+        })
+        .to(scroller.querySelector('.galleryImg'), {
+          opacity: 0,
+          scale: 1.5,
+          ease: 'linear',
+        })
+
+      // gsap.to(scroller.querySelector('.galleryImg'), {
+      //   motionPath: {
+      //     path:
+      //       index % 2 === 0
+      //         ? `M-12.0874 19.4813C-20.98329 14.728 -13.99695 -25.29181 5.1581 -19.85131C15.3918 -14.11096 33.154 10.2124 18.3269 3.241C-1.793 -6.5267 5.1581 -4.2346 -12.0874 19.4813Z`
+      //         : `M25.293 -10.1657C29.2725 -4.7063 15.6696 -3.0997 4.0642 1.2432C-7.2372 5.1087 -16.58479 13.2143 -19.81617 6.305C-21.60456 -3.7684 -14.56521 -28.39443 -10.846 -16.517C-4.197 0.6563 17.601 -22.47672 25.293 -10.1657Z`,
+      //   },
+      //   duration: 15 + index,
+      //   start: 1 / imgs.length,
+      //   repeat: -1,
+      //   ease: 'none',
+      // })
+    })
+
+    // COURSES
+    gsap.fromTo(
+      '.courseCarousel',
+      { yPercent: 0 },
+      {
+        yPercent: -50,
+        duration: () => innerHeight / 10,
+        repeat: -1,
+        ease: 'none',
+      },
+    )
   }, [width, page, ctx])
 
-  // const heroMemo = useMemo(() => <Hero />, [])
-  const DynamicHero = dynamic(()=> import('../components/dom/hero'), {
-    loading: () => <HeroLoading>Loading...</HeroLoading>,
-    ssr: false
-})
-
   return (
-    <div ref={gsapRef} className={lexend.className}>
+    <div ref={gsapRef} className={lexend.className} onMouseMove={(e) => moveShape(e)}>
       <Head>
         <title>{page.seoTitle}</title>
         <meta name='title' content={page.seoTitle} />
         <meta name='description' content={page.seoDescription} />
 
         <meta property='og:type' content='website' />
-        <meta property='og:url' content='https://whosemetaverse.org/' />
+        <meta property='og:url' content='https://whosefuture.org/' />
         <meta property='og:title' content={page.seoTitle} />
         <meta property='og:description' content={page.seoDescription} />
         <meta property='og:image' content={urlFor(page.seoImage).width(1600).url()} />
 
         <meta property='twitter:card' content='summary_large_image' />
-        <meta property='twitter:url' content='https://whosemetaverse.org/' />
+        <meta property='twitter:url' content='https://whosefuture.org/' />
         <meta property='twitter:title' content={page.seoTitle} />
         <meta property='twitter:description' content={page.seoDescription} />
         <meta property='twitter:image' content={urlFor(page.seoImage).width(1600).url()} />
       </Head>
       <HeroLoading>
-      <DynamicHero />
+        <Hero />
       </HeroLoading>
       <Overlay />
       <AboutSection title={page.aboutTitle} body={page.aboutBody} video={page.aboutVideoURL} />
@@ -267,10 +311,14 @@ export const getStaticProps = async () => {
   const data = await sanityClient.fetch(
     groq`*[_type == 'home']{..., "aboutVideoURL": aboutVideo.asset->url}`,
   )
-  return { props: { title: 'Whose Metaverse? | The Emerging Tech Garage For Everyone', data } }
+  return { props: { title: 'Whose Future? | The Emerging Tech Garage For Everyone', data } }
 }
 
-const HeroLoading = ({ children }) => <div style={{ height: '100svh' }} id="heroLoading">{children}</div>
+const HeroLoading = ({ children }) => (
+  <div style={{ height: '100svh' }} id='heroLoading'>
+    {children}
+  </div>
+)
 
 const Overlay = forwardRef((props, fRef) => {
   const spacer = 20
@@ -296,17 +344,20 @@ const Overlay = forwardRef((props, fRef) => {
             position: 'absolute',
             top: spacer + 5,
             left: spacer + 5,
-            fontSize: '14px',
-            fontWeight: 600,
+            fontSize: '16px',
+            fontWeight: 1000,
             lineHeight: 1.1,
-            letterSpacing: '0.1em',
             transformOrigin: 'top left',
+            fontVariationSettings: `"wdth" 110`,
+            // fontStretch: 125,
           }}
           className={`pageTitle ${lexend.className}`}
         >
-          WHOSE
-          <br />
-          METAVERSE?
+          <div className='rotato'>
+            WHOSE
+            <br />
+            FUTURE?
+          </div>
         </div>
         <div
           className='topleft-bracket'
@@ -354,7 +405,7 @@ const Overlay = forwardRef((props, fRef) => {
           letterSpacing: '0.1em',
         }}
       >
-        <Button href='mailto:hello@lightshed.io?subject=%5BWhose%20Metaverse%3F%5D'>
+        <Button href='mailto:hello@lightshed.io?subject=%5BWhose%20Future%3F%5D'>
           Get in touch
         </Button>
       </div>
