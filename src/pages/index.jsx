@@ -34,7 +34,7 @@ const scrollTriggerSettings = {
 
 const Home = ({ data }) => {
   // console.log(data)
-  const page = data[1]
+  const page = data[0]
   // console.log(page)
   const gsapRef = useRef(null)
   const ctx = useGsapContext(gsapRef)
