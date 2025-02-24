@@ -36,7 +36,7 @@ export const GallerySection = ({ title, body, images }) => {
         {images.map((img, idx) => {
           return (
             <GalleryScroller
-              url={urlFor(img).width(1600).url()}
+              url={urlFor(img).url()}
               aspect={getImageDimensions(img).aspectRatio}
               key={img._key}
               idx={idx}
