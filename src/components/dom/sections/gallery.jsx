@@ -34,9 +34,12 @@ export const GallerySection = ({ title, body, images }) => {
         }}
       >
         {images.map((img, idx) => {
+          const url = img.asset._ref.includes('gif')
+            ? urlFor(img).url()
+            : urlFor(img).width(1600).url()
           return (
             <GalleryScroller
-              url={urlFor(img).url()}
+              url={url}
               aspect={getImageDimensions(img).aspectRatio}
               key={img._key}
               idx={idx}
@@ -65,7 +68,14 @@ const GalleryScroller = ({ url, aspect, idx }) => {
         }}
         className={`galleryImg`}
       >
-        <Image src={url} alt='' fill style={{ objectFit: 'contain' }} priority={idx <= 2} />
+        <Image
+          src={url}
+          alt=''
+          fill
+          style={{ objectFit: 'contain' }}
+          priority={idx <= 2}
+          unoptimized
+        />
       </div>
     </div>
   )
