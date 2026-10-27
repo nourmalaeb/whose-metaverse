@@ -34,6 +34,7 @@ export default async function handler(req, res) {
       data: newRow.data,
     })
   } catch (e) {
-    return res.status(e.code).send({ message: e.message })
+    // ky (sheets) and gaxios (auth) errors carry the HTTP status on the response
+    return res.status(e.response?.status ?? 500).send({ message: e.message })
   }
 }
