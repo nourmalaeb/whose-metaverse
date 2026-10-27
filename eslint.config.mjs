@@ -1,0 +1,15 @@
+import nextVitals from 'eslint-config-next/core-web-vitals'
+import prettier from 'eslint-config-prettier'
+
+export default [
+  { ignores: ['.next/**', 'dist/**', 'node_modules/**'] },
+  ...nextVitals,
+  prettier,
+  {
+    rules: {
+      'import/prefer-default-export': 'off',
+      'no-console': 'warn',
+      'no-var': 'error',
+    },
+  },
+]

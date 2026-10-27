@@ -17,7 +17,7 @@ import {
   People,
   SignUpSection,
 } from "@/components/dom/sections";
-import { groq } from "next-sanity";
+import groq from "groq";
 import { useGsapContext } from "@/lib/anims";
 import Head from "next/head";
 import { Button } from "@/components/dom/ui";
