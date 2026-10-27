@@ -1,12 +1,12 @@
-import React, { useMemo, useRef, forwardRef, useEffect, Suspense } from 'react'
-import { epilogue, figtree, lexend, roboto_flex, unbounded, bigshoulders } from '@/styles/fonts'
-import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import { MotionPathPlugin } from 'gsap/dist/MotionPathPlugin'
-import Hero from '@/components/dom/hero'
-import { useWindowSize } from 'react-use'
-import { sanityClient, urlFor } from '@/lib/sanity'
+import React, { useMemo, useRef, forwardRef, useEffect, Suspense } from "react";
+import { epilogue, figtree, lexend, roboto_flex, unbounded, bigshoulders } from "@/styles/fonts";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { MotionPathPlugin } from "gsap/dist/MotionPathPlugin";
+import Hero from "@/components/dom/hero";
+import { useWindowSize } from "react-use";
+import { sanityClient, urlFor } from "@/lib/sanity";
 import {
   AboutSection,
   CommunitiesSection,
@@ -16,68 +16,67 @@ import {
   GallerySection,
   People,
   SignUpSection,
-} from '@/components/dom/sections'
-import { groq } from 'next-sanity'
-import { useGsapContext } from '@/lib/anims'
-import Head from 'next/head'
-import { Button } from '@/components/dom/ui'
-import dynamic from 'next/dynamic'
+} from "@/components/dom/sections";
+import groq from "groq";
+import { useGsapContext } from "@/lib/anims";
+import Head from "next/head";
+import { Button } from "@/components/dom/ui";
 
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin)
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 const scrollTriggerSettings = {
-  trigger: '#heroLoading',
+  trigger: "#heroLoading",
   scrub: 0.5,
-  start: 'top -50%',
-  end: 'top -125%',
-}
+  start: "top -50%",
+  end: "top -125%",
+};
 
 const Home = ({ data }) => {
   // console.log(data)
-  const page = data[0]
+  const page = data[0];
   // console.log(page)
-  const gsapRef = useRef(null)
-  const ctx = useGsapContext(gsapRef)
+  const gsapRef = useRef(null);
+  const ctx = useGsapContext(gsapRef);
 
-  const xRot = useRef()
-  const yRot = useRef()
-  const xPos = useRef()
-  const yPos = useRef()
+  const xRot = useRef();
+  const yRot = useRef();
+  const xPos = useRef();
+  const yPos = useRef();
 
   const { contextSafe } = useGSAP(
     () => {
-      ;(xRot.current = gsap.quickTo('.rotato', 'rotationY', { duration: 0.75, ease: 'power3' })),
-        (yRot.current = gsap.quickTo('.rotato', 'rotationX', { duration: 0.75, ease: 'power3' })),
-        (xPos.current = gsap.quickTo('.rotato', 'x', { duration: 0.75, ease: 'power3' })),
-        (yPos.current = gsap.quickTo('.rotato', 'y', { duration: 0.75, ease: 'power3' }))
+      ((xRot.current = gsap.quickTo(".rotato", "rotationY", { duration: 0.75, ease: "power3" })),
+        (yRot.current = gsap.quickTo(".rotato", "rotationX", { duration: 0.75, ease: "power3" })),
+        (xPos.current = gsap.quickTo(".rotato", "x", { duration: 0.75, ease: "power3" })),
+        (yPos.current = gsap.quickTo(".rotato", "y", { duration: 0.75, ease: "power3" })));
     },
     { scope: gsapRef },
-  )
+  );
 
-  const { width, height } = useWindowSize()
+  const { width, height } = useWindowSize();
 
   const moveShape = contextSafe((e) => {
     // xRot.current(((e.clientX - 0.5 * width) / width) * 90)
     // yRot.current((-(e.clientY - 0.5 * height) / height) * 90)
-    const factor = Math.max(0, (height - window.scrollY) / height)
+    const factor = Math.max(0, (height - window.scrollY) / height);
 
-    if (factor === 0) return
-    xPos.current(((e.clientX - 0.5 * width) / width) * 5 * factor)
-    yPos.current(((e.clientY - 0.5 * height) / height) * 5 * factor)
-  })
+    if (factor === 0) return;
+    xPos.current(((e.clientX - 0.5 * width) / width) * 5 * factor);
+    yPos.current(((e.clientY - 0.5 * height) / height) * 5 * factor);
+  });
 
   useGSAP(() => {
-    let mql = window.matchMedia('(min-width: 800px)')
+    let mql = window.matchMedia("(min-width: 800px)");
 
     // const scaleFactor = mql.matches ? 125 : 80
-    const scaleFactor = width > height * 1.25 ? height / width : 1
-    const vMin = width < height ? width / 100 : height / 110
+    const scaleFactor = width > height * 1.25 ? height / width : 1;
+    const vMin = width < height ? width / 100 : height / 110;
     // FOOTER MARQUEE
     gsap.fromTo(
-      '.footer-marquee',
+      ".footer-marquee",
       { xPercent: `0` },
-      { xPercent: `-50`, duration: 30, repeat: -1, ease: 'none' },
-    )
+      { xPercent: `-50`, duration: 30, repeat: -1, ease: "none" },
+    );
 
     // OVERLAY PERSPECTIVE
     // gsap.set('.rotato', {
@@ -95,13 +94,13 @@ const Home = ({ data }) => {
 
     // OVERLAY
     gsap.fromTo(
-      '.pageTitle',
+      ".pageTitle",
       {
         scale: 1 + vMin / scaleFactor,
         // fontSize: 16 * (1 + width / scaleFactor),
         fontWeight: 1000,
         lineHeight: 0.85,
-        letterSpacing: '-0.05em',
+        letterSpacing: "-0.05em",
         // fontVariationSettings: `"wdth" 125`,
         x: mql.matches ? vMin * 11 : 0,
         y: mql.matches ? 80 : 90,
@@ -112,17 +111,17 @@ const Home = ({ data }) => {
         // fontSize: 16,
         fontWeight: 600,
         lineHeight: 1,
-        letterSpacing: '0.1em',
+        letterSpacing: "0.1em",
         // fontVariationSettings: `"wdth" 75`,
         x: 5,
         y: 5,
         // rotationY: 0,
         scrollTrigger: scrollTriggerSettings,
       },
-    )
+    );
 
     gsap.fromTo(
-      '.topleft-bracket',
+      ".topleft-bracket",
       {
         scale: 1 + vMin / (scaleFactor * 6),
         borderWidth: 10,
@@ -132,9 +131,9 @@ const Home = ({ data }) => {
         borderWidth: 2,
         scrollTrigger: scrollTriggerSettings,
       },
-    )
+    );
     gsap.fromTo(
-      '.bottomRight-bracket',
+      ".bottomRight-bracket",
       {
         scale: 1 + vMin / (scaleFactor * 6),
         borderWidth: 10,
@@ -144,18 +143,18 @@ const Home = ({ data }) => {
         borderWidth: 2,
         scrollTrigger: scrollTriggerSettings,
       },
-    )
+    );
 
     // QUESTIONS
-    let q = gsap.utils.selector(gsapRef)
-    const questionsSection = q('.questionsQuestions')[0]
-    const questions = q('.questionContainer')
+    let q = gsap.utils.selector(gsapRef);
+    const questionsSection = q(".questionsQuestions")[0];
+    const questions = q(".questionContainer");
     questions.forEach((q, idx) => {
-      const qh2 = q.querySelector('.question')
-      let heights = 0
+      const qh2 = q.querySelector(".question");
+      let heights = 0;
 
       for (let i = 0; i < idx; i++) {
-        heights += questions[i].querySelector('.question').offsetHeight
+        heights += questions[i].querySelector(".question").offsetHeight;
       }
 
       ScrollTrigger.create({
@@ -164,7 +163,7 @@ const Home = ({ data }) => {
         start: `top ${idx * -q.offsetHeight + heights}`,
         end: `bottom ${-q.offsetHeight}`,
         pin: qh2,
-      })
+      });
 
       gsap
         .timeline({
@@ -176,64 +175,64 @@ const Home = ({ data }) => {
           },
         })
         .from(qh2, { opacity: 0 })
-        .to(qh2, { opacity: 1 })
-    })
+        .to(qh2, { opacity: 1 });
+    });
 
-    gsap.to('.questionsContentWrapper', {
-      backgroundColor: 'rgba(0, 0, 0, 1)',
+    gsap.to(".questionsContentWrapper", {
+      backgroundColor: "rgba(0, 0, 0, 1)",
       scrollTrigger: {
-        trigger: '.questionsContentWrapper',
+        trigger: ".questionsContentWrapper",
         scrub: true,
-        start: 'top bottom',
-        end: 'bottom top',
+        start: "top bottom",
+        end: "bottom top",
       },
-    })
-    gsap.to('.questionsFader', {
-      backgroundColor: 'rgba(0, 0, 0, 1)',
+    });
+    gsap.to(".questionsFader", {
+      backgroundColor: "rgba(0, 0, 0, 1)",
       scrollTrigger: {
-        trigger: '.questionsContentWrapper',
+        trigger: ".questionsContentWrapper",
         scrub: true,
-        start: 'top bottom',
-        end: 'bottom top',
+        start: "top bottom",
+        end: "bottom top",
       },
-    })
+    });
 
     // GALLERY
-    const imgs = q('.galleryScroller')
+    const imgs = q(".galleryScroller");
     imgs.forEach((scroller, index) => {
       gsap
         .timeline({
           scrollTrigger: {
             trigger: scroller,
             scrub: 0.15,
-            start: 'top 65%',
-            end: 'bottom 25%',
+            start: "top 65%",
+            end: "bottom 25%",
           },
         })
-        .from(scroller.querySelector('.galleryImg'), {
+        .from(scroller.querySelector(".galleryImg"), {
           opacity: 0,
           scale: 0.5,
         })
-        .to(scroller.querySelector('.galleryImg'), {
+        .to(scroller.querySelector(".galleryImg"), {
           opacity: 1,
           scale: 1,
-          ease: 'linear',
+          ease: "linear",
         })
-        .to(scroller.querySelector('.galleryImg'), {
+        .to(scroller.querySelector(".galleryImg"), {
           opacity: 1,
           scale: 1,
-          ease: 'linear',
+          ease: "linear",
         })
-        .to(scroller.querySelector('.galleryImg'), {
+        .to(scroller.querySelector(".galleryImg"), {
           opacity: 1,
           scale: 1,
-          ease: 'linear',
+          ease: "linear",
         })
-        .to(scroller.querySelector('.galleryImg'), {
+        .to(scroller.querySelector(".galleryImg"), {
           opacity: 0,
           scale: 1.5,
-          ease: 'linear',
-        })
+          ease: "linear",
+        });
 
       // gsap.to(scroller.querySelector('.galleryImg'), {
       //   motionPath: {
@@ -247,39 +246,39 @@ const Home = ({ data }) => {
       //   repeat: -1,
       //   ease: 'none',
       // })
-    })
+    });
 
     // COURSES
     gsap.fromTo(
-      '.courseCarousel',
+      ".courseCarousel",
       { yPercent: 0 },
       {
         yPercent: -50,
         duration: () => innerHeight / 10,
         repeat: -1,
-        ease: 'none',
+        ease: "none",
       },
-    )
-  }, [width, page, ctx])
+    );
+  }, [width, page, ctx]);
 
   return (
     <div ref={gsapRef} className={lexend.className} onMouseMove={(e) => moveShape(e)}>
       <Head>
         <title>{page.seoTitle}</title>
-        <meta name='title' content={page.seoTitle} />
-        <meta name='description' content={page.seoDescription} />
+        <meta name="title" content={page.seoTitle} />
+        <meta name="description" content={page.seoDescription} />
 
-        <meta property='og:type' content='website' />
-        <meta property='og:url' content='https://whosefuture.org/' />
-        <meta property='og:title' content={page.seoTitle} />
-        <meta property='og:description' content={page.seoDescription} />
-        <meta property='og:image' content={urlFor(page.seoImage).width(1600).url()} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://whosefuture.org/" />
+        <meta property="og:title" content={page.seoTitle} />
+        <meta property="og:description" content={page.seoDescription} />
+        <meta property="og:image" content={urlFor(page.seoImage).width(1600).url()} />
 
-        <meta property='twitter:card' content='summary_large_image' />
-        <meta property='twitter:url' content='https://whosefuture.org/' />
-        <meta property='twitter:title' content={page.seoTitle} />
-        <meta property='twitter:description' content={page.seoDescription} />
-        <meta property='twitter:image' content={urlFor(page.seoImage).width(1600).url()} />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://whosefuture.org/" />
+        <meta property="twitter:title" content={page.seoTitle} />
+        <meta property="twitter:description" content={page.seoDescription} />
+        <meta property="twitter:image" content={urlFor(page.seoImage).width(1600).url()} />
       </Head>
       <HeroLoading>
         <Hero />
@@ -302,91 +301,91 @@ const Home = ({ data }) => {
       <People people={page.people} title={page.peopleTitle} />
       <Footer items={page.footerItems} />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
 
 export const getStaticProps = async () => {
   const data = await sanityClient.fetch(
     groq`*[_type == 'home']{..., "aboutVideoURL": aboutVideo.asset->url}`,
-  )
-  return { props: { title: 'Whose Future? | The Emerging Tech Garage For Everyone', data } }
-}
+  );
+  return { props: { title: "Whose Future? | The Emerging Tech Garage For Everyone", data } };
+};
 
 const HeroLoading = ({ children }) => (
-  <div style={{ height: '100svh' }} id='heroLoading'>
+  <div style={{ height: "100svh" }} id="heroLoading">
     {children}
   </div>
-)
+);
 
 const Overlay = forwardRef((props, fRef) => {
-  const spacer = 20
-  const col = 'var(--color-bg)'
+  const spacer = 20;
+  const col = "var(--color-bg)";
   return (
     <>
       <div
         style={{
-          position: 'fixed',
+          position: "fixed",
           top: 0,
           left: 0,
-          pointerEvents: 'none',
-          width: '100vw',
-          height: '100dvh',
+          pointerEvents: "none",
+          width: "100vw",
+          height: "100dvh",
           zIndex: 5000,
-          mixBlendMode: 'difference',
+          mixBlendMode: "difference",
           color: col,
         }}
         {...props}
       >
         <div
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: spacer + 5,
             left: spacer + 5,
-            fontSize: '16px',
+            fontSize: "16px",
             fontWeight: 1000,
             lineHeight: 1.1,
-            transformOrigin: 'top left',
+            transformOrigin: "top left",
             fontVariationSettings: `"wdth" 110`,
             // fontStretch: 125,
           }}
           className={`pageTitle ${lexend.className}`}
         >
-          <div className='rotato'>
+          <div className="rotato">
             WHOSE
             <br />
             FUTURE?
           </div>
         </div>
         <div
-          className='topleft-bracket'
+          className="topleft-bracket"
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: spacer,
             left: spacer,
             width: 64,
             height: 64,
-            maxWidth: '12vw',
-            maxHeight: '10vw',
+            maxWidth: "12vw",
+            maxHeight: "10vw",
             borderLeft: `1.5px solid ${col}`,
             borderTop: `1.5px solid ${col}`,
-            transformOrigin: 'top left',
+            transformOrigin: "top left",
           }}
         />
         <div
-          className='bottomRight-bracket'
+          className="bottomRight-bracket"
           style={{
-            position: 'absolute',
+            position: "absolute",
             bottom: spacer,
             right: spacer,
             width: 64,
             height: 64,
-            maxWidth: '12vw',
-            maxHeight: '10vw',
+            maxWidth: "12vw",
+            maxHeight: "10vw",
             borderRight: `1.5px solid ${col}`,
             borderBottom: `1.5px solid ${col}`,
-            transformOrigin: 'bottom right',
+            transformOrigin: "bottom right",
           }}
         />
       </div>
@@ -394,23 +393,23 @@ const Overlay = forwardRef((props, fRef) => {
         ref={fRef}
         className={unbounded.className}
         style={{
-          position: 'fixed',
-          maxWidth: '12vw',
+          position: "fixed",
+          maxWidth: "12vw",
           bottom: spacer,
           left: spacer,
           zIndex: 5000,
-          pointerEvents: 'auto',
-          fontSize: '0.75em',
-          textTransform: 'uppercase',
-          letterSpacing: '0.1em',
+          pointerEvents: "auto",
+          fontSize: "0.75em",
+          textTransform: "uppercase",
+          letterSpacing: "0.1em",
         }}
       >
-        <Button href='mailto:hello@lightshed.io?subject=%5BWhose%20Future%3F%5D'>
+        <Button href="mailto:hello@lightshed.io?subject=%5BWhose%20Future%3F%5D">
           Get in touch
         </Button>
       </div>
     </>
-  )
-})
+  );
+});
 
-Overlay.displayName = 'Overlay'
+Overlay.displayName = "Overlay";

@@ -1,6 +1,6 @@
 import React from 'react'
 import { sanityClient } from '@/lib/sanity'
-import { groq } from 'next-sanity'
+import groq from 'groq'
 import Head from 'next/head'
 
 const embedPagesQuery = groq`*[_type == "embedPage"] { slug }`

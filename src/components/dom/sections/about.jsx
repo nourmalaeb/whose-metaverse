@@ -1,15 +1,15 @@
-import { Shape02 } from '@/components/canvas/shapes'
-import { portableTextComponents } from '@/lib/sanity'
-import { unbounded } from '@/styles/fonts'
-import { PortableText } from '@portabletext/react'
-import { Center } from '@react-three/drei'
-import { Canvas } from '@react-three/fiber'
-import VideoPlayer from '../videoPlayer'
+import { Shape02 } from "@/components/canvas/shapes";
+import { portableTextComponents } from "@/lib/sanity";
+import { unbounded } from "@/styles/fonts";
+import { PortableText } from "@portabletext/react";
+import { Center } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import VideoPlayer from "../videoPlayer";
 
 export const AboutSection = ({ title, body, video }) => {
   return (
-    <section id='about'>
-      <div className='sectionTitle-widget'>
+    <section id="about">
+      <div className="sectionTitle-widget">
         <Canvas>
           <Center scale={3}>
             <Shape02 />
@@ -17,7 +17,7 @@ export const AboutSection = ({ title, body, video }) => {
         </Canvas>
       </div>
       <h2 className={unbounded.className}>{title}</h2>
-      <div className='aboutContent'>
+      <div className="aboutContent">
         <PortableText value={body} components={portableTextComponents} />
       </div>
       {/* <VideoPlayer
@@ -32,25 +32,25 @@ export const AboutSection = ({ title, body, video }) => {
           },
         ]}
       /> */}
-      <div className='video inlineVideo'>
-        <video playsInline muted autoPlay loop controls preload='auto'>
+      <div className="video inlineVideo">
+        <video playsInline muted autoPlay loop controls preload="auto">
           <source
-            src='https://d1eqjf0s95vgsu.cloudfront.net/Whose_Metaverse__Student_Video.webm'
-            type='video/webm'
+            src="https://wm.r2.grgyl.net/Whose_Metaverse__Student_Video.webm"
+            type="video/webm"
           />
           <source
-            src='https://d1eqjf0s95vgsu.cloudfront.net/Whose_Metaverse__Student_Video.mp4'
-            type='video/mp4'
+            src="https://wm.r2.grgyl.net/Whose_Metaverse__Student_Video.mp4"
+            type="video/mp4"
           />
           <p>
             Your browser does not support HTML video. Here is a
-            <a href='https://d1eqjf0s95vgsu.cloudfront.net/Whose_Metaverse__Student_Video.mp4'>
+            <a href="https://wm.r2.grgyl.net/Whose_Metaverse__Student_Video.mp4">
               link to the video
-            </a>{' '}
+            </a>{" "}
             instead.
           </p>
         </video>
       </div>
     </section>
-  )
-}
+  );
+};

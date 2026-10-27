@@ -7,7 +7,7 @@ import {
   Epilogue,
   Figtree,
   Roboto_Flex,
-  Big_Shoulders_Display,
+  Big_Shoulders,
 } from 'next/font/google'
 import localFont from 'next/font/local'
 
@@ -18,7 +18,7 @@ export const league_spartan = League_Spartan({ subsets: ['latin'] })
 export const inter = Inter({ subsets: ['latin'] })
 export const epilogue = Epilogue({ subsets: ['latin'] })
 export const figtree = Figtree({ subsets: ['latin'] })
-export const bigshoulders = Big_Shoulders_Display({ subsets: ['latin'] })
+export const bigshoulders = Big_Shoulders({ subsets: ['latin'] })
 
 export const roboto_flex = Roboto_Flex({ subsets: ['latin'], axes: ['opsz', 'wdth'] })
 
